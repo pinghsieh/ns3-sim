@@ -66,8 +66,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wimax/model/service-flow-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/model/service-flow-manager.cc.1.o", 
-    "file": "../src/wimax/model/service-flow-manager.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/sixlowpan -I../src/sixlowpan -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/sixlowpan/model/sixlowpan-header.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/sixlowpan/model/sixlowpan-header.cc.1.o", 
+    "file": "../src/sixlowpan/model/sixlowpan-header.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -181,6 +181,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/test -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/test/traced\"' ../src/test/ns3tc/adaptive-red-queue-disc-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/test/ns3tc/adaptive-red-queue-disc-test-suite.cc.4.o", 
+    "file": "../src/test/ns3tc/adaptive-red-queue-disc-test-suite.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv6-raw-socket-factory-impl.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv6-raw-socket-factory-impl.cc.1.o", 
     "file": "../src/internet/model/ipv6-raw-socket-factory-impl.cc"
   }, 
@@ -266,6 +271,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-common.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-common.cc.1.o", 
+    "file": "../src/lte/model/lte-common.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/vector.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/vector.cc.1.o", 
     "file": "../src/core/model/vector.cc"
   }, 
@@ -296,8 +306,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4-interface-address.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4-interface-address.cc.1.o", 
-    "file": "../src/internet/model/ipv4-interface-address.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-phy-error-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-phy-error-model.cc.3.o", 
+    "file": "../src/lte/test/lte-test-phy-error-model.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -421,8 +431,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/sixlowpan -I../src/sixlowpan -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/sixlowpan/model/sixlowpan-header.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/sixlowpan/model/sixlowpan-header.cc.1.o", 
-    "file": "../src/sixlowpan/model/sixlowpan-header.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wimax/model/service-flow-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/model/service-flow-manager.cc.1.o", 
+    "file": "../src/wimax/model/service-flow-manager.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -453,16 +463,6 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/tcp-cong-avoid-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/tcp-cong-avoid-test.cc.3.o", 
     "file": "../src/internet/test/tcp-cong-avoid-test.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/buildings/model/building.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/buildings/model/building.cc.1.o", 
-    "file": "../src/buildings/model/building.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/examples/basic-energy-model-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/examples/basic-energy-model-test.cc.3.o", 
-    "file": "../src/energy/examples/basic-energy-model-test.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -561,7 +561,7 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/mysecond.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/mysecond.cc.3.o", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/mysecond.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/mysecond.cc.5.o", 
     "file": "../scratch/mysecond.cc"
   }, 
   {
@@ -716,8 +716,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/helper/epc-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/helper/epc-helper.cc.1.o", 
-    "file": "../src/lte/helper/epc-helper.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/uan/model/uan-mac-aloha.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/uan/model/uan-mac-aloha.cc.1.o", 
+    "file": "../src/uan/model/uan-mac-aloha.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -851,11 +851,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-vendor-specific-parameters.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-vendor-specific-parameters.cc.1.o", 
-    "file": "../src/lte/model/lte-vendor-specific-parameters.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DTAP_DEV_CREATOR=\"ns3.26-tap-device-creator-debug\"' '-DRAW_SOCK_CREATOR=\"ns3.26-raw-sock-creator-debug\"' ../src/fd-net-device/model/fd-net-device.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/fd-net-device/model/fd-net-device.cc.1.o", 
     "file": "../src/fd-net-device/model/fd-net-device.cc"
   }, 
@@ -871,8 +866,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-uplink-sinr.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-uplink-sinr.cc.3.o", 
-    "file": "../src/lte/test/lte-test-uplink-sinr.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/test -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/test/traced\"' ../src/test/ns3tcp/nsctcp-loss-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/test/ns3tcp/nsctcp-loss-test-suite.cc.4.o", 
+    "file": "../src/test/ns3tcp/nsctcp-loss-test-suite.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -891,13 +886,13 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/object-base.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/object-base.cc.1.o", 
-    "file": "../src/core/model/object-base.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/wifi-mac-queue.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/wifi-mac-queue.cc.1.o", 
+    "file": "../src/wifi/model/wifi-mac-queue.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/wifi-mac-queue.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/wifi-mac-queue.cc.1.o", 
-    "file": "../src/wifi/model/wifi-mac-queue.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/model/device-energy-model-container.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/model/device-energy-model-container.cc.1.o", 
+    "file": "../src/energy/model/device-energy-model-container.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -961,8 +956,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/antenna -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/antenna/test\"' ../src/antenna/test/test-parabolic-antenna.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/antenna/test/test-parabolic-antenna.cc.3.o", 
-    "file": "../src/antenna/test/test-parabolic-antenna.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/spectrum -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/spectrum/test\"' ../src/spectrum/test/spectrum-value-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/spectrum/test/spectrum-value-test.cc.3.o", 
+    "file": "../src/spectrum/test/spectrum-value-test.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -986,8 +981,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/tutorial/hello-simulator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/tutorial/hello-simulator.cc.1.o", 
-    "file": "../examples/tutorial/hello-simulator.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/vsa-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/vsa-manager.cc.1.o", 
+    "file": "../src/wave/model/vsa-manager.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1018,6 +1013,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/wifi -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/wifi/test\"' ../src/wifi/test/wifi-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/test/wifi-test.cc.3.o", 
     "file": "../src/wifi/test/wifi-test.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mobility/model/waypoint-mobility-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/model/waypoint-mobility-model.cc.1.o", 
+    "file": "../src/mobility/model/waypoint-mobility-model.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1076,7 +1076,7 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/subdir/scratch-simulator-subdir.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/subdir/scratch-simulator-subdir.cc.6.o", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/subdir/scratch-simulator-subdir.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/subdir/scratch-simulator-subdir.cc.10.o", 
     "file": "../scratch/subdir/scratch-simulator-subdir.cc"
   }, 
   {
@@ -1098,6 +1098,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/traffic-control/examples/red-tests.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/traffic-control/examples/red-tests.cc.1.o", 
     "file": "../src/traffic-control/examples/red-tests.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/helper/ipv6-address-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/helper/ipv6-address-helper.cc.1.o", 
+    "file": "../src/internet/helper/ipv6-address-helper.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1233,6 +1238,16 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/config-store/model/attribute-default-iterator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/config-store/model/attribute-default-iterator.cc.1.o", 
     "file": "../src/config-store/model/attribute-default-iterator.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/myfifth.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/myfifth.cc.7.o", 
+    "file": "../scratch/myfifth.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-fr-hard-algorithm.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-fr-hard-algorithm.cc.1.o", 
+    "file": "../src/lte/model/lte-fr-hard-algorithm.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1451,8 +1466,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/applications/helper/udp-echo-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/applications/helper/udp-echo-helper.cc.1.o", 
-    "file": "../src/applications/helper/udp-echo-helper.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/rraa-wifi-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/rraa-wifi-manager.cc.1.o", 
+    "file": "../src/wifi/model/rraa-wifi-manager.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1566,11 +1581,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-rrc.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/test-lte-rrc.cc.3.o", 
-    "file": "../src/lte/test/test-lte-rrc.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/nqos-wifi-mac-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/nqos-wifi-mac-helper.cc.1.o", 
     "file": "../src/wifi/helper/nqos-wifi-mac-helper.cc"
   }, 
@@ -1656,13 +1666,13 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/ipv4-address-generator-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/ipv4-address-generator-test-suite.cc.3.o", 
-    "file": "../src/internet/test/ipv4-address-generator-test-suite.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/antenna/model/parabolic-antenna-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/antenna/model/parabolic-antenna-model.cc.1.o", 
+    "file": "../src/antenna/model/parabolic-antenna-model.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/uan/model/uan-mac-aloha.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/uan/model/uan-mac-aloha.cc.1.o", 
-    "file": "../src/uan/model/uan-mac-aloha.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/ipv4-address-generator-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/ipv4-address-generator-test-suite.cc.3.o", 
+    "file": "../src/internet/test/ipv4-address-generator-test-suite.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1736,8 +1746,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/test -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/test/traced\"' ../src/test/ns3tcp/nsctcp-loss-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/test/ns3tcp/nsctcp-loss-test-suite.cc.4.o", 
-    "file": "../src/test/ns3tcp/nsctcp-loss-test-suite.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/parf-wifi-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/parf-wifi-manager.cc.1.o", 
+    "file": "../src/wifi/model/parf-wifi-manager.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1841,11 +1851,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wimax/model/service-flow-record.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/model/service-flow-record.cc.1.o", 
-    "file": "../src/wimax/model/service-flow-record.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/stats/model/uinteger-16-probe.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/stats/model/uinteger-16-probe.cc.1.o", 
     "file": "../src/stats/model/uinteger-16-probe.cc"
   }, 
@@ -1891,8 +1896,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-rlc-am.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-rlc-am.cc.1.o", 
-    "file": "../src/lte/model/lte-rlc-am.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/network/utils/error-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/network/utils/error-model.cc.1.o", 
+    "file": "../src/network/utils/error-model.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -1903,6 +1908,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet-apps/model/radvd-interface.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet-apps/model/radvd-interface.cc.1.o", 
     "file": "../src/internet-apps/model/radvd-interface.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-link-adaptation.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-link-adaptation.cc.3.o", 
+    "file": "../src/lte/test/lte-test-link-adaptation.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2046,11 +2056,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/trace-source-accessor.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/trace-source-accessor.cc.1.o", 
-    "file": "../src/core/model/trace-source-accessor.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/tcp-timestamp-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/tcp-timestamp-test.cc.3.o", 
     "file": "../src/internet/test/tcp-timestamp-test.cc"
   }, 
@@ -2146,13 +2151,18 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/mythird.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/mythird.cc.4.o", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/mythird.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/mythird.cc.6.o", 
     "file": "../scratch/mythird.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mobility/model/constant-velocity-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/model/constant-velocity-helper.cc.1.o", 
     "file": "../src/mobility/model/constant-velocity-helper.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-uplink-sinr.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-uplink-sinr.cc.3.o", 
+    "file": "../src/lte/test/lte-test-uplink-sinr.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2276,11 +2286,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/make-event.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/make-event.cc.1.o", 
-    "file": "../src/core/model/make-event.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/core -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/core/test\"' ../src/core/test/timer-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/test/timer-test-suite.cc.3.o", 
     "file": "../src/core/test/timer-test-suite.cc"
   }, 
@@ -2293,6 +2298,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/core -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/core/test\"' ../src/core/test/type-id-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/test/type-id-test-suite.cc.3.o", 
     "file": "../src/core/test/type-id-test-suite.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/ipv6/ping6.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/ipv6/ping6.cc.2.o", 
+    "file": "../examples/ipv6/ping6.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2426,8 +2436,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-enb-phy-sap.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-enb-phy-sap.cc.1.o", 
-    "file": "../src/lte/model/lte-enb-phy-sap.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/examples/main-random-variable.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/examples/main-random-variable.cc.4.o", 
+    "file": "../src/core/examples/main-random-variable.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2486,11 +2496,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/wireless/rate-adaptation-distance.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/wireless/rate-adaptation-distance.cc.22.o", 
-    "file": "../examples/wireless/rate-adaptation-distance.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4.cc.1.o", 
     "file": "../src/internet/model/ipv4.cc"
   }, 
@@ -2526,8 +2531,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mobility/examples/main-random-walk.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/examples/main-random-walk.cc.3.o", 
-    "file": "../src/mobility/examples/main-random-walk.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/mesh-l2-routing-protocol.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/mesh-l2-routing-protocol.cc.1.o", 
+    "file": "../src/mesh/model/mesh-l2-routing-protocol.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2538,6 +2543,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/examples/lena-rlc-traces.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/examples/lena-rlc-traces.cc.9.o", 
     "file": "../src/lte/examples/lena-rlc-traces.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/qos-utils.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/qos-utils.cc.1.o", 
+    "file": "../src/wifi/model/qos-utils.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2646,8 +2656,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/wireless/wifi-spectrum-saturation-example.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/wireless/wifi-spectrum-saturation-example.cc.31.o", 
-    "file": "../examples/wireless/wifi-spectrum-saturation-example.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/spectrum/examples/tv-trans-regional-example.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/spectrum/examples/tv-trans-regional-example.cc.5.o", 
+    "file": "../src/spectrum/examples/tv-trans-regional-example.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2681,11 +2691,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wimax/model/ss-link-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/model/ss-link-manager.cc.1.o", 
-    "file": "../src/wimax/model/ss-link-manager.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/ht-capabilities.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/ht-capabilities.cc.1.o", 
     "file": "../src/wifi/model/ht-capabilities.cc"
   }, 
@@ -2696,6 +2701,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/aodv -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/aodv/test\"' ../src/aodv/test/bug-772.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/aodv/test/bug-772.cc.3.o", 
+    "file": "../src/aodv/test/bug-772.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/arp-header.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/arp-header.cc.1.o", 
     "file": "../src/internet/model/arp-header.cc"
   }, 
@@ -2703,6 +2713,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/spectrum-wifi-phy.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/spectrum-wifi-phy.cc.1.o", 
     "file": "../src/wifi/model/spectrum-wifi-phy.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-ue-power-control.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-ue-power-control.cc.1.o", 
+    "file": "../src/lte/model/lte-ue-power-control.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2741,13 +2756,13 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-epc-tft-classifier.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/test-epc-tft-classifier.cc.3.o", 
-    "file": "../src/lte/test/test-epc-tft-classifier.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-rlc-um.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-rlc-um.cc.1.o", 
+    "file": "../src/lte/model/lte-rlc-um.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-rlc-um.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-rlc-um.cc.1.o", 
-    "file": "../src/lte/model/lte-rlc-um.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/helper/radio-bearer-stats-calculator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/helper/radio-bearer-stats-calculator.cc.1.o", 
+    "file": "../src/lte/helper/radio-bearer-stats-calculator.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2796,13 +2811,18 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4-static-routing.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4-static-routing.cc.1.o", 
+    "file": "../src/internet/model/ipv4-static-routing.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/core -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/core/test\"' ../src/core/test/many-uniform-random-variables-one-get-value-call-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/test/many-uniform-random-variables-one-get-value-call-test-suite.cc.3.o", 
     "file": "../src/core/test/many-uniform-random-variables-one-get-value-call-test-suite.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/test -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/test/traced\"' ../src/test/ns3tc/adaptive-red-queue-disc-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/test/ns3tc/adaptive-red-queue-disc-test-suite.cc.4.o", 
-    "file": "../src/test/ns3tc/adaptive-red-queue-disc-test-suite.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/buildings/model/building.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/buildings/model/building.cc.1.o", 
+    "file": "../src/buildings/model/building.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2886,11 +2906,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/ipv4-packet-info-tag-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/ipv4-packet-info-tag-test-suite.cc.3.o", 
-    "file": "../src/internet/test/ipv4-packet-info-tag-test-suite.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/list-scheduler.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/list-scheduler.cc.1.o", 
     "file": "../src/core/model/list-scheduler.cc"
   }, 
@@ -2906,8 +2921,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/aodv -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/aodv/test\"' ../src/aodv/test/bug-772.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/aodv/test/bug-772.cc.3.o", 
-    "file": "../src/aodv/test/bug-772.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/ipv4-packet-info-tag-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/ipv4-packet-info-tag-test-suite.cc.3.o", 
+    "file": "../src/internet/test/ipv4-packet-info-tag-test-suite.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -2991,8 +3006,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/buildings -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/buildings/test\"' ../src/buildings/test/building-position-allocator-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/buildings/test/building-position-allocator-test.cc.3.o", 
-    "file": "../src/buildings/test/building-position-allocator-test.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/examples/sample-random-variable-stream.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/examples/sample-random-variable-stream.cc.7.o", 
+    "file": "../src/core/examples/sample-random-variable-stream.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3053,6 +3068,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/ipv6-fragmentation-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/test/ipv6-fragmentation-test.cc.3.o", 
     "file": "../src/internet/test/ipv6-fragmentation-test.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/global-value.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/global-value.cc.1.o", 
+    "file": "../src/core/model/global-value.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3286,6 +3306,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/channel-coordinator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/channel-coordinator.cc.1.o", 
+    "file": "../src/wave/model/channel-coordinator.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/examples/wave-simple-80211p.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/examples/wave-simple-80211p.cc.1.o", 
     "file": "../src/wave/examples/wave-simple-80211p.cc"
   }, 
@@ -3476,6 +3501,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/antenna -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/antenna/test\"' ../src/antenna/test/test-parabolic-antenna.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/antenna/test/test-parabolic-antenna.cc.3.o", 
+    "file": "../src/antenna/test/test-parabolic-antenna.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-tdtbfq-ff-mac-scheduler.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-tdtbfq-ff-mac-scheduler.cc.3.o", 
     "file": "../src/lte/test/lte-test-tdtbfq-ff-mac-scheduler.cc"
   }, 
@@ -3531,8 +3561,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/mesh-l2-routing-protocol.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/mesh-l2-routing-protocol.cc.1.o", 
-    "file": "../src/mesh/model/mesh-l2-routing-protocol.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mobility/examples/main-random-walk.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/examples/main-random-walk.cc.3.o", 
+    "file": "../src/mobility/examples/main-random-walk.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3546,13 +3576,18 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/bridge/examples/csma-bridge.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/bridge/examples/csma-bridge.cc.1.o", 
+    "file": "../src/bridge/examples/csma-bridge.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../utils/bench-simulator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/utils/bench-simulator.cc.2.o", 
     "file": "../utils/bench-simulator.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/spectrum/examples/tv-trans-regional-example.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/spectrum/examples/tv-trans-regional-example.cc.5.o", 
-    "file": "../src/spectrum/examples/tv-trans-regional-example.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/wireless/wifi-spectrum-saturation-example.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/wireless/wifi-spectrum-saturation-example.cc.31.o", 
+    "file": "../examples/wireless/wifi-spectrum-saturation-example.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3646,13 +3681,13 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/helper/ipv6-address-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/helper/ipv6-address-helper.cc.1.o", 
-    "file": "../src/internet/helper/ipv6-address-helper.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wimax/model/service-flow-record.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/model/service-flow-record.cc.1.o", 
+    "file": "../src/wimax/model/service-flow-record.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/flow-monitor/model/ipv4-flow-classifier.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/flow-monitor/model/ipv4-flow-classifier.cc.1.o", 
-    "file": "../src/flow-monitor/model/ipv4-flow-classifier.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/applications/model/udp-echo-client.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/applications/model/udp-echo-client.cc.1.o", 
+    "file": "../src/applications/model/udp-echo-client.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3801,8 +3836,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/tcp-option.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/tcp-option.cc.1.o", 
-    "file": "../src/internet/model/tcp-option.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/stats/wifi-example-sim.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/stats/wifi-example-sim.cc.1.o", 
+    "file": "../examples/stats/wifi-example-sim.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3826,11 +3861,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv6-option-header.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv6-option-header.cc.1.o", 
-    "file": "../src/internet/model/ipv6-option-header.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/helper/li-ion-energy-source-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/helper/li-ion-energy-source-helper.cc.1.o", 
     "file": "../src/energy/helper/li-ion-energy-source-helper.cc"
   }, 
@@ -3846,8 +3876,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/nix-vector-routing/examples/nix-simple.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/nix-vector-routing/examples/nix-simple.cc.1.o", 
-    "file": "../src/nix-vector-routing/examples/nix-simple.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-mac-sap.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-mac-sap.cc.1.o", 
+    "file": "../src/lte/model/lte-mac-sap.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3906,8 +3936,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/antenna/model/parabolic-antenna-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/antenna/model/parabolic-antenna-model.cc.1.o", 
-    "file": "../src/antenna/model/parabolic-antenna-model.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-rrc.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/test-lte-rrc.cc.3.o", 
+    "file": "../src/lte/test/test-lte-rrc.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -3986,8 +4016,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/ipv6/test-ipv6.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/ipv6/test-ipv6.cc.5.o", 
-    "file": "../examples/ipv6/test-ipv6.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/propagation -I../src/propagation -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/propagation/model/propagation-delay-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/propagation/model/propagation-delay-model.cc.1.o", 
+    "file": "../src/propagation/model/propagation-delay-model.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4006,8 +4036,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/wimax -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/wimax/test\"' ../src/wimax/test/qos-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/test/qos-test.cc.3.o", 
-    "file": "../src/wimax/test/qos-test.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/traffic-control/model/codel-queue-disc.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/traffic-control/model/codel-queue-disc.cc.1.o", 
+    "file": "../src/traffic-control/model/codel-queue-disc.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4056,8 +4086,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-ue-power-control.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-ue-power-control.cc.1.o", 
-    "file": "../src/lte/model/lte-ue-power-control.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lr-wpan -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lr-wpan/test\"' ../src/lr-wpan/test/lr-wpan-ed-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lr-wpan/test/lr-wpan-ed-test.cc.3.o", 
+    "file": "../src/lr-wpan/test/lr-wpan-ed-test.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4086,13 +4116,18 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-handover-algorithm.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-handover-algorithm.cc.1.o", 
+    "file": "../src/lte/model/lte-handover-algorithm.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/udp-client-server/udp-client-server.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/udp-client-server/udp-client-server.cc.1.o", 
     "file": "../examples/udp-client-server/udp-client-server.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/qos-utils.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/qos-utils.cc.1.o", 
-    "file": "../src/wifi/model/qos-utils.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-enb-phy-sap.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-enb-phy-sap.cc.1.o", 
+    "file": "../src/lte/model/lte-enb-phy-sap.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4126,8 +4161,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/stats/wifi-example-sim.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/stats/wifi-example-sim.cc.1.o", 
-    "file": "../examples/stats/wifi-example-sim.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/tcp-option.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/tcp-option.cc.1.o", 
+    "file": "../src/internet/model/tcp-option.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4181,8 +4216,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-common.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-common.cc.1.o", 
-    "file": "../src/lte/model/lte-common.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/network/model/address.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/network/model/address.cc.1.o", 
+    "file": "../src/network/model/address.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4321,8 +4356,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lr-wpan -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lr-wpan/test\"' ../src/lr-wpan/test/lr-wpan-ed-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lr-wpan/test/lr-wpan-ed-test.cc.3.o", 
-    "file": "../src/lr-wpan/test/lr-wpan-ed-test.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/object-base.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/object-base.cc.1.o", 
+    "file": "../src/core/model/object-base.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4381,11 +4416,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/mobility -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/mobility/test\"' ../src/mobility/test/ns2-mobility-helper-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/test/ns2-mobility-helper-test-suite.cc.3.o", 
-    "file": "../src/mobility/test/ns2-mobility-helper-test-suite.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/mesh -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/mesh/test/flame\"' ../src/mesh/test/dot11s/hwmp-proactive-regression.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/test/dot11s/hwmp-proactive-regression.cc.3.o", 
     "file": "../src/mesh/test/dot11s/hwmp-proactive-regression.cc"
   }, 
@@ -4406,13 +4436,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4-list-routing.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4-list-routing.cc.1.o", 
-    "file": "../src/internet/model/ipv4-list-routing.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/network/model/address.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/network/model/address.cc.1.o", 
-    "file": "../src/network/model/address.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/helper/epc-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/helper/epc-helper.cc.1.o", 
+    "file": "../src/lte/helper/epc-helper.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4456,8 +4481,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-mac-sap.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-mac-sap.cc.1.o", 
-    "file": "../src/lte/model/lte-mac-sap.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/nix-vector-routing/examples/nix-simple.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/nix-vector-routing/examples/nix-simple.cc.1.o", 
+    "file": "../src/nix-vector-routing/examples/nix-simple.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4476,8 +4501,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/parf-wifi-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/parf-wifi-manager.cc.1.o", 
-    "file": "../src/wifi/model/parf-wifi-manager.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4-list-routing.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4-list-routing.cc.1.o", 
+    "file": "../src/internet/model/ipv4-list-routing.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4491,8 +4516,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/global-value.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/global-value.cc.1.o", 
-    "file": "../src/core/model/global-value.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/mysixth.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/mysixth.cc.4.o", 
+    "file": "../scratch/mysixth.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4531,18 +4556,13 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/default-simulator-impl.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/default-simulator-impl.cc.1.o", 
-    "file": "../src/core/model/default-simulator-impl.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/wifi -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/wifi/test\"' ../src/wifi/test/spectrum-wifi-phy-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/test/spectrum-wifi-phy-test.cc.3.o", 
     "file": "../src/wifi/test/spectrum-wifi-phy-test.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/fatal-impl.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/fatal-impl.cc.1.o", 
-    "file": "../src/core/model/fatal-impl.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/rng-stream.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/rng-stream.cc.1.o", 
+    "file": "../src/core/model/rng-stream.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4571,8 +4591,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/rng-stream.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/rng-stream.cc.1.o", 
-    "file": "../src/core/model/rng-stream.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/mobility -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/mobility/test\"' ../src/mobility/test/ns2-mobility-helper-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/test/ns2-mobility-helper-test-suite.cc.3.o", 
+    "file": "../src/mobility/test/ns2-mobility-helper-test-suite.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4641,7 +4661,7 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/scratch-simulator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/scratch-simulator.cc.2.o", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/scratch-simulator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/scratch-simulator.cc.3.o", 
     "file": "../scratch/scratch-simulator.cc"
   }, 
   {
@@ -4801,8 +4821,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/examples/main-random-variable.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/examples/main-random-variable.cc.4.o", 
-    "file": "../src/core/examples/main-random-variable.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/default-simulator-impl.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/default-simulator-impl.cc.1.o", 
+    "file": "../src/core/model/default-simulator-impl.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -4941,6 +4961,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/buildings -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/buildings/test\"' ../src/buildings/test/building-position-allocator-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/buildings/test/building-position-allocator-test.cc.3.o", 
+    "file": "../src/buildings/test/building-position-allocator-test.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/wifi-mac-trailer.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/wifi-mac-trailer.cc.1.o", 
     "file": "../src/wifi/model/wifi-mac-trailer.cc"
   }, 
@@ -4971,12 +4996,12 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv6-extension-demux.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv6-extension-demux.cc.1.o", 
-    "file": "../src/internet/model/ipv6-extension-demux.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/fatal-impl.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/fatal-impl.cc.1.o", 
+    "file": "../src/core/model/fatal-impl.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/RT-decentralized.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/RT-decentralized.cc.5.o", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/RT-decentralized.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/RT-decentralized.cc.8.o", 
     "file": "../scratch/RT-decentralized.cc"
   }, 
   {
@@ -5013,6 +5038,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/helper/lte-stats-calculator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/helper/lte-stats-calculator.cc.1.o", 
     "file": "../src/lte/helper/lte-stats-calculator.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/flow-monitor/model/ipv4-flow-classifier.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/flow-monitor/model/ipv4-flow-classifier.cc.1.o", 
+    "file": "../src/flow-monitor/model/ipv4-flow-classifier.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5061,8 +5091,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4-static-routing.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4-static-routing.cc.1.o", 
-    "file": "../src/internet/model/ipv4-static-routing.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv4-interface-address.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv4-interface-address.cc.1.o", 
+    "file": "../src/internet/model/ipv4-interface-address.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5081,8 +5111,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/ipv6/ping6.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/ipv6/ping6.cc.2.o", 
-    "file": "../examples/ipv6/ping6.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/trace-source-accessor.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/trace-source-accessor.cc.1.o", 
+    "file": "../src/core/model/trace-source-accessor.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5231,6 +5261,11 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/myseventh.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/myseventh.cc.1.o", 
+    "file": "../scratch/myseventh.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/nix-vector-routing -I../src/nix-vector-routing -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/nix-vector-routing/model/ipv4-nix-vector-routing.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/nix-vector-routing/model/ipv4-nix-vector-routing.cc.1.o", 
     "file": "../src/nix-vector-routing/model/ipv4-nix-vector-routing.cc"
   }, 
@@ -5316,8 +5351,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/network/utils/error-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/network/utils/error-model.cc.1.o", 
-    "file": "../src/network/utils/error-model.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-rlc-am.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-rlc-am.cc.1.o", 
+    "file": "../src/lte/model/lte-rlc-am.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5341,8 +5376,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/helper/radio-bearer-stats-calculator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/helper/radio-bearer-stats-calculator.cc.1.o", 
-    "file": "../src/lte/helper/radio-bearer-stats-calculator.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-vendor-specific-parameters.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-vendor-specific-parameters.cc.1.o", 
+    "file": "../src/lte/model/lte-vendor-specific-parameters.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5366,8 +5401,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/applications/model/udp-echo-client.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/applications/model/udp-echo-client.cc.1.o", 
-    "file": "../src/applications/model/udp-echo-client.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/examples/basic-energy-model-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/examples/basic-energy-model-test.cc.3.o", 
+    "file": "../src/energy/examples/basic-energy-model-test.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5391,8 +5426,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/propagation -I../src/propagation -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/propagation/model/propagation-delay-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/propagation/model/propagation-delay-model.cc.1.o", 
-    "file": "../src/propagation/model/propagation-delay-model.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/ipv6/test-ipv6.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/ipv6/test-ipv6.cc.5.o", 
+    "file": "../examples/ipv6/test-ipv6.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5441,13 +5476,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/model/basic-energy-source.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/model/basic-energy-source.cc.1.o", 
-    "file": "../src/energy/model/basic-energy-source.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/spectrum -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/spectrum/test\"' ../src/spectrum/test/spectrum-value-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/spectrum/test/spectrum-value-test.cc.3.o", 
-    "file": "../src/spectrum/test/spectrum-value-test.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv6-extension-demux.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv6-extension-demux.cc.1.o", 
+    "file": "../src/internet/model/ipv6-extension-demux.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5486,8 +5516,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/traffic-control/model/codel-queue-disc.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/traffic-control/model/codel-queue-disc.cc.1.o", 
-    "file": "../src/traffic-control/model/codel-queue-disc.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/wimax -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/wimax/test\"' ../src/wimax/test/qos-test.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/test/qos-test.cc.3.o", 
+    "file": "../src/wimax/test/qos-test.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5516,11 +5546,6 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/flow-monitor/model/flow-monitor.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/flow-monitor/model/flow-monitor.cc.1.o", 
-    "file": "../src/flow-monitor/model/flow-monitor.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mobility/model/box.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/model/box.cc.1.o", 
     "file": "../src/mobility/model/box.cc"
   }, 
@@ -5531,8 +5556,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mobility/model/waypoint-mobility-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mobility/model/waypoint-mobility-model.cc.1.o", 
-    "file": "../src/mobility/model/waypoint-mobility-model.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/wireless/rate-adaptation-distance.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/wireless/rate-adaptation-distance.cc.22.o", 
+    "file": "../examples/wireless/rate-adaptation-distance.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5576,8 +5601,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/channel-coordinator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/channel-coordinator.cc.1.o", 
-    "file": "../src/wave/model/channel-coordinator.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/applications/helper/udp-echo-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/applications/helper/udp-echo-helper.cc.1.o", 
+    "file": "../src/applications/helper/udp-echo-helper.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5721,8 +5746,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-phy-error-model.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-phy-error-model.cc.3.o", 
-    "file": "../src/lte/test/lte-test-phy-error-model.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/model/basic-energy-source.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/model/basic-energy-source.cc.1.o", 
+    "file": "../src/energy/model/basic-energy-source.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5791,13 +5816,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/rraa-wifi-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/rraa-wifi-manager.cc.1.o", 
-    "file": "../src/wifi/model/rraa-wifi-manager.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/examples/sample-random-variable-stream.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/examples/sample-random-variable-stream.cc.7.o", 
-    "file": "../src/core/examples/sample-random-variable-stream.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-epc-tft-classifier.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/test-epc-tft-classifier.cc.3.o", 
+    "file": "../src/lte/test/test-epc-tft-classifier.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5916,8 +5936,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/energy/model/device-energy-model-container.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/energy/model/device-energy-model-container.cc.1.o", 
-    "file": "../src/energy/model/device-energy-model-container.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/myfourth.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/myfourth.cc.9.o", 
+    "file": "../scratch/myfourth.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -5971,13 +5991,13 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-fr-hard-algorithm.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-fr-hard-algorithm.cc.1.o", 
-    "file": "../src/lte/model/lte-fr-hard-algorithm.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/internet/model/ipv6-option-header.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/internet/model/ipv6-option-header.cc.1.o", 
+    "file": "../src/internet/model/ipv6-option-header.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/network -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/network/test\"' ../src/network/test/ipv6-address-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/network/test/ipv6-address-test-suite.cc.3.o", 
-    "file": "../src/network/test/ipv6-address-test-suite.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/flow-monitor/model/flow-monitor.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/flow-monitor/model/flow-monitor.cc.1.o", 
+    "file": "../src/flow-monitor/model/flow-monitor.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -6031,8 +6051,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/lte/model/lte-handover-algorithm.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/model/lte-handover-algorithm.cc.1.o", 
-    "file": "../src/lte/model/lte-handover-algorithm.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/core/model/make-event.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/core/model/make-event.cc.1.o", 
+    "file": "../src/core/model/make-event.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -6046,7 +6066,7 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/myfirst.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/myfirst.cc.1.o", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../scratch/myfirst.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/scratch/myfirst.cc.2.o", 
     "file": "../scratch/myfirst.cc"
   }, 
   {
@@ -6196,8 +6216,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/vsa-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/vsa-manager.cc.1.o", 
-    "file": "../src/wave/model/vsa-manager.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../examples/tutorial/hello-simulator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/examples/tutorial/hello-simulator.cc.1.o", 
+    "file": "../examples/tutorial/hello-simulator.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -6261,8 +6281,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/lte -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-link-adaptation.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/lte/test/lte-test-link-adaptation.cc.3.o", 
-    "file": "../src/lte/test/lte-test-link-adaptation.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wimax/model/ss-link-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wimax/model/ss-link-manager.cc.1.o", 
+    "file": "../src/wimax/model/ss-link-manager.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -6341,8 +6361,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/bridge/examples/csma-bridge.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/bridge/examples/csma-bridge.cc.1.o", 
-    "file": "../src/bridge/examples/csma-bridge.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -I../src/network -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 '-DNS_TEST_SOURCEDIR=\"src/network/test\"' ../src/network/test/ipv6-address-test-suite.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/network/test/ipv6-address-test-suite.cc.3.o", 
+    "file": "../src/network/test/ipv6-address-test-suite.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 

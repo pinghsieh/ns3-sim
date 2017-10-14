@@ -264,6 +264,19 @@ public:
   virtual void SetCompressedBlockAckTimeout (Time blockAckTimeout);
   virtual Time GetCompressedBlockAckTimeout (void) const;
 
+  /**
+   * Accessor for the DCF object
+   *
+   * \return a smart pointer to DcaTxop
+   */
+  Ptr<DcaTxop> GetDcaTxop (void) const;
+  /**
+   * Accessor for the AC_BE channel access function
+   *
+   * \return a smart pointer to EdcaTxopN
+   */
+  Ptr<EdcaTxopN> GetBEQueue (void) const;
+  Ptr<DcfManager> GetDcfManager(void) const;
 
 protected:
   virtual void DoInitialize ();
@@ -300,7 +313,7 @@ protected:
    *
    * \return a smart pointer to DcaTxop
    */
-  Ptr<DcaTxop> GetDcaTxop (void) const;
+  //Ptr<DcaTxop> GetDcaTxop (void) const;
 
   /**
    * Accessor for the AC_VO channel access function
@@ -319,7 +332,7 @@ protected:
    *
    * \return a smart pointer to EdcaTxopN
    */
-  Ptr<EdcaTxopN> GetBEQueue (void) const;
+  //Ptr<EdcaTxopN> GetBEQueue (void) const;
   /**
    * Accessor for the AC_BK channel access function
    *

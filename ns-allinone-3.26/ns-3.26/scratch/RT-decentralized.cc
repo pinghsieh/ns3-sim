@@ -20,6 +20,9 @@
 #include "ns3/wifi-module.h"
 #include "ns3/internet-module.h"
 #include "ns3/mobility-module.h"
+#include "ns3/config-store-module.h"
+
+#include <iostream>
 // Default Network Topology
 // 
 // AP
@@ -30,6 +33,15 @@
 
 using namespace ns3;
 
+uint32_t MacTXCount;
+
+void
+MacTX(Ptr<const Packet> p)
+{
+	//NS_LOG_INFO("Packet Received");
+	MacTXCount++;
+	std::cout << Simulator::Now().GetSeconds() << "\t" << "MacTXCount = " << MacTXCount << "\n";
+}
 
 NS_LOG_COMPONENT_DEFINE ("RT-decentralized");
 
@@ -42,34 +54,44 @@ main (int argc, char *argv[])
     uint32_t nAP = 1;
     bool tracing = true;
 
+    std::string backoffLog ("RT-backoff.log");
+
     CommandLine cmd;
     cmd.AddValue ("verbose", "Tell echo application to log if true", verbose);
     cmd.AddValue ("nRT", "Number of real-time distributed WiFi devices, excluding AP", nRT);
 
     cmd.Parse (argc, argv);
 
+    WifiHelper wifi;
+
     if (verbose)
     {
-      LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-      LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+    	LogComponentEnableAll(LOG_PREFIX_NODE);
+        LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
+        LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+        //LogComponentEnable ("DcfManager", LOG_LEVEL_INFO);
+        //wifi.EnableLogComponents ();  // Turn on all Wifi logging
     }
 
-    // Create nRT station node objects
+    /* Create log streams */
+    AsciiTraceHelper ascii;
+    Ptr<OutputStreamWrapper> backoff_stream = ascii.CreateFileStream (backoffLog);
+
+    /* Create nRT station node objects */
     NodeContainer wifiRTStaNodes;
     wifiRTStaNodes.Create (nRT); 
 
-    // Create 1 AP node objects
+    /* Create 1 AP node objects */
     NodeContainer wifiRTApNodes;
     wifiRTApNodes.Create (nAP);
 
-    // Create a channel helper and phy helper, and then create the channel
+    /* Create a channel helper and phy helper, and then create the channel */
     YansWifiChannelHelper channel = YansWifiChannelHelper::Default ();
     YansWifiPhyHelper phy = YansWifiPhyHelper::Default ();
     phy.SetChannel (channel.Create());
 
-
-    WifiHelper wifi;
-    wifi.SetRemoteStationManager ("ns3::AarfWifiManager");
+    std::string phyMode ("OfdmRate54Mbps");
+    wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode", StringValue(phyMode), "ControlMode", StringValue(phyMode));
     wifi.SetStandard (WIFI_PHY_STANDARD_80211a);
 
     NetDeviceContainer wifiStaDevices;
@@ -83,6 +105,7 @@ main (int argc, char *argv[])
     mac.SetType ("ns3::ApWifiMac", "Ssid", SsidValue (ssid));
     wifiApDevices = wifi.Install (phy, mac, wifiRTApNodes);
 
+    /* Mobility */
     MobilityHelper mobility;
 
     mobility.SetPositionAllocator ("ns3::GridPositionAllocator",
@@ -93,13 +116,14 @@ main (int argc, char *argv[])
                                    "GridWidth", UintegerValue (3),
                                    "LayoutType", StringValue ("RowFirst"));
 
-    mobility.SetMobilityModel ("ns3::RandomWalk2dMobilityModel",
-                               "Bounds", RectangleValue (Rectangle (-50, 50, -50, 50)));
-    mobility.Install (wifiRTStaNodes);
-
     mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
+    //mobility.SetMobilityModel ("ns3::RandomWalk2dMobilityModel",
+                              // "Bounds", RectangleValue (Rectangle (-50, 50, -50, 50)));
+
+    mobility.Install (wifiRTStaNodes);
     mobility.Install (wifiRTApNodes);
 
+    /* Internet Stack */
     InternetStackHelper stack;
     stack.Install (wifiRTStaNodes);
     stack.Install (wifiRTApNodes);
@@ -110,14 +134,14 @@ main (int argc, char *argv[])
     address.Assign (wifiStaDevices);
     wifiApInterfaces = address.Assign (wifiApDevices);
 
-    // UDP Server
+    /* UDP Server */
     UdpEchoServerHelper echoServer (9);
 
     ApplicationContainer serverApps = echoServer.Install (wifiRTApNodes.Get(0));
     serverApps.Start (Seconds (1.0));
     serverApps.Stop (Seconds (10.0));
 
-    // UDP Client
+    /* UDP Client */
     UdpEchoClientHelper echoClient (wifiApInterfaces.GetAddress(0), 9);
     echoClient.SetAttribute ("MaxPackets", UintegerValue (2));
     echoClient.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
@@ -127,16 +151,31 @@ main (int argc, char *argv[])
     clientApps.Start (Seconds (2.0));
     clientApps.Stop (Seconds (10.0));
 
+
+    /* Routing */
     Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
-    // Simulator events
+    /* Tracing for MAC events */
+    for (uint32_t i = 0; i < nRT; i++)
+    {
+        Ptr<EdcaTxopN> edca = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() -> GetBEQueue();
+        std::cout << "Max CW = " << edca->GetMaxCw() << std::endl;
+        //Ptr<DcfManager> manager = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() -> GetDcfManager();
+    	//Ptr<WifiMac> theObject = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac();
+        //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
+        //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
+    }
+
+    /* Simulator events */
     Simulator::Stop(Seconds (10.0));
 
     if (tracing)
     {
-        phy.EnablePcap ("RT-decentralized", wifiStaDevices.Get(0));
-        phy.EnablePcap ("RT-decentralized", wifiApDevices.Get(0));
+        phy.EnablePcap ("RT-decentralized", wifiStaDevices);
+        phy.EnablePcap ("RT-decentralized", wifiApDevices);
+        //wifi.EnableAsciiAll (ascii.CreateFileStream ("RT-decentralized.tr"));
     }
+
 
     Simulator::Run();
     Simulator::Destroy();

@@ -374,6 +374,12 @@ RegularWifiMac::SetTypeOfStation (TypeOfStation type)
     }
 }
 
+Ptr<DcfManager>
+RegularWifiMac::GetDcfManager () const
+{
+  return m_dcfManager;
+}
+
 Ptr<DcaTxop>
 RegularWifiMac::GetDcaTxop () const
 {
