@@ -374,7 +374,7 @@ RegularWifiMac::SetTypeOfStation (TypeOfStation type)
     }
 }
 
-Ptr<DcfManager>
+DcfManager*
 RegularWifiMac::GetDcfManager () const
 {
   return m_dcfManager;

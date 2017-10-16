@@ -22,6 +22,7 @@
 #include "ns3/mobility-module.h"
 #include "ns3/config-store-module.h"
 
+
 #include <iostream>
 // Default Network Topology
 // 
@@ -36,11 +37,47 @@ using namespace ns3;
 uint32_t MacTXCount;
 
 void
-MacTX(Ptr<const Packet> p)
+MacTX (Ptr<const Packet> p)
 {
 	//NS_LOG_INFO("Packet Received");
 	MacTXCount++;
 	std::cout << Simulator::Now().GetSeconds() << "\t" << "MacTXCount = " << MacTXCount << "\n";
+}
+
+void
+StartNewInterval (Ptr<AdhocWifiMac> mac)
+{
+	/* Cancel on-going transmissions or should we check timing before sending?*/
+
+	/* Flush the expired packets */
+	Ptr<DcaTxop> dca = mac->GetDcaTxop();
+	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
+	m_queue->Flush();
+
+	/* Get packet arrivals */
+}
+
+void ReceivePacket (Ptr<Socket> socket)
+{
+	if (socket->Recv()) {
+		//std::cout << Simulator::Now().GetSeconds();
+		NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Received one packet! \n");
+	}
+}
+
+static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t pktCount)
+{
+	if (pktCount > 0){
+		for (uint32_t i = 0; i < pktCount; i++){
+			socket->Send(Create<Packet> (pktSize));
+		}
+		//Simulator::Schedule (pktInterval, &GenerateTraffic, socket, pktSize, pktCount-1, pktInterval);
+	}
+}
+
+static void CloseSocket (Ptr<Socket> socket)
+{
+	socket->Close();
 }
 
 NS_LOG_COMPONENT_DEFINE ("RT-decentralized");
@@ -51,8 +88,15 @@ main (int argc, char *argv[])
 {
     bool verbose = true;
     uint32_t nRT = 2;
-    uint32_t nAP = 1;
     bool tracing = true;
+    double interval = 0.1; // Interval length in seconds
+    double startT = 2.0;
+    uint32_t nIntervals = 5;
+    //double endT = startT + nIntervals*interval;
+    double stopT = 10.0;
+    double offset = 0.000001;
+    uint32_t packetSize = 1024;
+    uint32_t pktCount = 2;
 
     std::string backoffLog ("RT-backoff.log");
 
@@ -81,10 +125,6 @@ main (int argc, char *argv[])
     NodeContainer wifiRTStaNodes;
     wifiRTStaNodes.Create (nRT); 
 
-    /* Create 1 AP node objects */
-    NodeContainer wifiRTApNodes;
-    wifiRTApNodes.Create (nAP);
-
     /* Create a channel helper and phy helper, and then create the channel */
     YansWifiChannelHelper channel = YansWifiChannelHelper::Default ();
     YansWifiPhyHelper phy = YansWifiPhyHelper::Default ();
@@ -95,15 +135,11 @@ main (int argc, char *argv[])
     wifi.SetStandard (WIFI_PHY_STANDARD_80211a);
 
     NetDeviceContainer wifiStaDevices;
-    NetDeviceContainer wifiApDevices;
 
-    WifiMacHelper mac;
-    Ssid ssid = Ssid ("ns-3-ssid");
-    mac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue (ssid));
+    NqosWifiMacHelper mac;
+    mac.SetType ("ns3::AdhocWifiMac");
     wifiStaDevices = wifi.Install (phy, mac, wifiRTStaNodes);
 
-    mac.SetType ("ns3::ApWifiMac", "Ssid", SsidValue (ssid));
-    wifiApDevices = wifi.Install (phy, mac, wifiRTApNodes);
 
     /* Mobility */
     MobilityHelper mobility;
@@ -121,58 +157,85 @@ main (int argc, char *argv[])
                               // "Bounds", RectangleValue (Rectangle (-50, 50, -50, 50)));
 
     mobility.Install (wifiRTStaNodes);
-    mobility.Install (wifiRTApNodes);
 
     /* Internet Stack */
     InternetStackHelper stack;
     stack.Install (wifiRTStaNodes);
-    stack.Install (wifiRTApNodes);
 
-    Ipv4InterfaceContainer wifiApInterfaces;
+    Ipv4InterfaceContainer wifiInterfaces;
     Ipv4AddressHelper address;
     address.SetBase ("10.1.1.0", "255.255.255.0");
-    address.Assign (wifiStaDevices);
-    wifiApInterfaces = address.Assign (wifiApDevices);
+    wifiInterfaces = address.Assign (wifiStaDevices);
+
+
+    /* Sockets */
+    TypeId tid = TypeId::LookupByName ("ns3::UdpSocketFactory");
+    Ptr<Socket> recvSink = Socket::CreateSocket (wifiRTStaNodes.Get(0), tid);
+    InetSocketAddress local = InetSocketAddress (Ipv4Address::GetAny(), 80);
+    recvSink->Bind (local);
+    recvSink->SetRecvCallback (MakeCallback (&ReceivePacket));
+
+    Ptr<Socket> source = Socket::CreateSocket (wifiRTStaNodes.Get(nRT - 1), tid);
+    InetSocketAddress remote = InetSocketAddress (Ipv4Address ("255.255.255.255"), 80);
+    source->SetAllowBroadcast (true);
+    source->Connect (remote);
+
 
     /* UDP Server */
+    /*
     UdpEchoServerHelper echoServer (9);
 
-    ApplicationContainer serverApps = echoServer.Install (wifiRTApNodes.Get(0));
-    serverApps.Start (Seconds (1.0));
-    serverApps.Stop (Seconds (10.0));
+    ApplicationContainer serverApps = echoServer.Install (wifiRTStaNodes.Get(0));
+    serverApps.Start (Seconds (startT - 1.0));
+    serverApps.Stop (Seconds (endT));
+	*/
 
     /* UDP Client */
-    UdpEchoClientHelper echoClient (wifiApInterfaces.GetAddress(0), 9);
-    echoClient.SetAttribute ("MaxPackets", UintegerValue (2));
-    echoClient.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
+    /*
+    UdpEchoClientHelper echoClient (wifiInterfaces.GetAddress(0), 9);
+    echoClient.SetAttribute ("MaxPackets", UintegerValue (100));
+    echoClient.SetAttribute ("Interval", TimeValue (Seconds (interval)));
     echoClient.SetAttribute ("PacketSize", UintegerValue (1024));
 
-    ApplicationContainer clientApps = echoClient.Install (wifiRTStaNodes.Get(0));
-    clientApps.Start (Seconds (2.0));
-    clientApps.Stop (Seconds (10.0));
-
+    ApplicationContainer clientApps = echoClient.Install (wifiRTStaNodes.Get(nRT-1));
+    clientApps.Start (Seconds (startT));
+    clientApps.Stop (Seconds (endT));
+	*/
 
     /* Routing */
     Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
-    /* Tracing for MAC events */
-    for (uint32_t i = 0; i < nRT; i++)
-    {
-        Ptr<EdcaTxopN> edca = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() -> GetBEQueue();
-        std::cout << "Max CW = " << edca->GetMaxCw() << std::endl;
-        //Ptr<DcfManager> manager = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() -> GetDcfManager();
-    	//Ptr<WifiMac> theObject = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac();
-        //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
-        //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
-    }
 
     /* Simulator events */
-    Simulator::Stop(Seconds (10.0));
+    for (uint32_t t = 0; t < nIntervals; t++)
+    {
+        /* Tracing for MAC events */
+        for (uint32_t i = 0; i < nRT - 1; i++)
+        {
+        	Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) - offset),
+        			&StartNewInterval, wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>());
+        	Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t)), &GenerateTraffic, source, packetSize, pktCount);
+
+            //Ptr<RegularWifiMac> regmac = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() ;
+        	//Ptr<EdcaTxopN> edca = regmac -> GetBEQueue();
+            //std::cout << "Max CW = " << edca->GetMaxCw() << std::endl;
+            //DcfManager* dcf_manager = regmac -> GetDcfManager();
+            //std::cout << ""dcf_manager->m_states.size() > 0)
+
+            //Ptr<DcfManager> manager = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() -> GetDcfManager();
+        	//Ptr<WifiMac> theObject = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac();
+            //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
+            //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
+        }
+    }
+
+    Simulator::Stop(Seconds (stopT));
+    Simulator::ScheduleWithContext (source->GetNode ()->GetId(), Seconds(stopT), &CloseSocket, source);
+    Simulator::ScheduleWithContext (recvSink->GetNode ()->GetId(), Seconds(stopT), &CloseSocket, recvSink);
 
     if (tracing)
     {
         phy.EnablePcap ("RT-decentralized", wifiStaDevices);
-        phy.EnablePcap ("RT-decentralized", wifiApDevices);
         //wifi.EnableAsciiAll (ascii.CreateFileStream ("RT-decentralized.tr"));
     }
 
