@@ -45,26 +45,75 @@ MacTX (Ptr<const Packet> p)
 }
 
 void
-StartNewInterval (Ptr<AdhocWifiMac> mac)
+FlushMacQueue  (Ptr<WifiNetDevice> netdev)
 {
+	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
+	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
+	/* Flush the expired packets */
+	//m_queue->Flush();
+
+	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
+	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
+}
+
+void
+SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
+{
+	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
+	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	dca->SetDeterministicBackoff(backoff);
+}
+
+void
+StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_t pktSize, uint32_t pktCount, double qn)
+{
+	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
+	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
+
 	/* Cancel on-going transmissions or should we check timing before sending?*/
 
 	/* Flush the expired packets */
-	Ptr<DcaTxop> dca = mac->GetDcaTxop();
-	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
-	m_queue->Flush();
+	//m_queue->Flush();
 
 	/* Get packet arrivals */
+	for (uint32_t i = 0; i < pktCount; i++){
+		mac_source->Enqueue(Create<Packet> (pktSize), mac_dest->GetAddress());
+		//netdev->Send(Create<Packet> (pktSize), mac_dest->GetAddress(), uint16_t(0));
+	}
+
+	/* Update delivery debt*/
+	dca->UpdateDeliveryDebt (qn);
+
+	/* Reset backoff timer */
+	uint32_t backoff = 37;
+	dca->SetDeterministicBackoff(backoff);
+
+	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
+	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
+	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
+
+
 }
 
-void ReceivePacket (Ptr<Socket> socket)
+void
+ConfigRTdecentralized (Ptr<WifiNetDevice> netdev)
+{
+	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
+	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	dca->SetRTdecentralized(true);
+}
+
+void
+ReceivePacket (Ptr<Socket> socket)
 {
 	if (socket->Recv()) {
-		//std::cout << Simulator::Now().GetSeconds();
 		NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Received one packet! \n");
 	}
 }
 
+/*
 static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t pktCount)
 {
 	if (pktCount > 0){
@@ -74,11 +123,14 @@ static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t pktC
 		//Simulator::Schedule (pktInterval, &GenerateTraffic, socket, pktSize, pktCount-1, pktInterval);
 	}
 }
+*/
 
+/*
 static void CloseSocket (Ptr<Socket> socket)
 {
 	socket->Close();
 }
+*/
 
 NS_LOG_COMPONENT_DEFINE ("RT-decentralized");
 
@@ -89,14 +141,15 @@ main (int argc, char *argv[])
     bool verbose = true;
     uint32_t nRT = 2;
     bool tracing = true;
-    double interval = 0.1; // Interval length in seconds
-    double startT = 2.0;
-    uint32_t nIntervals = 5;
-    //double endT = startT + nIntervals*interval;
+    //double interval = 0.001; // Interval length in seconds
+    double packet_interval = 0.01;
+    double startT = 2.5;
+    uint32_t nIntervals = 20;
+    //double endT = startT + nIntervals*packet_interval;
     double stopT = 10.0;
-    double offset = 0.000001;
-    uint32_t packetSize = 1024;
-    uint32_t pktCount = 2;
+    double offset = 0.00001;
+    uint32_t packetSize = 100;
+    uint32_t pktCount = 5;
 
     std::string backoffLog ("RT-backoff.log");
 
@@ -110,11 +163,11 @@ main (int argc, char *argv[])
 
     if (verbose)
     {
-    	LogComponentEnableAll(LOG_PREFIX_NODE);
-        LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-        LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+    	//LogComponentEnableAll(LOG_PREFIX_NODE);
+        //LogComponentEnable ("UdpClient", LOG_LEVEL_INFO);
+        //LogComponentEnable ("UdpServer", LOG_LEVEL_INFO);
         //LogComponentEnable ("DcfManager", LOG_LEVEL_INFO);
-        //wifi.EnableLogComponents ();  // Turn on all Wifi logging
+        wifi.EnableLogComponents ();  // Turn on all Wifi logging
     }
 
     /* Create log streams */
@@ -131,7 +184,9 @@ main (int argc, char *argv[])
     phy.SetChannel (channel.Create());
 
     std::string phyMode ("OfdmRate54Mbps");
-    wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode", StringValue(phyMode), "ControlMode", StringValue(phyMode));
+    //std::string phyMode ("OfdmRate6Mbps");
+    //wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode", StringValue(phyMode), "ControlMode", StringValue(phyMode));
+    wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode", StringValue(phyMode));
     wifi.SetStandard (WIFI_PHY_STANDARD_80211a);
 
     NetDeviceContainer wifiStaDevices;
@@ -169,6 +224,7 @@ main (int argc, char *argv[])
 
 
     /* Sockets */
+    /*
     TypeId tid = TypeId::LookupByName ("ns3::UdpSocketFactory");
     Ptr<Socket> recvSink = Socket::CreateSocket (wifiRTStaNodes.Get(0), tid);
     InetSocketAddress local = InetSocketAddress (Ipv4Address::GetAny(), 80);
@@ -176,46 +232,61 @@ main (int argc, char *argv[])
     recvSink->SetRecvCallback (MakeCallback (&ReceivePacket));
 
     Ptr<Socket> source = Socket::CreateSocket (wifiRTStaNodes.Get(nRT - 1), tid);
-    InetSocketAddress remote = InetSocketAddress (Ipv4Address ("255.255.255.255"), 80);
+    //InetSocketAddress remote = InetSocketAddress (Ipv4Address ("255.255.255.255"), 80);
+    InetSocketAddress remote = InetSocketAddress (wifiInterfaces.GetAddress(0), 80);
     source->SetAllowBroadcast (true);
     source->Connect (remote);
-
+	*/
 
     /* UDP Server */
     /*
-    UdpEchoServerHelper echoServer (9);
+    UdpServerHelper echoServer (9);
 
     ApplicationContainer serverApps = echoServer.Install (wifiRTStaNodes.Get(0));
     serverApps.Start (Seconds (startT - 1.0));
-    serverApps.Stop (Seconds (endT));
-	*/
+    serverApps.Stop (Seconds (stopT));
+    */
 
     /* UDP Client */
     /*
-    UdpEchoClientHelper echoClient (wifiInterfaces.GetAddress(0), 9);
-    echoClient.SetAttribute ("MaxPackets", UintegerValue (100));
-    echoClient.SetAttribute ("Interval", TimeValue (Seconds (interval)));
-    echoClient.SetAttribute ("PacketSize", UintegerValue (1024));
+    UdpClientHelper echoClient (wifiInterfaces.GetAddress(0), 9);
+    echoClient.SetAttribute ("MaxPackets", UintegerValue (1));
+    echoClient.SetAttribute ("Interval", TimeValue (Seconds (packet_interval)));
+    echoClient.SetAttribute ("PacketSize", UintegerValue (packetSize));
 
     ApplicationContainer clientApps = echoClient.Install (wifiRTStaNodes.Get(nRT-1));
     clientApps.Start (Seconds (startT));
     clientApps.Stop (Seconds (endT));
-	*/
+    */
 
     /* Routing */
     Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
 
-    /* Simulator events */
+    /* Simulator events: configuration */
+    for (uint32_t i = 0; i < nRT; i++)
+    {
+    	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
+    	Simulator::ScheduleWithContext(i, Seconds(startT - offset),
+    	        			&ConfigRTdecentralized, netdev);
+    }
+
+    /* Simulator events: packet transmissions */
     for (uint32_t t = 0; t < nIntervals; t++)
     {
         /* Tracing for MAC events */
-        for (uint32_t i = 0; i < nRT - 1; i++)
+        for (uint32_t i = 1; i < nRT; i++)
         {
-        	Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) - offset),
-        			&StartNewInterval, wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>());
-        	Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t)), &GenerateTraffic, source, packetSize, pktCount);
-
+        	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
+        	//Ptr<AdhocWifiMac> mac_source = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
+        	Ptr<AdhocWifiMac> mac_dest = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
+        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)),
+        			&StartNewInterval, netdev, mac_dest, packetSize, pktCount, double(0.85));
+        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
+        	        			&FlushMacQueue, netdev);
+        	//for (uint32_t j = 0; j < pktCount; j++){
+        	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));
+        	//}
             //Ptr<RegularWifiMac> regmac = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() ;
         	//Ptr<EdcaTxopN> edca = regmac -> GetBEQueue();
             //std::cout << "Max CW = " << edca->GetMaxCw() << std::endl;
@@ -230,8 +301,8 @@ main (int argc, char *argv[])
     }
 
     Simulator::Stop(Seconds (stopT));
-    Simulator::ScheduleWithContext (source->GetNode ()->GetId(), Seconds(stopT), &CloseSocket, source);
-    Simulator::ScheduleWithContext (recvSink->GetNode ()->GetId(), Seconds(stopT), &CloseSocket, recvSink);
+    //Simulator::ScheduleWithContext (source->GetNode ()->GetId(), Seconds(stopT), &CloseSocket, source);
+    //Simulator::ScheduleWithContext (recvSink->GetNode ()->GetId(), Seconds(stopT), &CloseSocket, recvSink);
 
     if (tracing)
     {

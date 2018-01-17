@@ -126,6 +126,14 @@ public:
    */
   Ptr<WifiMacQueue > GetQueue () const;
 
+  /** Ping-Chun: for RT-decentralized algorithm
+   * Set the value of the flag RT_decentralized
+   * */
+  void SetRTdecentralized (bool);
+  void UpdateDeliveryDebt (double);
+  double GetDeliveryDebt (void);
+  void SetDeterministicBackoff (uint32_t);
+
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
   virtual void SetAifsn (uint32_t aifsn);
@@ -336,6 +344,10 @@ private:
   Ptr<const Packet> m_currentPacket;
   WifiMacHeader m_currentHdr;
   uint8_t m_fragmentNumber;
+
+  /* Ping-Chun: for RT-decentralized algorithm*/
+  bool RT_decentralized;
+  double delivery_debt;
 };
 
 } //namespace ns3

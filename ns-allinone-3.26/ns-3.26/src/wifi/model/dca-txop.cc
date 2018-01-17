@@ -158,7 +158,9 @@ DcaTxop::GetTypeId (void)
 
 DcaTxop::DcaTxop ()
   : m_manager (0),
-    m_currentPacket (0)
+    m_currentPacket (0),
+	RT_decentralized (false),
+	delivery_debt (0.0)
 {
   NS_LOG_FUNCTION (this);
   m_transmissionListener = new DcaTxop::TransmissionListener (this);
@@ -518,7 +520,14 @@ void
 DcaTxop::NotifyCollision (void)
 {
   NS_LOG_FUNCTION (this);
-  m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+  /* Ping-Chun: for RT decentralized algorithm
+   *   If is RT decentralized, then backoff=0  for the successive transmissions in the same interval
+   * */
+  if (RT_decentralized == false){
+      m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+  } else {
+	  m_dcf->StartBackoffNow (uint32_t(0));
+  }
   RestartAccessIfNeeded ();
 }
 
@@ -598,7 +607,17 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
        */
       m_currentPacket = 0;
       m_dcf->ResetCw ();
-      m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+
+      /* Ping-Chun: for RT decentralized algorithm
+       *   If is RT decentralized, then backoff=0  for the successive transmissions in the same interval
+       * */
+      if (RT_decentralized == false){
+          m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+      } else {
+    	  m_dcf->StartBackoffNow (uint32_t(0));
+    	  UpdateDeliveryDebt (double(-1.0));
+      }
+
       RestartAccessIfNeeded ();
     }
   else
@@ -630,7 +649,14 @@ DcaTxop::MissedAck (void)
       m_currentHdr.SetRetry ();
       m_dcf->UpdateFailedCw ();
     }
-  m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+  /* Ping-Chun: for RT decentralized algorithm
+   *   If is RT decentralized, then backoff=0  for the successive transmissions in the same interval
+   * */
+  if (RT_decentralized == false){
+      m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+  } else {
+	  m_dcf->StartBackoffNow (uint32_t(0));
+  }
   RestartAccessIfNeeded ();
 }
 
@@ -697,8 +723,45 @@ DcaTxop::EndTxNoAck (void)
   NS_LOG_DEBUG ("a transmission that did not require an ACK just finished");
   m_currentPacket = 0;
   m_dcf->ResetCw ();
-  m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+  /* Ping-Chun: for RT decentralized algorithm
+   *   If is RT decentralized, then backoff=0  for the successive transmissions in the same interval
+   * */
+  if (RT_decentralized == false){
+      m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
+  } else {
+	  m_dcf->StartBackoffNow (uint32_t(0));
+	  UpdateDeliveryDebt (double(-1.0));
+  }
   StartAccessIfNeeded ();
+}
+
+/* Ping-Chun: for RT-decentralized algorithm
+ *
+ */
+void
+DcaTxop::SetRTdecentralized(bool b)
+{
+	RT_decentralized = b;
+}
+
+void
+DcaTxop::UpdateDeliveryDebt(double d)
+{
+	delivery_debt += d;
+}
+
+double
+DcaTxop::GetDeliveryDebt()
+{
+	return delivery_debt;
+}
+
+void
+DcaTxop::SetDeterministicBackoff (uint32_t backoff)
+{
+    NS_LOG_FUNCTION (this);
+    m_dcf->ResetCw ();
+    m_dcf->StartBackoffNow (backoff);
 }
 
 } //namespace ns3
