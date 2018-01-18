@@ -33,6 +33,7 @@
 #include "wifi-mac-trailer.h"
 #include "wifi-mac.h"
 #include "random-stream.h"
+#include<random>
 
 #undef NS_LOG_APPEND_CONTEXT
 #define NS_LOG_APPEND_CONTEXT if (m_low != 0) { std::clog << "[mac=" << m_low->GetAddress () << "] "; }
@@ -160,7 +161,8 @@ DcaTxop::DcaTxop ()
   : m_manager (0),
     m_currentPacket (0),
 	RT_decentralized (false),
-	delivery_debt (0.0)
+	delivery_debt (0.0),
+	channel_pn(0.0)
 {
   NS_LOG_FUNCTION (this);
   m_transmissionListener = new DcaTxop::TransmissionListener (this);
@@ -602,11 +604,29 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
           m_txOkCallback (m_currentHdr);
         }
 
-      /* we are not fragmenting or we are done fragmenting
+      /* Ping-Chun: for RT decentralized algorithm
+       * If not using RT decentralized policy, then since we are not fragmenting or we are done fragmenting
        * so we can get rid of that packet now.
+       * Else, we apply pseudo-unreliable transmissions here
        */
-      m_currentPacket = 0;
-      m_dcf->ResetCw ();
+      std::default_random_engine generator;
+      std::uniform_real_distribution<double> distribution(0.0, 1.0);
+      double rand_number = distribution(generator);
+
+      bool RT_success = (rand_number < channel_pn)? true: false;
+
+      if (RT_decentralized == false){
+          m_currentPacket = 0;
+          m_dcf->ResetCw ();
+      } else {
+    	  if (RT_success){
+              m_currentPacket = 0;
+              m_dcf->ResetCw ();
+    	  }  else {
+              NS_LOG_DEBUG ("Retransmit");
+              //m_currentHdr.SetRetry ();
+    	  }
+      }
 
       /* Ping-Chun: for RT decentralized algorithm
        *   If is RT decentralized, then backoff=0  for the successive transmissions in the same interval
@@ -615,7 +635,11 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
           m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
       } else {
     	  m_dcf->StartBackoffNow (uint32_t(0));
-    	  UpdateDeliveryDebt (double(-1.0));
+    	  if (RT_success){
+    	      UpdateDeliveryDebt (double(-1.0));
+    	  } else {
+    		  // do nothing so for...
+    	  }
       }
 
       RestartAccessIfNeeded ();
@@ -762,6 +786,12 @@ DcaTxop::SetDeterministicBackoff (uint32_t backoff)
     NS_LOG_FUNCTION (this);
     m_dcf->ResetCw ();
     m_dcf->StartBackoffNow (backoff);
+}
+
+void
+DcaTxop::SetChannelPn(double d)
+{
+	channel_pn = d;
 }
 
 } //namespace ns3

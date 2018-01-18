@@ -133,6 +133,7 @@ public:
   void UpdateDeliveryDebt (double);
   double GetDeliveryDebt (void);
   void SetDeterministicBackoff (uint32_t);
+  void SetChannelPn(double);
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
@@ -348,6 +349,7 @@ private:
   /* Ping-Chun: for RT-decentralized algorithm*/
   bool RT_decentralized;
   double delivery_debt;
+  double channel_pn;
 };
 
 } //namespace ns3

@@ -97,11 +97,12 @@ StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_
 }
 
 void
-ConfigRTdecentralized (Ptr<WifiNetDevice> netdev)
+ConfigRTdecentralized (Ptr<WifiNetDevice> netdev, double pn)
 {
 	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
 	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
 	dca->SetRTdecentralized(true);
+	dca->SetChannelPn(pn);
 }
 
 void
@@ -149,6 +150,7 @@ main (int argc, char *argv[])
     double offset = 0.00001;
     uint32_t packetSize = 100;
     uint32_t pktCount = 5;
+    double channel_pn[2] = {0.5, 0.5}; // for unreliable transmissions
 
     std::string backoffLog ("RT-backoff.log");
 
@@ -275,7 +277,7 @@ main (int argc, char *argv[])
     {
     	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
     	Simulator::ScheduleWithContext(i, Seconds(startT - offset),
-    	        			&ConfigRTdecentralized, netdev);
+    	        			&ConfigRTdecentralized, netdev, channel_pn(i));
     }
 
     /* Simulator events: packet transmissions */
