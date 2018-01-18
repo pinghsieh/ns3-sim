@@ -77,18 +77,17 @@ StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_
 	/* Flush the expired packets */
 	//m_queue->Flush();
 
+	/* Reset backoff timer */
+	uint32_t backoff = 37;
+	dca->SetDeterministicBackoff(backoff);
+
 	/* Get packet arrivals */
 	for (uint32_t i = 0; i < pktCount; i++){
 		mac_source->Enqueue(Create<Packet> (pktSize), mac_dest->GetAddress());
 		//netdev->Send(Create<Packet> (pktSize), mac_dest->GetAddress(), uint16_t(0));
+		/* Update delivery debt*/
+		dca->UpdateDeliveryDebt (qn);
 	}
-
-	/* Update delivery debt*/
-	dca->UpdateDeliveryDebt (qn);
-
-	/* Reset backoff timer */
-	uint32_t backoff = 37;
-	dca->SetDeterministicBackoff(backoff);
 
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
@@ -191,13 +190,20 @@ main (int argc, char *argv[])
 
     NetDeviceContainer wifiStaDevices;
 
+    /* Non-QoS Wifi helper */
     NqosWifiMacHelper mac;
+    // There are 3 major mac tpes for WiFi:
+    // ns3::ApWifiMac, ns3::StaWifiMac, and ns3::AdhocWifiMac
+    // All the above mac models are children of ns3::regularWifiMac
     mac.SetType ("ns3::AdhocWifiMac");
     wifiStaDevices = wifi.Install (phy, mac, wifiRTStaNodes);
 
 
     /* Mobility */
     MobilityHelper mobility;
+    // Setup grid: objects are layed out, starting from (0,0) with 3 objects per row
+    // the x interval between each object is 5 meters
+    // the y interval between each object is 10 meters
 
     mobility.SetPositionAllocator ("ns3::GridPositionAllocator",
                                    "MinX", DoubleValue (0.0),
@@ -207,6 +213,7 @@ main (int argc, char *argv[])
                                    "GridWidth", UintegerValue (3),
                                    "LayoutType", StringValue ("RowFirst"));
 
+    // each object will be put in a static position
     mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
     //mobility.SetMobilityModel ("ns3::RandomWalk2dMobilityModel",
                               // "Bounds", RectangleValue (Rectangle (-50, 50, -50, 50)));
