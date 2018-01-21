@@ -531,6 +531,7 @@ DcfManager::RequestAccess (DcfState *state)
     {
       return;
     }
+
   UpdateBackoff ();
   NS_ASSERT (!state->IsAccessRequested ());
   state->NotifyAccessRequested ();

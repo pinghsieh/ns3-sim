@@ -318,6 +318,8 @@ void
 DcaTxop::RestartAccessIfNeeded (void)
 {
   NS_LOG_FUNCTION (this);
+  // Keep clearing expired packets till find one valid packet in queue
+  ClearExpiredPackets();
   if ((m_currentPacket != 0
        || !m_queue->IsEmpty ())
       && !m_dcf->IsAccessRequested ())
@@ -330,6 +332,8 @@ void
 DcaTxop::StartAccessIfNeeded (void)
 {
   NS_LOG_FUNCTION (this);
+  // Keep clearing expired packets till find one valid packet in queue
+  ClearExpiredPacketsInDcaQueue();
   if (m_currentPacket == 0
       && !m_queue->IsEmpty ()
       && !m_dcf->IsAccessRequested ())
@@ -609,7 +613,8 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
        * so we can get rid of that packet now.
        * Else, we apply pseudo-unreliable transmissions here
        */
-      std::default_random_engine generator;
+      std::random_device rd;
+      std::default_random_engine generator (rd());
       std::uniform_real_distribution<double> distribution(0.0, 1.0);
       double rand_number = distribution(generator);
 
@@ -793,5 +798,67 @@ DcaTxop::SetChannelPn(double d)
 {
 	channel_pn = d;
 }
+
+void
+DcaTxop::ClearExpiredPackets()
+{
+	// Ping-Chun:
+	// clear the expired packets, including the current packet and those in queue
+	// starting from head of queue
+
+	while (! m_queue->IsEmpty () || (m_currentPacket != 0)){
+		if (m_currentPacket != 0){
+    	// check if current packet will get expired after TX and ACK
+    	// if still valid, then return;
+    	// if not, keep checking the packets in queue
+			if (IsPacketValidAfterTxAndAck(m_currentPacket)){
+			    return;
+			} else {
+				// remove the current packet
+			    m_currentPacket = 0;
+			}
+		} else  {
+            	// get head of queue as the current packet
+            	m_currentPacket = m_queue->Dequeue (&m_currentHdr);
+            	NS_ASSERT (m_currentPacket != 0);
+                uint16_t sequence = m_txMiddle->GetNextSequenceNumberfor (&m_currentHdr);
+                m_currentHdr.SetSequenceNumber (sequence);
+                m_stationManager->UpdateFragmentationThreshold ();
+                m_currentHdr.SetFragmentNumber (0);
+                m_currentHdr.SetNoMoreFragments ();
+                m_currentHdr.SetNoRetry ();
+                m_fragmentNumber = 0;
+                NS_LOG_DEBUG ("dequeued size=" << m_currentPacket->GetSize () <<
+                              ", to=" << m_currentHdr.GetAddr1 () <<
+                              ", seq=" << m_currentHdr.GetSequenceControl ());
+    	}
+    }
+}
+
+void
+DcaTxop::ClearExpiredPacketsInDcaQueue()
+{
+	// Ping-Chun:
+	// clear the expired packets in queue, starting from head of queue
+	// but does not check current packet
+
+	while (! m_queue->IsEmpty ()){
+		WifiMacHeader hdr = WifiMacHeader();
+		Ptr<const Packet> packet = m_queue->Peek(&hdr);
+		if (IsPacketValidAfterTxAndAck(m_currentPacket)){
+			return;
+		} else {
+			// remove the head of queue
+			m_queue->Dequeue(&hdr);
+		}
+    }
+}
+
+bool
+DcaTxop::IsPacketValidAfterTxAndAck(Ptr<const Packet> packet)
+{
+    return true;
+}
+
 
 } //namespace ns3

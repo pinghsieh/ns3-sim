@@ -142,15 +142,15 @@ main (int argc, char *argv[])
     uint32_t nRT = 2;
     bool tracing = true;
     //double interval = 0.001; // Interval length in seconds
-    double packet_interval = 0.01;
+    double packet_interval = 0.001;
     double startT = 2.5;
     uint32_t nIntervals = 20;
     //double endT = startT + nIntervals*packet_interval;
     double stopT = 10.0;
     double offset = 0.00001;
-    uint32_t packetSize = 100;
+    uint32_t packetSize = 1500;
     uint32_t pktCount = 5;
-    double channel_pn[2] = {0.5, 0.5}; // for unreliable transmissions
+    double channel_pn[2] = {1, 1}; // for unreliable transmissions
 
     std::string backoffLog ("RT-backoff.log");
 
@@ -277,7 +277,7 @@ main (int argc, char *argv[])
     {
     	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
     	Simulator::ScheduleWithContext(i, Seconds(startT - offset),
-    	        			&ConfigRTdecentralized, netdev, channel_pn(i));
+    	        			&ConfigRTdecentralized, netdev, channel_pn[i]);
     }
 
     /* Simulator events: packet transmissions */
@@ -289,10 +289,11 @@ main (int argc, char *argv[])
         	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
         	//Ptr<AdhocWifiMac> mac_source = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
         	Ptr<AdhocWifiMac> mac_dest = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
-        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)),
-        			&StartNewInterval, netdev, mac_dest, packetSize, pktCount, double(0.85));
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
         	        			&FlushMacQueue, netdev);
+        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
+        			&StartNewInterval, netdev, mac_dest, packetSize, pktCount, double(0.85));
+
         	//for (uint32_t j = 0; j < pktCount; j++){
         	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));
         	//}

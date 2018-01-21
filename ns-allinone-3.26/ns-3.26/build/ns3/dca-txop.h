@@ -134,6 +134,9 @@ public:
   double GetDeliveryDebt (void);
   void SetDeterministicBackoff (uint32_t);
   void SetChannelPn(double);
+  void ClearExpiredPackets();
+  void ClearExpiredPacketsInDcaQueue();
+  bool IsPacketValidAfterTxAndAck(Ptr<const Packet>);
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
