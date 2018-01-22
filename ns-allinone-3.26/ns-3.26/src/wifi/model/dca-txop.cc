@@ -169,6 +169,7 @@ DcaTxop::DcaTxop ()
   m_dcf = new DcaTxop::Dcf (this);
   m_queue = CreateObject<WifiMacQueue> ();
   m_rng = new RealRandomStream ();
+  m_currentIntervalEnd = Seconds(0);
 }
 
 DcaTxop::~DcaTxop ()
@@ -811,7 +812,9 @@ DcaTxop::ClearExpiredPackets()
     	// check if current packet will get expired after TX and ACK
     	// if still valid, then return;
     	// if not, keep checking the packets in queue
-			if (IsPacketValidAfterTxAndAck(m_currentPacket)){
+			MacLowTransmissionParameters params;
+			params.EnableAck ();
+			if (IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params)){
 			    return;
 			} else {
 				// remove the current packet
@@ -845,7 +848,9 @@ DcaTxop::ClearExpiredPacketsInDcaQueue()
 	while (! m_queue->IsEmpty ()){
 		WifiMacHeader hdr = WifiMacHeader();
 		Ptr<const Packet> packet = m_queue->Peek(&hdr);
-		if (IsPacketValidAfterTxAndAck(m_currentPacket)){
+		MacLowTransmissionParameters params;
+		params.EnableAck ();
+		if (IsPacketValidAfterTxAndAck(packet, &hdr, params)){
 			return;
 		} else {
 			// remove the head of queue
@@ -855,10 +860,24 @@ DcaTxop::ClearExpiredPacketsInDcaQueue()
 }
 
 bool
-DcaTxop::IsPacketValidAfterTxAndAck(Ptr<const Packet> packet)
+DcaTxop::IsPacketValidAfterTxAndAck(Ptr<const Packet> packet,
+		const WifiMacHeader* hdr,
+        const MacLowTransmissionParameters& params)
 {
+	// Ping-Chun:
+	// for now, just assume that deadline = end of current interval
+	// we may append deadline to each packet later
+	Time tx_duration = m_low->CalculateOverallTxTime(packet, hdr, params);
+	if ((tx_duration + Simulator::Now()) > m_currentIntervalEnd){
+		return false;
+	}
     return true;
 }
 
+void
+DcaTxop::SetCurrentIntervalEnd(Time end_time)
+{
+	m_currentIntervalEnd = end_time;
+}
 
 } //namespace ns3

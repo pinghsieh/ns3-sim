@@ -66,8 +66,9 @@ SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
 }
 
 void
-StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_t pktSize, uint32_t pktCount, double qn)
+StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_t pktSize, uint32_t pktCount, double rel_time)
 {
+	double qn = 0.85;
 	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
 	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
 	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
@@ -76,6 +77,10 @@ StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_
 
 	/* Flush the expired packets */
 	//m_queue->Flush();
+
+	/* Set end of current interval */
+	Time t = Simulator::Now();
+	dca->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
 
 	/* Reset backoff timer */
 	uint32_t backoff = 37;
@@ -147,9 +152,9 @@ main (int argc, char *argv[])
     uint32_t nIntervals = 20;
     //double endT = startT + nIntervals*packet_interval;
     double stopT = 10.0;
-    double offset = 0.00001;
+    double offset = 0.000001;
     uint32_t packetSize = 1500;
-    uint32_t pktCount = 5;
+    uint32_t pktCount = 3;
     double channel_pn[2] = {1, 1}; // for unreliable transmissions
 
     std::string backoffLog ("RT-backoff.log");
@@ -292,7 +297,7 @@ main (int argc, char *argv[])
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
         	        			&FlushMacQueue, netdev);
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        			&StartNewInterval, netdev, mac_dest, packetSize, pktCount, double(0.85));
+        			&StartNewInterval, netdev, mac_dest, packetSize, pktCount, double(packet_interval-(2.0)*offset));
 
         	//for (uint32_t j = 0; j < pktCount; j++){
         	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));

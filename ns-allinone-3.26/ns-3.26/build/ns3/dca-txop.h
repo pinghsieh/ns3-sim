@@ -42,6 +42,7 @@ class MacTxMiddle;
 class RandomStream;
 class MacStation;
 class MacStations;
+class MacLowTransmissionParameters;
 
 /**
  * \brief handle packet fragmentation and retransmissions.
@@ -136,7 +137,10 @@ public:
   void SetChannelPn(double);
   void ClearExpiredPackets();
   void ClearExpiredPacketsInDcaQueue();
-  bool IsPacketValidAfterTxAndAck(Ptr<const Packet>);
+  bool IsPacketValidAfterTxAndAck(Ptr<const Packet>packet,
+		  const WifiMacHeader* hdr, const MacLowTransmissionParameters& params);
+  void SetCurrentIntervalEnd(Time);
+
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
@@ -353,6 +357,7 @@ private:
   bool RT_decentralized;
   double delivery_debt;
   double channel_pn;
+  Time m_currentIntervalEnd;
 };
 
 } //namespace ns3
