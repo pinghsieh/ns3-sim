@@ -21,9 +21,11 @@
 #include "ns3/internet-module.h"
 #include "ns3/mobility-module.h"
 #include "ns3/config-store-module.h"
-
+#include "RT-link-params.h"
 
 #include <iostream>
+#include <random>
+#include <vector>
 // Default Network Topology
 // 
 // AP
@@ -36,6 +38,7 @@ using namespace ns3;
 
 uint32_t MacTXCount;
 
+
 void
 MacTX (Ptr<const Packet> p)
 {
@@ -45,13 +48,12 @@ MacTX (Ptr<const Packet> p)
 }
 
 void
-FlushMacQueue  (Ptr<WifiNetDevice> netdev)
+FlushMacQueue  (RTLinkParams* param)
 {
-	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
-	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	Ptr<DcaTxop> dca = param->GetDcaTxop();
 	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
 	/* Flush the expired packets */
-	//m_queue->Flush();
+	m_queue->Flush();
 
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
@@ -66,32 +68,40 @@ SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
 }
 
 void
-StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_t pktSize, uint32_t pktCount, double rel_time)
+StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT)
 {
-	double qn = 0.85;
-	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
-	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	Ptr<AdhocWifiMac> mac_source = param->GetMacSource();
+	Ptr<DcaTxop> dca = param->GetDcaTxop();
 	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
 
-	/* Cancel on-going transmissions or should we check timing before sending?*/
+	/* (i) Cancel on-going transmissions or (ii) should we check timing before sending?
+	 * Currently, choose option (ii)
+	 * */
 
-	/* Flush the expired packets */
-	//m_queue->Flush();
 
 	/* Set end of current interval */
 	Time t = Simulator::Now();
 	dca->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
 
+	/* Update priority */
+	param->UpdateLinkPriority();
+
+	/* Choose swapping pairs */
+	// links at priority (rand_number, rand_number+1) is the swapping pair
+    std::random_device rd;
+    std::default_random_engine generator (rd());
+    std::uniform_int_distribution<uint32_t> distribution(1, nRT-1);
+    uint32_t rand_number = distribution(generator);
+
 	/* Reset backoff timer */
-	uint32_t backoff = 37;
+	uint32_t backoff = param->CalculateRTBackoff(rand_number);
 	dca->SetDeterministicBackoff(backoff);
 
 	/* Get packet arrivals */
-	for (uint32_t i = 0; i < pktCount; i++){
-		mac_source->Enqueue(Create<Packet> (pktSize), mac_dest->GetAddress());
-		//netdev->Send(Create<Packet> (pktSize), mac_dest->GetAddress(), uint16_t(0));
+	for (uint32_t i = 0; i < param->GetPacketCount(); i++){
+		mac_source->Enqueue(Create<Packet> (param->GetPacketSize()), param->GetMacDest()->GetAddress());
 		/* Update delivery debt*/
-		dca->UpdateDeliveryDebt (qn);
+		dca->UpdateDeliveryDebt (param->GetQn());
 	}
 
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
@@ -102,12 +112,11 @@ StartNewInterval (Ptr<WifiNetDevice> netdev, Ptr<AdhocWifiMac> mac_dest, uint32_
 }
 
 void
-ConfigRTdecentralized (Ptr<WifiNetDevice> netdev, double pn)
+ConfigRTdecentralized (RTLinkParams* param)
 {
-	Ptr<AdhocWifiMac> mac_source = netdev->GetMac()->GetObject<AdhocWifiMac>();
-	Ptr<DcaTxop> dca = mac_source->GetDcaTxop();
+	Ptr<DcaTxop> dca = param->GetDcaTxop();
 	dca->SetRTdecentralized(true);
-	dca->SetChannelPn(pn);
+	dca->SetChannelPn(param->GetPn());
 }
 
 void
@@ -118,14 +127,21 @@ ReceivePacket (Ptr<Socket> socket)
 	}
 }
 
-/*
-static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t pktCount)
+void
+DeleteCustomObjects(std::vector<RTLinkParams*> paramVec)
 {
-	if (pktCount > 0){
-		for (uint32_t i = 0; i < pktCount; i++){
+    for (uint32_t i =0 ; i < paramVec.size(); i++){
+    	delete paramVec[i];
+    }
+}
+/*
+static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t packetCount)
+{
+	if (packetCount > 0){
+		for (uint32_t i = 0; i < packetCount; i++){
 			socket->Send(Create<Packet> (pktSize));
 		}
-		//Simulator::Schedule (pktInterval, &GenerateTraffic, socket, pktSize, pktCount-1, pktInterval);
+		//Simulator::Schedule (pktInterval, &GenerateTraffic, socket, pktSize, packetCount-1, pktInterval);
 	}
 }
 */
@@ -143,8 +159,9 @@ NS_LOG_COMPONENT_DEFINE ("RT-decentralized");
 int
 main (int argc, char *argv[])
 {
+	/* Network-wide parameters */
     bool verbose = true;
-    uint32_t nRT = 2;
+    uint32_t nRT = 4; // AP is 00:00:00:00:00:01
     bool tracing = true;
     //double interval = 0.001; // Interval length in seconds
     double packet_interval = 0.001;
@@ -154,8 +171,10 @@ main (int argc, char *argv[])
     double stopT = 10.0;
     double offset = 0.000001;
     uint32_t packetSize = 1500;
-    uint32_t pktCount = 3;
+    uint32_t packetCount = 3;
     double channel_pn[2] = {1, 1}; // for unreliable transmissions
+    double qn[nRT-1] = {0.85, 0.95, 0.75};
+    double R= 10;
 
     std::string backoffLog ("RT-backoff.log");
 
@@ -276,30 +295,42 @@ main (int argc, char *argv[])
     /* Routing */
     Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
+    /* Initialize per-link parameters */
+    std::vector<RTLinkParams*> paramVec;
+    for (uint32_t i =1 ; i < nRT; i++){
+        RTLinkParams* p =  new RTLinkParams();
+        p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
+        		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
+				 packetSize, packetCount, i, qn[i-1], R, channel_pn[i-1]);
+        paramVec.push_back(p);
+    }
 
     /* Simulator events: configuration */
-    for (uint32_t i = 0; i < nRT; i++)
+    for (uint32_t i = 1; i < nRT; i++)
     {
-    	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
+    	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i-1)->GetObject<WifiNetDevice>();
     	Simulator::ScheduleWithContext(i, Seconds(startT - offset),
-    	        			&ConfigRTdecentralized, netdev, channel_pn[i]);
+    	        			&ConfigRTdecentralized, paramVec[i-1]);
     }
 
     /* Simulator events: packet transmissions */
     for (uint32_t t = 0; t < nIntervals; t++)
     {
         /* Tracing for MAC events */
-        for (uint32_t i = 1; i < nRT; i++)
+        for (uint32_t i = 0; i < nRT - 1; i++)
         {
         	Ptr<WifiNetDevice> netdev = wifiStaDevices.Get(i)->GetObject<WifiNetDevice>();
-        	//Ptr<AdhocWifiMac> mac_source = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
-        	Ptr<AdhocWifiMac> mac_dest = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
-        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
-        	        			&FlushMacQueue, netdev);
-        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        			&StartNewInterval, netdev, mac_dest, packetSize, pktCount, double(packet_interval-(2.0)*offset));
 
-        	//for (uint32_t j = 0; j < pktCount; j++){
+        	// Suppose uplink traffic: AP is the destination of all the clients
+        	Ptr<AdhocWifiMac> mac_dest = wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>();
+        	//Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
+        	        			//&FlushMacQueue, netdev);
+        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
+        	        			&FlushMacQueue, paramVec[i]);
+        	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
+        			&StartNewInterval, paramVec[i], double(packet_interval-(2.0)*offset), nRT);
+
+        	//for (uint32_t j = 0; j < packetCount; j++){
         	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));
         	//}
             //Ptr<RegularWifiMac> regmac = wifiApDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<RegularWifiMac>() ;
@@ -327,6 +358,7 @@ main (int argc, char *argv[])
 
 
     Simulator::Run();
+    DeleteCustomObjects(paramVec);
     Simulator::Destroy();
     return 0;
 }
