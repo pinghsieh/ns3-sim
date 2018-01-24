@@ -21,7 +21,6 @@
 #include "ns3/internet-module.h"
 #include "ns3/mobility-module.h"
 #include "ns3/config-store-module.h"
-#include "RT-link-params.h"
 
 #include <iostream>
 #include <random>
@@ -68,7 +67,7 @@ SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
 }
 
 void
-StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT)
+StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t rand_number)
 {
 	Ptr<AdhocWifiMac> mac_source = param->GetMacSource();
 	Ptr<DcaTxop> dca = param->GetDcaTxop();
@@ -86,12 +85,6 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT)
 	/* Update priority */
 	param->UpdateLinkPriority();
 
-	/* Choose swapping pairs */
-	// links at priority (rand_number, rand_number+1) is the swapping pair
-    std::random_device rd;
-    std::default_random_engine generator (rd());
-    std::uniform_int_distribution<uint32_t> distribution(1, nRT-1);
-    uint32_t rand_number = distribution(generator);
 
 	/* Reset backoff timer */
 	uint32_t backoff = param->CalculateRTBackoff(rand_number);
@@ -164,15 +157,15 @@ main (int argc, char *argv[])
     uint32_t nRT = 4; // AP is 00:00:00:00:00:01
     bool tracing = true;
     //double interval = 0.001; // Interval length in seconds
-    double packet_interval = 0.001;
+    double packet_interval = 0.001; // 1ms
     double startT = 2.5;
     uint32_t nIntervals = 20;
     //double endT = startT + nIntervals*packet_interval;
     double stopT = 10.0;
-    double offset = 0.000001;
+    double offset = 0.0000001; // 0.1us
     uint32_t packetSize = 1500;
-    uint32_t packetCount = 3;
-    double channel_pn[2] = {1, 1}; // for unreliable transmissions
+    uint32_t packetCount = 1;
+    double channel_pn[3] = {1, 1, 1}; // for unreliable transmissions
     double qn[nRT-1] = {0.85, 0.95, 0.75};
     double R= 10;
 
@@ -327,8 +320,16 @@ main (int argc, char *argv[])
         	        			//&FlushMacQueue, netdev);
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+offset),
         	        			&FlushMacQueue, paramVec[i]);
+
+        	/* Choose one swapping pair in each interval*/
+        	// links at priority (rand_number, rand_number+1) is the swapping pair
+            std::random_device rd;
+            std::default_random_engine generator (rd());
+            std::uniform_int_distribution<uint32_t> distribution(1, nRT - 2);
+            uint32_t rand_number = distribution(generator);
+
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        			&StartNewInterval, paramVec[i], double(packet_interval-(2.0)*offset), nRT);
+        			&StartNewInterval, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number);
 
         	//for (uint32_t j = 0; j < packetCount; j++){
         	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));
