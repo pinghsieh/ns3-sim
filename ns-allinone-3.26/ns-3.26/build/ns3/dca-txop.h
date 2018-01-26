@@ -43,7 +43,7 @@ class RandomStream;
 class MacStation;
 class MacStations;
 class MacLowTransmissionParameters;
-
+class RTLinkParams;
 /**
  * \brief handle packet fragmentation and retransmissions.
  * \ingroup wifi
@@ -83,6 +83,13 @@ public:
 
   DcaTxop ();
   ~DcaTxop ();
+
+  /* Ping-Chun:
+   * * For indicating swapping states used for real-time wireless
+   * SWAP_NONE = not a swapping candidate
+   * SWAP_LEAD = a swapping candidate that might move backward in priority list
+   * SWAP_TRAIL = a swapping candidate that might move forward in priority list
+   */
 
   /**
    * Set MacLow associated with this DcaTxop.
@@ -126,6 +133,7 @@ public:
    * \return WifiMacQueue
    */
   Ptr<WifiMacQueue > GetQueue () const;
+  DcfManager* GetDcfManager() const;
 
   /** Ping-Chun: for RT-decentralized algorithm
    * Set the value of the flag RT_decentralized
@@ -140,7 +148,7 @@ public:
   bool IsPacketValidAfterTxAndAck(Ptr<const Packet>packet,
 		  const WifiMacHeader* hdr, const MacLowTransmissionParameters& params);
   void SetCurrentIntervalEnd(Time);
-
+  void SetRTLinkParamsInDcfManager(RTLinkParams*);
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);

@@ -32,7 +32,7 @@ class WifiMac;
 class MacLow;
 class PhyListener;
 class LowDcfListener;
-
+class RTLinkParams;
 /**
  * \brief keep track of the state needed for a single DCF
  * function.
@@ -430,6 +430,12 @@ public:
    */
   void NotifyCtsTimeoutResetNow ();
 
+  /*
+   * Ping-Chun: for real-time wireless
+   */
+  void SetRTLinkParams(RTLinkParams*);
+
+  void ChangeSwapActionsInRTLinkParamsIfNeeded();
 
 private:
   /**
@@ -547,6 +553,7 @@ private:
    */
   bool IsWithinAifs (DcfState* state) const;
 
+
   /**
    * typedef for a vector of DcfStates
    */
@@ -575,6 +582,12 @@ private:
   Time m_sifs;
   PhyListener* m_phyListener;
   LowDcfListener* m_lowListener;
+
+
+  /* Ping-Chun: for real-time wireless
+   *
+   */
+  RTLinkParams* m_rtLinkParams;
 };
 
 } //namespace ns3

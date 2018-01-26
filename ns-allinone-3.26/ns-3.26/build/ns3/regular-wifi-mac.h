@@ -36,7 +36,7 @@ class MacLow;
 class MacRxMiddle;
 class MacTxMiddle;
 class DcfManager;
-
+class DcaTxop;
 /**
  * \brief base class for all MAC-level wifi objects.
  * \ingroup wifi

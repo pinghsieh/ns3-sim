@@ -26,6 +26,7 @@
 #include "wifi-phy.h"
 #include "wifi-mac.h"
 #include "mac-low.h"
+#include "RT-link-params.h"
 
 #define MY_DEBUG(x) \
   NS_LOG_DEBUG (Simulator::Now () << " " << this << " " << x)
@@ -727,6 +728,19 @@ DcfManager::UpdateBackoff (void)
           MY_DEBUG ("dcf " << k << " dec backoff slots=" << n);
           Time backoffUpdateBound = backoffStart + MicroSeconds (n * m_slotTimeUs);
           state->UpdateBackoffSlotsNow (n, backoffUpdateBound);
+
+          /*
+           * Ping-Chun: in our decentralized protocol, the priority index might change
+           * if channel is sensed busy when the remaining backoff number = 1
+           */
+          /*
+          if (!state->IsEdca()) {
+              if (((state->GetBackoffSlots()) == 1) && IsBusy()){
+              //if (((state->GetBackoffSlots()) == 1)){
+        	      m_rtLinkParams->ChangePriorityIfNeeded();
+              }
+          }
+          */
         }
     }
 }
@@ -791,6 +805,10 @@ DcfManager::NotifyRxEndOkNow (void)
   m_lastRxEnd = Simulator::Now ();
   m_lastRxReceivedOk = true;
   m_rxing = false;
+  /*
+   * Ping-Chun: for decentralized priority algorithm
+   */
+  ChangeSwapActionsInRTLinkParamsIfNeeded();
 }
 
 void
@@ -801,6 +819,10 @@ DcfManager::NotifyRxEndErrorNow (void)
   m_lastRxEnd = Simulator::Now ();
   m_lastRxReceivedOk = false;
   m_rxing = false;
+  /*
+   * Ping-Chun: for decentralized priority algorithm
+   */
+  ChangeSwapActionsInRTLinkParamsIfNeeded();
 }
 
 void
@@ -845,6 +867,10 @@ DcfManager::NotifyMaybeCcaBusyStartNow (Time duration)
   UpdateBackoff ();
   m_lastBusyStart = Simulator::Now ();
   m_lastBusyDuration = duration;
+  /*
+   * Ping-Chun: for decentralized priority algorithm
+   */
+  ChangeSwapActionsInRTLinkParamsIfNeeded();
 }
 
 void
@@ -1009,4 +1035,35 @@ DcfManager::NotifyCtsTimeoutResetNow ()
   m_lastCtsTimeoutEnd = Simulator::Now ();
   DoRestartAccessTimeoutIfNeeded ();
 }
+
+/*
+ * Ping-Chun: for real-time wireless
+ */
+void
+DcfManager::SetRTLinkParams(RTLinkParams* p)
+{
+  NS_LOG_FUNCTION (this);
+  m_rtLinkParams = p;
+}
+
+void
+DcfManager::ChangeSwapActionsInRTLinkParamsIfNeeded()
+{
+	  NS_LOG_FUNCTION (this);
+	  uint32_t k = 0;
+	  for (States::const_iterator i = m_states.begin (); i != m_states.end (); i++, k++)
+	  {
+	        DcfState *state = *i;
+	        /*
+	         * Ping-Chun: in our decentralized protocol, the priority index might change
+	         * if channel is sensed busy when the remaining backoff number = 1
+	         */
+	        if (!state->IsEdca()) {
+	            if (((state->GetBackoffSlots()) == 1)){
+	        	    m_rtLinkParams->ChangePriorityIfNeeded();
+	            }
+	        }
+	  }
+}
+
 } //namespace ns3

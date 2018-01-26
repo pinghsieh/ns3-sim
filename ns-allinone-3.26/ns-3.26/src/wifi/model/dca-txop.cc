@@ -34,6 +34,7 @@
 #include "wifi-mac.h"
 #include "random-stream.h"
 #include<random>
+#include "RT-link-params.h"
 
 #undef NS_LOG_APPEND_CONTEXT
 #define NS_LOG_APPEND_CONTEXT if (m_low != 0) { std::clog << "[mac=" << m_low->GetAddress () << "] "; }
@@ -240,6 +241,14 @@ DcaTxop::GetQueue () const
   NS_LOG_FUNCTION (this);
   return m_queue;
 }
+
+DcfManager*
+DcaTxop::GetDcfManager() const
+{
+  NS_LOG_FUNCTION (this);
+  return m_manager;
+}
+
 
 void
 DcaTxop::SetMinCw (uint32_t minCw)
@@ -771,18 +780,21 @@ DcaTxop::EndTxNoAck (void)
 void
 DcaTxop::SetRTdecentralized(bool b)
 {
+	NS_LOG_FUNCTION (this);
 	RT_decentralized = b;
 }
 
 void
 DcaTxop::UpdateDeliveryDebt(double d)
 {
+	NS_LOG_FUNCTION (this);
 	delivery_debt += d;
 }
 
 double
 DcaTxop::GetDeliveryDebt()
 {
+	NS_LOG_FUNCTION (this);
 	return delivery_debt;
 }
 
@@ -797,12 +809,14 @@ DcaTxop::SetDeterministicBackoff (uint32_t backoff)
 void
 DcaTxop::SetChannelPn(double d)
 {
+	NS_LOG_FUNCTION (this);
 	channel_pn = d;
 }
 
 void
 DcaTxop::ClearExpiredPackets()
 {
+	NS_LOG_FUNCTION (this);
 	// Ping-Chun:
 	// clear the expired packets, including the current packet and those in queue
 	// starting from head of queue
@@ -841,6 +855,7 @@ DcaTxop::ClearExpiredPackets()
 void
 DcaTxop::ClearExpiredPacketsInDcaQueue()
 {
+	NS_LOG_FUNCTION (this);
 	// Ping-Chun:
 	// clear the expired packets in queue, starting from head of queue
 	// but does not check current packet
@@ -864,6 +879,7 @@ DcaTxop::IsPacketValidAfterTxAndAck(Ptr<const Packet> packet,
 		const WifiMacHeader* hdr,
         const MacLowTransmissionParameters& params)
 {
+	NS_LOG_FUNCTION (this);
 	// Ping-Chun:
 	// for now, just assume that deadline = end of current interval
 	// we may append deadline to each packet later
@@ -877,7 +893,15 @@ DcaTxop::IsPacketValidAfterTxAndAck(Ptr<const Packet> packet,
 void
 DcaTxop::SetCurrentIntervalEnd(Time end_time)
 {
+	NS_LOG_FUNCTION (this);
 	m_currentIntervalEnd = end_time;
+}
+
+void
+DcaTxop::SetRTLinkParamsInDcfManager(RTLinkParams* p)
+{
+	NS_LOG_FUNCTION (this);
+    m_manager->SetRTLinkParams(p);
 }
 
 } //namespace ns3
