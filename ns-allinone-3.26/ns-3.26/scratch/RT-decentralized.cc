@@ -21,7 +21,7 @@
 #include "ns3/internet-module.h"
 #include "ns3/mobility-module.h"
 #include "ns3/config-store-module.h"
-
+#include "ns3/output-stream-wrapper.h"
 #include <iostream>
 #include <random>
 #include <vector>
@@ -66,6 +66,7 @@ SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
 	dca->SetDeterministicBackoff(backoff);
 }
 
+
 void
 StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t rand_number)
 {
@@ -103,8 +104,9 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
 
-
+    param->PrintDeliveryDebtToFile();
 }
+
 
 void
 ConfigRTdecentralized (RTLinkParams* param)
@@ -169,10 +171,12 @@ main (int argc, char *argv[])
     uint32_t packetSize = 1500;
     uint32_t packetCount = 1;
     double channel_pn[3] = {1, 1, 1}; // for unreliable transmissions
-    double qn[nRT-1] = {0.85, 0.95, 0.75};
-    double R[nRT-1]= {0, 0, 10};
-
+    double qn[nRT-1] = {0.8, 0.9, 0.7};
+    double R[nRT-1]= {10, 10, 10};
+    std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");
+
+    Ptr<OutputStreamWrapper> stream = Create<OutputStreamWrapper>(debtlogpath, std::ios::app);
 
     CommandLine cmd;
     cmd.AddValue ("verbose", "Tell echo application to log if true", verbose);
@@ -293,11 +297,16 @@ main (int argc, char *argv[])
 
     /* Initialize per-link parameters */
     std::vector<RTLinkParams*> paramVec;
+    std::vector<Ptr<OutputStreamWrapper>> streamVec;
+
     for (uint32_t i =1 ; i < nRT; i++){
         RTLinkParams* p =  new RTLinkParams();
+        /*
+         * Ping-Chun: assume initial priority equals link ID
+         */
         p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
         		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
-				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1]);
+				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i);
         paramVec.push_back(p);
     }
 
