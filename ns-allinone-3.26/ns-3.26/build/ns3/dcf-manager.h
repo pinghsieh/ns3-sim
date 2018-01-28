@@ -140,6 +140,10 @@ public:
    */
   bool IsAccessRequested (void) const;
 
+  /*
+   * Ping-Chun
+   */
+  void ResetAccessRequested(void);
 
 private:
   friend class DcfManager;
@@ -436,6 +440,9 @@ public:
   void SetRTLinkParams(RTLinkParams*);
 
   void ChangeSwapActionsInRTLinkParamsIfNeeded();
+
+  Time GetDifs();
+
 
 private:
   /**

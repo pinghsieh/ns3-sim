@@ -134,6 +134,7 @@ public:
    */
   Ptr<WifiMacQueue > GetQueue () const;
   DcfManager* GetDcfManager() const;
+  Ptr<WifiRemoteStationManager> GetStationManager() const;
 
   /** Ping-Chun: for RT-decentralized algorithm
    * Set the value of the flag RT_decentralized
@@ -144,11 +145,12 @@ public:
   void SetDeterministicBackoff (uint32_t);
   void SetChannelPn(double);
   void ClearExpiredPackets();
-  void ClearExpiredPacketsInDcaQueue();
+  void ClearExpiredPacketsAndDequeueValidOne();
   bool IsPacketValidAfterTxAndAck(Ptr<const Packet>packet,
 		  const WifiMacHeader* hdr, const MacLowTransmissionParameters& params);
   void SetCurrentIntervalEnd(Time);
   void SetRTLinkParamsInDcfManager(RTLinkParams*);
+
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);

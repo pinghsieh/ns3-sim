@@ -11,8 +11,98 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/dcf-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/dcf-manager.cc.1.o", 
-    "file": "../src/wifi/model/dcf-manager.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/peer-link-frame.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/peer-link-frame.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/peer-link-frame.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/wave-net-device.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/wave-net-device.cc.1.o", 
+    "file": "../src/wave/model/wave-net-device.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/bsm-application.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/bsm-application.cc.1.o", 
+    "file": "../src/wave/model/bsm-application.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/wifi-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/wifi-helper.cc.1.o", 
+    "file": "../src/wifi/helper/wifi-helper.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/default-channel-scheduler.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/default-channel-scheduler.cc.1.o", 
+    "file": "../src/wave/model/default-channel-scheduler.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/wifi-mac-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/wifi-mac-helper.cc.1.o", 
+    "file": "../src/wifi/helper/wifi-mac-helper.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/fd-net-device/helper/raw-sock-creator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/fd-net-device/helper/raw-sock-creator.cc.5.o", 
+    "file": "../src/fd-net-device/helper/raw-sock-creator.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/nqos-wifi-mac-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/nqos-wifi-mac-helper.cc.1.o", 
+    "file": "../src/wifi/helper/nqos-wifi-mac-helper.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/helper/flame/flame-installer.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/helper/flame/flame-installer.cc.1.o", 
+    "file": "../src/mesh/helper/flame/flame-installer.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/aodv -I../src/aodv -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/aodv/model/aodv-routing-protocol.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/aodv/model/aodv-routing-protocol.cc.1.o", 
+    "file": "../src/aodv/model/aodv-routing-protocol.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/flame/flame-protocol.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/flame/flame-protocol.cc.1.o", 
+    "file": "../src/mesh/model/flame/flame-protocol.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/helper/dot11s/dot11s-installer.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/helper/dot11s/dot11s-installer.cc.1.o", 
+    "file": "../src/mesh/helper/dot11s/dot11s-installer.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -Isrc/dsr -I../src/dsr -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/dsr/model/dsr-routing.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/dsr/model/dsr-routing.cc.1.o", 
+    "file": "../src/dsr/model/dsr-routing.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/wave-mac-low.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/wave-mac-low.cc.1.o", 
+    "file": "../src/wave/model/wave-mac-low.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/sta-wifi-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/sta-wifi-mac.cc.1.o", 
+    "file": "../src/wifi/model/sta-wifi-mac.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/channel-scheduler.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/channel-scheduler.cc.1.o", 
+    "file": "../src/wave/model/channel-scheduler.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/helper/mesh-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/helper/mesh-helper.cc.1.o", 
+    "file": "../src/mesh/helper/mesh-helper.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/fd-net-device/helper/creator-utils.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/fd-net-device/helper/creator-utils.cc.5.o", 
+    "file": "../src/fd-net-device/helper/creator-utils.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/helper/wave-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/helper/wave-helper.cc.1.o", 
+    "file": "../src/wave/helper/wave-helper.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -23,6 +113,11 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/tap-bridge/model/tap-encode-decode.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/tap-bridge/model/tap-encode-decode.cc.4.o", 
     "file": "../src/tap-bridge/model/tap-encode-decode.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/vsa-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/vsa-manager.cc.1.o", 
+    "file": "../src/wave/model/vsa-manager.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -41,33 +136,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/adhoc-wifi-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/adhoc-wifi-mac.cc.1.o", 
-    "file": "../src/wifi/model/adhoc-wifi-mac.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/mesh-wifi-interface-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/mesh-wifi-interface-mac.cc.1.o", 
-    "file": "../src/mesh/model/mesh-wifi-interface-mac.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/wifi-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/wifi-helper.cc.1.o", 
-    "file": "../src/wifi/helper/wifi-helper.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/wifi-mac-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/wifi-mac-helper.cc.1.o", 
-    "file": "../src/wifi/helper/wifi-mac-helper.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/sta-wifi-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/sta-wifi-mac.cc.1.o", 
-    "file": "../src/wifi/model/sta-wifi-mac.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/fd-net-device/helper/raw-sock-creator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/fd-net-device/helper/raw-sock-creator.cc.5.o", 
-    "file": "../src/fd-net-device/helper/raw-sock-creator.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/wifi-net-device.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/wifi-net-device.cc.1.o", 
+    "file": "../src/wifi/model/wifi-net-device.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -76,23 +146,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/tap-bridge/model/tap-creator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/tap-bridge/model/tap-creator.cc.4.o", 
-    "file": "../src/tap-bridge/model/tap-creator.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/edca-txop-n.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/edca-txop-n.cc.1.o", 
     "file": "../src/wifi/model/edca-txop-n.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/helper/nqos-wifi-mac-helper.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/helper/nqos-wifi-mac-helper.cc.1.o", 
-    "file": "../src/wifi/helper/nqos-wifi-mac-helper.cc"
-  }, 
-  {
-    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/fd-net-device/helper/creator-utils.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/fd-net-device/helper/creator-utils.cc.5.o", 
-    "file": "../src/fd-net-device/helper/creator-utils.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -103,5 +158,60 @@
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
     "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/regular-wifi-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/regular-wifi-mac.cc.1.o", 
     "file": "../src/wifi/model/regular-wifi-mac.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/mesh-point-device.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/mesh-point-device.cc.1.o", 
+    "file": "../src/mesh/model/mesh-point-device.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/dcf-manager.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/dcf-manager.cc.1.o", 
+    "file": "../src/wifi/model/dcf-manager.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/hwmp-protocol.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/hwmp-protocol.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/hwmp-protocol.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/hwmp-protocol-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/hwmp-protocol-mac.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/hwmp-protocol-mac.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/peer-management-protocol.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/peer-management-protocol.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/peer-management-protocol.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wifi/model/adhoc-wifi-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wifi/model/adhoc-wifi-mac.cc.1.o", 
+    "file": "../src/wifi/model/adhoc-wifi-mac.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/mesh-wifi-interface-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/mesh-wifi-interface-mac.cc.1.o", 
+    "file": "../src/mesh/model/mesh-wifi-interface-mac.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/peer-management-protocol-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/peer-management-protocol-mac.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/peer-management-protocol-mac.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/airtime-metric.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/airtime-metric.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/airtime-metric.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/tap-bridge/model/tap-creator.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/tap-bridge/model/tap-creator.cc.4.o", 
+    "file": "../src/tap-bridge/model/tap-creator.cc"
+  }, 
+  {
+    "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/flame/flame-protocol-mac.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/flame/flame-protocol-mac.cc.1.o", 
+    "file": "../src/mesh/model/flame/flame-protocol-mac.cc"
   }
 ]

@@ -330,6 +330,7 @@ DcaTxop::RestartAccessIfNeeded (void)
   NS_LOG_FUNCTION (this);
   // Keep clearing expired packets till find one valid packet in queue
   ClearExpiredPackets();
+  //ClearExpiredPacketsAndDequeueValidOne();
   if ((m_currentPacket != 0
        || !m_queue->IsEmpty ())
       && !m_dcf->IsAccessRequested ())
@@ -343,7 +344,8 @@ DcaTxop::StartAccessIfNeeded (void)
 {
   NS_LOG_FUNCTION (this);
   // Keep clearing expired packets till find one valid packet in queue
-  ClearExpiredPacketsInDcaQueue();
+  //ClearExpiredPacketsInDcaQueue();
+  ClearExpiredPackets();
   if (m_currentPacket == 0
       && !m_queue->IsEmpty ()
       && !m_dcf->IsAccessRequested ())
@@ -462,6 +464,7 @@ void
 DcaTxop::NotifyAccessGranted (void)
 {
   NS_LOG_FUNCTION (this);
+  ClearExpiredPackets();
   if (m_currentPacket == 0)
     {
       if (m_queue->IsEmpty ())
@@ -639,6 +642,14 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
               m_dcf->ResetCw ();
     	  }  else {
               NS_LOG_DEBUG ("Retransmit");
+              MacLowTransmissionParameters params;
+              params.EnableAck ();
+              if (IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params)){
+                  //NeedDataRetransmission();
+            	  m_queue->PushFront(m_currentPacket, m_currentHdr);
+              }
+              m_currentPacket = 0;
+              m_dcf->ResetCw ();
               //m_currentHdr.SetRetry ();
     	  }
       }
@@ -814,7 +825,7 @@ DcaTxop::SetChannelPn(double d)
 }
 
 void
-DcaTxop::ClearExpiredPackets()
+DcaTxop::ClearExpiredPacketsAndDequeueValidOne()
 {
 	NS_LOG_FUNCTION (this);
 	// Ping-Chun:
@@ -836,42 +847,69 @@ DcaTxop::ClearExpiredPackets()
 			}
 		} else  {
             	// get head of queue as the current packet
-            	m_currentPacket = m_queue->Dequeue (&m_currentHdr);
-            	NS_ASSERT (m_currentPacket != 0);
-                uint16_t sequence = m_txMiddle->GetNextSequenceNumberfor (&m_currentHdr);
-                m_currentHdr.SetSequenceNumber (sequence);
-                m_stationManager->UpdateFragmentationThreshold ();
-                m_currentHdr.SetFragmentNumber (0);
-                m_currentHdr.SetNoMoreFragments ();
-                m_currentHdr.SetNoRetry ();
-                m_fragmentNumber = 0;
-                NS_LOG_DEBUG ("dequeued size=" << m_currentPacket->GetSize () <<
+			    Ptr<const Packet> tempPacket = m_queue->Peek (&m_currentHdr);
+        	    NS_ASSERT (tempPacket != 0);
+        	    MacLowTransmissionParameters params;
+        	    params.EnableAck ();
+				if (IsPacketValidAfterTxAndAck(tempPacket, &m_currentHdr, params)){
+					m_currentPacket = m_queue->Dequeue(&m_currentHdr);
+                    uint16_t sequence = m_txMiddle->GetNextSequenceNumberfor (&m_currentHdr);
+                    m_currentHdr.SetSequenceNumber (sequence);
+                    m_stationManager->UpdateFragmentationThreshold ();
+                    m_currentHdr.SetFragmentNumber (0);
+                    m_currentHdr.SetNoMoreFragments ();
+                    m_currentHdr.SetNoRetry ();
+                    m_fragmentNumber = 0;
+                    NS_LOG_DEBUG ("dequeued size=" << m_currentPacket->GetSize () <<
                               ", to=" << m_currentHdr.GetAddr1 () <<
                               ", seq=" << m_currentHdr.GetSequenceControl ());
+                    return;
+				} else {
+					m_queue->Dequeue(&m_currentHdr);
+					m_currentPacket = 0;
+				}
     	}
     }
+	/*
+	 * Ping-Chun: cancel access request if there is no packet available
+	 */
+	m_dcf->ResetAccessRequested();
 }
 
 void
-DcaTxop::ClearExpiredPacketsInDcaQueue()
+DcaTxop::ClearExpiredPackets()
 {
 	NS_LOG_FUNCTION (this);
 	// Ping-Chun:
 	// clear the expired packets in queue, starting from head of queue
 	// but does not check current packet
 
-	while (! m_queue->IsEmpty ()){
-		WifiMacHeader hdr = WifiMacHeader();
-		Ptr<const Packet> packet = m_queue->Peek(&hdr);
-		MacLowTransmissionParameters params;
-		params.EnableAck ();
-		if (IsPacketValidAfterTxAndAck(packet, &hdr, params)){
-			return;
-		} else {
-			// remove the head of queue
-			m_queue->Dequeue(&hdr);
-		}
-    }
+	while (! m_queue->IsEmpty () || (m_currentPacket != 0)){
+			if (m_currentPacket != 0){
+	    	// check if current packet will get expired after TX and ACK
+	    	// if still valid, then return;
+	    	// if not, keep checking the packets in queue
+				MacLowTransmissionParameters params;
+				params.EnableAck ();
+				if (IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params)){
+				    return;
+				} else {
+					// remove the current packet
+				    m_currentPacket = 0;
+				}
+			} else  {
+	            	// get head of queue as the current packet
+				    Ptr<const Packet> tempPacket = m_queue->Peek (&m_currentHdr);
+	        	    NS_ASSERT (tempPacket != 0);
+	        	    MacLowTransmissionParameters params;
+	        	    params.EnableAck ();
+					if (IsPacketValidAfterTxAndAck(tempPacket, &m_currentHdr, params)){
+	                    return;
+					} else {
+						m_queue->Dequeue(&m_currentHdr);
+					}
+	    	}
+	    }
 }
 
 bool
@@ -884,7 +922,9 @@ DcaTxop::IsPacketValidAfterTxAndAck(Ptr<const Packet> packet,
 	// for now, just assume that deadline = end of current interval
 	// we may append deadline to each packet later
 	Time tx_duration = m_low->CalculateOverallTxTime(packet, hdr, params);
-	if ((tx_duration + Simulator::Now()) > m_currentIntervalEnd){
+	Time difs = m_manager->GetDifs();
+	Time effective_tx_duration = tx_duration + difs ;
+	if ((effective_tx_duration + Simulator::Now()) > m_currentIntervalEnd){
 		return false;
 	}
     return true;
@@ -902,6 +942,13 @@ DcaTxop::SetRTLinkParamsInDcfManager(RTLinkParams* p)
 {
 	NS_LOG_FUNCTION (this);
     m_manager->SetRTLinkParams(p);
+}
+
+Ptr<WifiRemoteStationManager>
+DcaTxop::GetStationManager() const
+{
+	NS_LOG_FUNCTION (this);
+	return m_stationManager;
 }
 
 } //namespace ns3

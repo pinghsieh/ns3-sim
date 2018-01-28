@@ -171,6 +171,12 @@ DcfState::IsAccessRequested (void) const
 {
   return m_accessRequested;
 }
+
+void
+DcfState::ResetAccessRequested(void)
+{
+	m_accessRequested = false;
+}
 void
 DcfState::NotifyAccessRequested (void)
 {
@@ -870,7 +876,7 @@ DcfManager::NotifyMaybeCcaBusyStartNow (Time duration)
   /*
    * Ping-Chun: for decentralized priority algorithm
    */
-  ChangeSwapActionsInRTLinkParamsIfNeeded();
+  //ChangeSwapActionsInRTLinkParamsIfNeeded();
 }
 
 void
@@ -1064,6 +1070,12 @@ DcfManager::ChangeSwapActionsInRTLinkParamsIfNeeded()
 	            }
 	        }
 	  }
+}
+
+Time
+DcfManager::GetDifs()
+{
+	return (m_sifs +  MicroSeconds (uint32_t(2)* m_slotTimeUs));
 }
 
 } //namespace ns3

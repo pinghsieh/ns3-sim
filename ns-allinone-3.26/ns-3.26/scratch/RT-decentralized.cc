@@ -25,6 +25,10 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <fstream>
+#include <cstdio>
+#include <iomanip>
+#include <limits>
 // Default Network Topology
 // 
 // AP
@@ -107,6 +111,25 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
     param->PrintDeliveryDebtToFile();
 }
 
+void
+PrintHeadersToFile(Ptr<OutputStreamWrapper> stream)
+{
+	*(stream->GetStream()) << std::setw(10) << "Link ID" << std::setw(12) << "Timestamp" << std::setw(20)
+			<< "Delivery Debt" << std::setw(10) << "Priority" << std::setw(10) << "Backoff" << std::setw(10) << "Queue Length" << "\n";
+}
+
+void
+PrintDashLines(Ptr<OutputStreamWrapper> stream)
+{
+	*(stream->GetStream()) << "-----------------------------------------------------------------------------------------------------" << "\n";
+}
+
+bool
+CheckIfFileExists(const std::string& filename)
+{
+	std::ifstream infile(filename);
+	return infile.good();
+}
 
 void
 ConfigRTdecentralized (RTLinkParams* param)
@@ -115,6 +138,7 @@ ConfigRTdecentralized (RTLinkParams* param)
 	dca->SetRTdecentralized(true);
 	dca->SetChannelPn(param->GetPn());
 	dca->SetRTLinkParamsInDcfManager(param);
+	dca->GetStationManager()->SetMaxSlrc(std::numeric_limits<uint32_t>::max());
 }
 
 void
@@ -162,21 +186,28 @@ main (int argc, char *argv[])
     uint32_t nRT = 4; // AP is 00:00:00:00:00:01
     bool tracing = true;
     //double interval = 0.001; // Interval length in seconds
-    double packet_interval = 0.001; // 1ms
+    double packet_interval = 0.0014; // 1.4ms
     double startT = 2.5;
-    uint32_t nIntervals = 20;
-    //double endT = startT + nIntervals*packet_interval;
-    double stopT = 10.0;
-    double offset = 0.0000001; // 0.1us
-    uint32_t packetSize = 1500;
-    uint32_t packetCount = 1;
-    double channel_pn[3] = {1, 1, 1}; // for unreliable transmissions
-    double qn[nRT-1] = {0.8, 0.9, 0.7};
-    double R[nRT-1]= {10, 10, 10};
+    uint32_t nIntervals = 200;
+    double stopT = startT + nIntervals*packet_interval;
+    //double stopT = 10.0;
+    double offset = 0.000001; // 1us
+    uint32_t packetSize = 1400;
+    uint32_t packetCount = 2;
+    double channel_pn[nRT-1] = {0.5, 0.5, 0.5}; // for unreliable transmissions
+    double qn[nRT-1] = {0.93, 0.93, 0.93};
+    double R[nRT-1]= {1, 1, 1};
     std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");
 
-    Ptr<OutputStreamWrapper> stream = Create<OutputStreamWrapper>(debtlogpath, std::ios::app);
+    //if (!CheckIfFileExists(debtlogpath)) {
+    	//Ptr<OutputStreamWrapper> stream = Create<OutputStreamWrapper>(debtlogpath, std::ios::app);
+    	//*(stream->GetStream()).clear();
+    	//std::remove(debtlogpath.c_str());
+    //}
+
+    Ptr<OutputStreamWrapper> stream = Create<OutputStreamWrapper>(debtlogpath, std::ios::trunc);
+    PrintHeadersToFile(stream);
 
     CommandLine cmd;
     cmd.AddValue ("verbose", "Tell echo application to log if true", verbose);
@@ -234,8 +265,8 @@ main (int argc, char *argv[])
     mobility.SetPositionAllocator ("ns3::GridPositionAllocator",
                                    "MinX", DoubleValue (0.0),
                                    "MinY", DoubleValue (0.0),
-                                   "DeltaX", DoubleValue (5.0),
-                                   "DeltaY", DoubleValue (10.0),
+                                   "DeltaX", DoubleValue (1.0),
+                                   "DeltaY", DoubleValue (1.0),
                                    "GridWidth", UintegerValue (3),
                                    "LayoutType", StringValue ("RowFirst"));
 
@@ -306,7 +337,7 @@ main (int argc, char *argv[])
          */
         p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
         		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
-				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i);
+				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i, uint32_t(0));
         paramVec.push_back(p);
     }
 
@@ -357,6 +388,8 @@ main (int argc, char *argv[])
             //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
             //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
         }
+        Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(1.5)*offset),
+                			&PrintDashLines, stream);
     }
 
     Simulator::Stop(Seconds (stopT));
