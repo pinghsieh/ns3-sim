@@ -438,7 +438,7 @@ public:
    * Ping-Chun: for real-time wireless
    */
   void SetRTLinkParams(RTLinkParams*);
-
+  RTLinkParams* GetRTLinkParams();
   void ChangeSwapActionsInRTLinkParamsIfNeeded();
 
   Time GetDifs();

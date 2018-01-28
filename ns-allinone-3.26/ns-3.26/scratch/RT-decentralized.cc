@@ -99,7 +99,8 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 
 	/* Get packet arrivals */
 	for (uint32_t i = 0; i < param->GetPacketCount(); i++){
-		mac_source->Enqueue(Create<Packet> (param->GetPacketSize()), param->GetMacDest()->GetAddress());
+		//mac_source->Enqueue(Create<Packet> (param->GetPacketSize()), param->GetMacDest()->GetAddress());
+		param->EnqueueOnePacket();
 		/* Update delivery debt*/
 		dca->UpdateDeliveryDebt (param->GetQn());
 	}
@@ -188,14 +189,14 @@ main (int argc, char *argv[])
     //double interval = 0.001; // Interval length in seconds
     double packet_interval = 0.0014; // 1.4ms
     double startT = 2.5;
-    uint32_t nIntervals = 200;
+    uint32_t nIntervals = 100;
     double stopT = startT + nIntervals*packet_interval;
     //double stopT = 10.0;
     double offset = 0.000001; // 1us
     uint32_t packetSize = 1400;
-    uint32_t packetCount = 2;
+    uint32_t packetCount = 3;
     double channel_pn[nRT-1] = {0.5, 0.5, 0.5}; // for unreliable transmissions
-    double qn[nRT-1] = {0.93, 0.93, 0.93};
+    double qn[nRT-1] = {0.2, 0.2, 0.2};
     double R[nRT-1]= {1, 1, 1};
     std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");

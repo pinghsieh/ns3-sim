@@ -31,8 +31,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/default-channel-scheduler.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/default-channel-scheduler.cc.1.o", 
-    "file": "../src/wave/model/default-channel-scheduler.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/airtime-metric.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/airtime-metric.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/airtime-metric.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
@@ -201,8 +201,8 @@
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 
-    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/mesh/model/dot11s/airtime-metric.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/mesh/model/dot11s/airtime-metric.cc.1.o", 
-    "file": "../src/mesh/model/dot11s/airtime-metric.cc"
+    "command": "/usr/bin/g++ -O0 -ggdb -g3 -Wall -Werror -std=c++11 -Wno-error=deprecated-declarations -fstrict-aliasing -Wstrict-aliasing -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 ../src/wave/model/default-channel-scheduler.cc -c -o /home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build/src/wave/model/default-channel-scheduler.cc.1.o", 
+    "file": "../src/wave/model/default-channel-scheduler.cc"
   }, 
   {
     "directory": "/home/ping-chun/Github-repos/ns3-sim/ns-allinone-3.26/ns-3.26/build", 

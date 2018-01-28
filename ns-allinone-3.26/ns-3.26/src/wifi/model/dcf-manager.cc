@@ -1052,6 +1052,12 @@ DcfManager::SetRTLinkParams(RTLinkParams* p)
   m_rtLinkParams = p;
 }
 
+RTLinkParams*
+DcfManager::GetRTLinkParams()
+{
+	return m_rtLinkParams;
+}
+
 void
 DcfManager::ChangeSwapActionsInRTLinkParamsIfNeeded()
 {

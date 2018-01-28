@@ -481,6 +481,7 @@ DcaTxop::NotifyAccessGranted (void)
       m_currentHdr.SetNoMoreFragments ();
       m_currentHdr.SetNoRetry ();
       m_fragmentNumber = 0;
+      //m_currentHdrDup = m_currentHdr;
       NS_LOG_DEBUG ("dequeued size=" << m_currentPacket->GetSize () <<
                     ", to=" << m_currentHdr.GetAddr1 () <<
                     ", seq=" << m_currentHdr.GetSequenceControl ());
@@ -646,7 +647,11 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
               params.EnableAck ();
               if (IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params)){
                   //NeedDataRetransmission();
-            	  m_queue->PushFront(m_currentPacket, m_currentHdr);
+            	  //m_queue->PushFront(m_currentPacket, m_currentHdr);
+            	  //Queue(m_currentPacket, m_currentHdr);
+            	  //RTLinkParams* rtparam = GetDcfManager()->GetRTLinkParams();
+            	  //rtparam->EnqueueOnePacket();
+            	  // TODO...
               }
               m_currentPacket = 0;
               m_dcf->ResetCw ();
@@ -860,6 +865,7 @@ DcaTxop::ClearExpiredPacketsAndDequeueValidOne()
                     m_currentHdr.SetNoMoreFragments ();
                     m_currentHdr.SetNoRetry ();
                     m_fragmentNumber = 0;
+                    //m_currentHdrDup = m_currentHdr;
                     NS_LOG_DEBUG ("dequeued size=" << m_currentPacket->GetSize () <<
                               ", to=" << m_currentHdr.GetAddr1 () <<
                               ", seq=" << m_currentHdr.GetSequenceControl ());
@@ -873,7 +879,7 @@ DcaTxop::ClearExpiredPacketsAndDequeueValidOne()
 	/*
 	 * Ping-Chun: cancel access request if there is no packet available
 	 */
-	m_dcf->ResetAccessRequested();
+	//m_dcf->ResetAccessRequested();
 }
 
 void

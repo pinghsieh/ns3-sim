@@ -368,6 +368,7 @@ private:
   double delivery_debt;
   double channel_pn;
   Time m_currentIntervalEnd;
+  //WifiMacHeader m_currentHdrDup;
 };
 
 } //namespace ns3
