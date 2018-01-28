@@ -488,6 +488,17 @@ DcaTxop::NotifyAccessGranted (void)
     }
   MacLowTransmissionParameters params;
   params.DisableOverrideDurationId ();
+
+  /*
+   * Ping-Chun
+   */
+  RTLinkParams* rtparam = m_manager->GetRTLinkParams();
+  if (rtparam->IsIntentUp())
+  {
+	  rtparam->SetSwapActionUp();
+	  rtparam->ResetSwapIntent();
+  }
+
   if (m_currentHdr.GetAddr1 ().IsGroup ())
     {
       params.DisableRts ();
@@ -653,7 +664,7 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
             	  //rtparam->EnqueueOnePacket();
             	  // TODO...
               }
-              m_currentPacket = 0;
+              //m_currentPacket = 0;
               m_dcf->ResetCw ();
               //m_currentHdr.SetRetry ();
     	  }

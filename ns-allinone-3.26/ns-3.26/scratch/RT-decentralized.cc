@@ -184,20 +184,21 @@ main (int argc, char *argv[])
 {
 	/* Network-wide parameters */
     bool verbose = true;
-    uint32_t nRT = 4; // AP is 00:00:00:00:00:01
+    uint32_t nRT = 6; // AP is 00:00:00:00:00:01
     bool tracing = true;
     //double interval = 0.001; // Interval length in seconds
-    double packet_interval = 0.0014; // 1.4ms
+    double packet_interval = 0.002; // 2ms
     double startT = 2.5;
-    uint32_t nIntervals = 100;
+    uint32_t nIntervals = 2000;
     double stopT = startT + nIntervals*packet_interval;
     //double stopT = 10.0;
     double offset = 0.000001; // 1us
     uint32_t packetSize = 1400;
-    uint32_t packetCount = 3;
-    double channel_pn[nRT-1] = {0.5, 0.5, 0.5}; // for unreliable transmissions
-    double qn[nRT-1] = {0.2, 0.2, 0.2};
-    double R[nRT-1]= {1, 1, 1};
+    uint32_t packetCount = 1;
+    double channel_pn[nRT-1] = {0.5, 0.5, 0.5, 0.5, 0.5}; // for unreliable transmissions
+    //double qn[nRT-1] = {0.84, 0.84, 0.84};
+    double qn[nRT-1] = {0.595, 0.595, 0.595, 0.595, 0.595};
+    double R[nRT-1]= {10, 10, 10, 10, 10};
     std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");
 
@@ -224,7 +225,10 @@ main (int argc, char *argv[])
         //LogComponentEnable ("UdpClient", LOG_LEVEL_INFO);
         //LogComponentEnable ("UdpServer", LOG_LEVEL_INFO);
         //LogComponentEnable ("DcfManager", LOG_LEVEL_INFO);
-        wifi.EnableLogComponents ();  // Turn on all Wifi logging
+        /*
+         * Ping-Chun: disable logging for faster simulations
+         */
+    	//wifi.EnableLogComponents ();  // Turn on all Wifi logging
     }
 
     /* Create log streams */
