@@ -29,6 +29,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <limits>
+#include <ctime>
 // Default Network Topology
 // 
 // AP
@@ -97,13 +98,17 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 	uint32_t backoff = param->CalculateRTBackoff(rand_number);
 	dca->SetDeterministicBackoff(backoff);
 
+	/* Generate packet count */
+	param->GeneratePacketCount();
+
 	/* Get packet arrivals */
-	for (uint32_t i = 0; i < param->GetPacketCount(); i++){
+	//for (uint32_t i = 0; i < param->GetPacketCount(); i++){
 		//mac_source->Enqueue(Create<Packet> (param->GetPacketSize()), param->GetMacDest()->GetAddress());
-		param->EnqueueOnePacket();
-		/* Update delivery debt*/
-		dca->UpdateDeliveryDebt (param->GetQn());
-	}
+		param->EnqueueMultiplePackets(param->GetPacketCount());
+		///* Update delivery debt*/
+		//dca->UpdateDeliveryDebt (param->GetQn());
+	//}
+	param->EnqueueEmptyPacketIfNeeded();
 
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
@@ -182,23 +187,47 @@ NS_LOG_COMPONENT_DEFINE ("RT-decentralized");
 int
 main (int argc, char *argv[])
 {
+	/* Measure system time*/
+	clock_t tStart = clock();
+
 	/* Network-wide parameters */
     bool verbose = true;
-    uint32_t nRT = 6; // AP is 00:00:00:00:00:01
     bool tracing = true;
-    //double interval = 0.001; // Interval length in seconds
+
+    /*
+    //  Testcase 1
+    uint32_t nRT = 11; // AP is 00:00:00:00:00:01
     double packet_interval = 0.002; // 2ms
     double startT = 2.5;
-    uint32_t nIntervals = 2000;
+    uint32_t nIntervals = 100;
     double stopT = startT + nIntervals*packet_interval;
-    //double stopT = 10.0;
     double offset = 0.000001; // 1us
-    uint32_t packetSize = 1400;
+    uint32_t packetSize = 100;
     uint32_t packetCount = 1;
-    double channel_pn[nRT-1] = {0.5, 0.5, 0.5, 0.5, 0.5}; // for unreliable transmissions
-    //double qn[nRT-1] = {0.84, 0.84, 0.84};
-    double qn[nRT-1] = {0.595, 0.595, 0.595, 0.595, 0.595};
+    double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+    double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
+    double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+    double alpha = 0.78;
+    double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
+    */
+
+
+    //  Testcase 2
+    uint32_t nRT = 6; // AP is 00:00:00:00:00:01
+    double packet_interval = 0.002; // 2ms
+    double startT = 2.5;
+    uint32_t nIntervals = 1000;
+    double stopT = startT + nIntervals*packet_interval;
+    double offset = 0.000001; // 1us
+    uint32_t packetSize = 1400; // TX + ACK = 276us
+    uint32_t packetCount = 1;
+    double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+    double qn[nRT-1] = {0.818, 0.818, 0.818, 0.818, 0.818};  // capacity q = 0.8165
     double R[nRT-1]= {10, 10, 10, 10, 10};
+    double alpha = 1;
+    double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha};
+
+
     std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");
 
@@ -342,7 +371,8 @@ main (int argc, char *argv[])
          */
         p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
         		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
-				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i, uint32_t(0));
+				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i, uint32_t(0),
+				 RTLinkParams::ArrivalCode::ARR_BERN, arrivalRate[i-1]);
         paramVec.push_back(p);
     }
 
@@ -411,6 +441,8 @@ main (int argc, char *argv[])
     Simulator::Run();
     DeleteCustomObjects(paramVec);
     Simulator::Destroy();
+
+    std::cout << "Time taken: " << std::setprecision(5) << (double)(clock() - tStart)/CLOCKS_PER_SEC << " seconds" << "\n";
     return 0;
 }
 
