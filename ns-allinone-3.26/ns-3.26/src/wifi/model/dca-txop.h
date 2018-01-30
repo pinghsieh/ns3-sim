@@ -150,7 +150,7 @@ public:
 		  const WifiMacHeader* hdr, const MacLowTransmissionParameters& params);
   void SetCurrentIntervalEnd(Time);
   void SetRTLinkParamsInDcfManager(RTLinkParams*);
-
+  void SetRTLinkParams(RTLinkParams*);
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
@@ -368,7 +368,7 @@ private:
   double delivery_debt;
   double channel_pn;
   Time m_currentIntervalEnd;
-  //WifiMacHeader m_currentHdrDup;
+  RTLinkParams* m_rtLinkParams;
 };
 
 } //namespace ns3

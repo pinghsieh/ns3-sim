@@ -815,6 +815,7 @@ DcfManager::NotifyRxEndOkNow (void)
    * Ping-Chun: for decentralized priority algorithm
    */
   ChangeSwapActionsInRTLinkParamsIfNeeded();
+  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
 }
 
 void
@@ -829,6 +830,7 @@ DcfManager::NotifyRxEndErrorNow (void)
    * Ping-Chun: for decentralized priority algorithm
    */
   ChangeSwapActionsInRTLinkParamsIfNeeded();
+  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
 }
 
 void

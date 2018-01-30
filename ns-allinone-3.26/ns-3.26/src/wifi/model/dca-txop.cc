@@ -557,7 +557,8 @@ DcaTxop::NotifyCollision (void)
   if (RT_decentralized == false){
       m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
   } else {
-	  m_dcf->StartBackoffNow (uint32_t(0));
+	  //m_dcf->StartBackoffNow (uint32_t(0));
+	  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
   }
   RestartAccessIfNeeded ();
 }
@@ -676,7 +677,8 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
       if (RT_decentralized == false){
           m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
       } else {
-    	  m_dcf->StartBackoffNow (uint32_t(0));
+    	  //m_dcf->StartBackoffNow (uint32_t(0));
+    	  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
     	  if (RT_success){
     	      UpdateDeliveryDebt (double(-1.0));
     	  } else {
@@ -721,7 +723,8 @@ DcaTxop::MissedAck (void)
   if (RT_decentralized == false){
       m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
   } else {
-	  m_dcf->StartBackoffNow (uint32_t(0));
+	  //m_dcf->StartBackoffNow (uint32_t(0));
+	  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
   }
   RestartAccessIfNeeded ();
 }
@@ -795,7 +798,8 @@ DcaTxop::EndTxNoAck (void)
   if (RT_decentralized == false){
       m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
   } else {
-	  m_dcf->StartBackoffNow (uint32_t(0));
+	  //m_dcf->StartBackoffNow (uint32_t(0));
+	  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
 	  UpdateDeliveryDebt (double(-1.0));
   }
   StartAccessIfNeeded ();
@@ -952,6 +956,14 @@ DcaTxop::SetCurrentIntervalEnd(Time end_time)
 {
 	NS_LOG_FUNCTION (this);
 	m_currentIntervalEnd = end_time;
+}
+
+void
+DcaTxop::SetRTLinkParams(RTLinkParams* p)
+{
+	NS_LOG_FUNCTION (this);
+    m_rtLinkParams = p;
+    SetRTLinkParamsInDcfManager(p);
 }
 
 void
