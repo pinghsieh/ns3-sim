@@ -350,7 +350,8 @@ DcfManager::DcfManager ()
     m_slotTimeUs (0),
     m_sifs (Seconds (0.0)),
     m_phyListener (0),
-    m_lowListener (0)
+    m_lowListener (0),
+	m_rtLinkParams(0)
 {
   NS_LOG_FUNCTION (this);
 }
@@ -814,8 +815,11 @@ DcfManager::NotifyRxEndOkNow (void)
   /*
    * Ping-Chun: for decentralized priority algorithm
    */
-  ChangeSwapActionsInRTLinkParamsIfNeeded();
-  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
+  if (m_rtLinkParams != 0){
+	  ChangeSwapActionsInRTLinkParamsIfNeeded();
+	  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
+  }
+
 }
 
 void
@@ -829,8 +833,10 @@ DcfManager::NotifyRxEndErrorNow (void)
   /*
    * Ping-Chun: for decentralized priority algorithm
    */
-  ChangeSwapActionsInRTLinkParamsIfNeeded();
-  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
+  if (m_rtLinkParams != 0){
+	  ChangeSwapActionsInRTLinkParamsIfNeeded();
+	  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
+  }
 }
 
 void
@@ -1074,7 +1080,13 @@ DcfManager::ChangeSwapActionsInRTLinkParamsIfNeeded()
 	         */
 	        if (!state->IsEdca()) {
 	            if (((state->GetBackoffSlots()) == 1)){
-	        	    m_rtLinkParams->ChangePriorityIfNeeded();
+	            	/* Only for DEBUG*/
+	            	if (m_rtLinkParams->GetLinkPriority() == 9 && m_rtLinkParams->IsStateLead() ){
+	            		m_rtLinkParams->GetPacketSize();
+	            	}
+	            	if (m_rtLinkParams != 0){
+	            		m_rtLinkParams->ChangePriorityIfNeeded();
+	            	}
 	            }
 	        }
 	  }

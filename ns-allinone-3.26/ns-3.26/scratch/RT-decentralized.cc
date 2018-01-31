@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/applications-module.h"
@@ -30,6 +29,8 @@
 #include <iomanip>
 #include <limits>
 #include <ctime>
+
+//#define DEBUG 1
 // Default Network Topology
 // 
 // AP
@@ -59,8 +60,8 @@ FlushMacQueue  (RTLinkParams* param)
 	/* Flush the expired packets */
 	m_queue->Flush();
 
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
 }
 
 void
@@ -82,7 +83,10 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 	/* (i) Cancel on-going transmissions or (ii) should we check timing before sending?
 	 * Currently, choose option (ii)
 	 * */
-
+    /* Only for DEBUG*/
+	if (rand_number == 9){
+		param->GeneratePacketCount();
+	}
 
 	/* Set end of current interval */
 	Time t = Simulator::Now();
@@ -109,7 +113,7 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 		///* Update delivery debt*/
 		//dca->UpdateDeliveryDebt (param->GetQn());
 	//}
-	param->EnqueueEmptyPacketIfNeeded();
+	param->EnqueueDummyPacketIfNeeded();
 
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
 	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
@@ -257,12 +261,12 @@ main (int argc, char *argv[])
     uint32_t CWLevelCount = 6;
     double Rmax = exp(5);
     */
-
+/*
      //  Testcase 4
      uint32_t nRT = 6; // AP is 00:00:00:00:00:01
      double packet_interval = 0.002; // 2ms
      double startT = 2.5;
-     uint32_t nIntervals =100;
+     uint32_t nIntervals =5000;
      double stopT = startT + nIntervals*packet_interval;
      double offset = 0.000001; // 1us
      uint32_t packetSize = 1400; // TX + ACK = 276us
@@ -279,6 +283,52 @@ main (int argc, char *argv[])
      uint32_t CWMin = 32;
      uint32_t CWLevelCount = 6;
      double Rmax = exp(5);
+     */
+    /*
+    //  Testcase 5
+         uint32_t nRT = 11; // AP is 00:00:00:00:00:01
+         double packet_interval = 0.002; // 2ms
+         double startT = 2.5;
+         uint32_t nIntervals =5000;
+         double stopT = startT + nIntervals*packet_interval;
+         double offset = 0.000001; // 1us
+         uint32_t packetSize = 100; // TX + ACK = 120us
+         uint32_t packetCount = 1;
+         uint32_t maxRetry = 1024;
+         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+         double qn[nRT-1] = {0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86};
+         double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+         double alpha = 0.78;
+         double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
+         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
+         RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
+         uint32_t CWMin = 32;
+         uint32_t CWLevelCount = 6;
+         double Rmax = exp(5);
+         */
+
+    //  Testcase 6
+         uint32_t nRT = 11; // AP is 00:00:00:00:00:01
+         double packet_interval = 0.002; // 2ms
+         double startT = 2.5;
+         uint32_t nIntervals = 100;
+         double stopT = startT + nIntervals*packet_interval;
+         double offset = 0.000001; // 1us
+         uint32_t packetSize = 100; // TX + ACK = 120us
+         uint32_t packetCount = 1;
+         uint32_t maxRetry = 1024;
+         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+         double qn[nRT-1] = {0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98};
+         double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+         double alpha = 0.78;
+         double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
+         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+         RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
+         uint32_t CWMin = 32;
+         uint32_t CWLevelCount = 6;
+         double Rmax = exp(5);
 
     std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");

@@ -171,6 +171,7 @@ DcaTxop::DcaTxop ()
   m_queue = CreateObject<WifiMacQueue> ();
   m_rng = new RealRandomStream ();
   m_currentIntervalEnd = Seconds(0);
+  m_rtLinkParams = 0;
 }
 
 DcaTxop::~DcaTxop ()
@@ -489,26 +490,30 @@ DcaTxop::NotifyAccessGranted (void)
   MacLowTransmissionParameters params;
   params.DisableOverrideDurationId ();
 
-  /*
-   * Ping-Chun
-   */
-  RTLinkParams* rtparam = m_manager->GetRTLinkParams();
-  if (rtparam->IsIntentUp())
-  {
-	  rtparam->SetSwapActionUp();
-	  rtparam->ResetSwapIntent();
-  }
 
   if (m_currentHdr.GetAddr1 ().IsGroup ())
     {
       params.DisableRts ();
       params.DisableAck ();
       params.DisableNextData ();
-      Low ()->StartTransmission (m_currentPacket,
-                                 &m_currentHdr,
-                                 params,
-                                 m_transmissionListener);
-      NS_LOG_DEBUG ("tx broadcast");
+      //if (!RT_decentralized ||
+    		//  (RT_decentralized && IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params))){
+    	  Low ()->StartTransmission (m_currentPacket,
+                        &m_currentHdr,
+                        params,
+                        m_transmissionListener);
+    	  NS_LOG_DEBUG ("tx broadcast");
+    	  /*
+    	   * Ping-Chun
+    	   */
+      	  //if (RT_decentralized && m_rtLinkParams != 0){
+          //    if (m_rtLinkParams->IsIntentUp())
+        	//	  {
+        	//		  m_rtLinkParams->SetSwapActionUp();
+        	//		  m_rtLinkParams->ResetSwapIntent();
+        	//	  }
+          //}
+      //}
     }
   else
     {
@@ -528,14 +533,45 @@ DcaTxop::NotifyAccessGranted (void)
               NS_LOG_DEBUG ("fragmenting size=" << fragment->GetSize ());
               params.EnableNextData (GetNextFragmentSize ());
             }
-          Low ()->StartTransmission (fragment, &hdr, params,
-                                     m_transmissionListener);
+          //if (!RT_decentralized ||
+        	//	  (RT_decentralized && IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params))){
+        	 Low ()->StartTransmission (m_currentPacket,
+                              &m_currentHdr,
+                              params,
+                              m_transmissionListener);
+        	  /*
+        	   * Ping-Chun
+        	   */
+          	  //if (RT_decentralized && m_rtLinkParams != 0){
+              //    if (m_rtLinkParams->IsIntentUp())
+            //		  {
+            	//		  m_rtLinkParams->SetSwapActionUp();
+            	//		  m_rtLinkParams->ResetSwapIntent();
+            	//	  }
+              //}
+          //}
         }
       else
         {
-          params.DisableNextData ();
-          Low ()->StartTransmission (m_currentPacket, &m_currentHdr,
-                                     params, m_transmissionListener);
+              params.DisableNextData ();
+    	  	  //if (!RT_decentralized ||
+    	        // 		  (RT_decentralized && IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params))){
+    	          Low ()->StartTransmission (m_currentPacket,
+    	                               &m_currentHdr,
+    	                               params,
+    	                               m_transmissionListener);
+    	         	  /*
+    	         	   * Ping-Chun
+    	         	   */
+    	           if (RT_decentralized && m_rtLinkParams != 0){
+    	               if (m_rtLinkParams->IsIntentUp())
+    	             	{
+    	            	    m_rtLinkParams->SetSwapActionUp();
+    	             		m_rtLinkParams->ResetSwapIntent();
+    	         	    }
+    	           }
+    	       //}
+
         }
     }
 }
@@ -558,7 +594,9 @@ DcaTxop::NotifyCollision (void)
       m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
   } else {
 	  //m_dcf->StartBackoffNow (uint32_t(0));
-	  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
+	  if (m_rtLinkParams != 0){
+		  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
+	  }
   }
   RestartAccessIfNeeded ();
 }
@@ -678,11 +716,13 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
           m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
       } else {
     	  //m_dcf->StartBackoffNow (uint32_t(0));
-    	  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
-    	  if (RT_success){
-    	      UpdateDeliveryDebt (double(-1.0));
-    	  } else {
-    		  // do nothing so for...
+    	  if (m_rtLinkParams != 0){
+    		  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
+    		  if (RT_success){
+    			  UpdateDeliveryDebt (double(-1.0));
+    		  } else {
+    			  // do nothing so for...
+    		  }
     	  }
       }
 
@@ -724,7 +764,9 @@ DcaTxop::MissedAck (void)
       m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
   } else {
 	  //m_dcf->StartBackoffNow (uint32_t(0));
-	  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
+	  if (m_rtLinkParams != 0){
+		  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
+	  }
   }
   RestartAccessIfNeeded ();
 }
@@ -799,8 +841,10 @@ DcaTxop::EndTxNoAck (void)
       m_dcf->StartBackoffNow (m_rng->GetNext (0, m_dcf->GetCw ()));
   } else {
 	  //m_dcf->StartBackoffNow (uint32_t(0));
-	  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
-	  UpdateDeliveryDebt (double(-1.0));
+	  if (m_rtLinkParams != 0){
+		  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
+		  UpdateDeliveryDebt (double(-1.0));
+	  }
   }
   StartAccessIfNeeded ();
 }
