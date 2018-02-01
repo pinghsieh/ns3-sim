@@ -440,6 +440,7 @@ public:
   void SetRTLinkParams(RTLinkParams*);
   RTLinkParams* GetRTLinkParams();
   void ChangeSwapActionsInRTLinkParamsIfNeeded();
+  bool CheckBackoffIsRoughlyOneSlot();
 
   Time GetDifs();
 
@@ -595,6 +596,7 @@ private:
    *
    */
   RTLinkParams* m_rtLinkParams;
+  double m_effectiveBackoffTime;
 };
 
 } //namespace ns3

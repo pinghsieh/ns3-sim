@@ -351,7 +351,8 @@ DcfManager::DcfManager ()
     m_sifs (Seconds (0.0)),
     m_phyListener (0),
     m_lowListener (0),
-	m_rtLinkParams(0)
+	m_rtLinkParams(0),
+	m_effectiveBackoffTime(0)
 {
   NS_LOG_FUNCTION (this);
 }
@@ -706,6 +707,11 @@ void
 DcfManager::UpdateBackoff (void)
 {
   NS_LOG_FUNCTION (this);
+  if (m_rtLinkParams != 0){
+	  if (m_rtLinkParams->GetLinkPriority() == 9){
+		  m_rtLinkParams->GetLinkPriority();
+	  }
+  }
   uint32_t k = 0;
   for (States::const_iterator i = m_states.begin (); i != m_states.end (); i++, k++)
     {
@@ -714,8 +720,13 @@ DcfManager::UpdateBackoff (void)
       Time backoffStart = GetBackoffStartFor (state);
       if (backoffStart <= Simulator::Now ())
         {
-          uint32_t nus = (Simulator::Now () - backoffStart).GetMicroSeconds ();
-          uint32_t nIntSlots = nus / m_slotTimeUs;
+          //uint32_t nus = (Simulator::Now () - backoffStart).GetMicroSeconds ();
+          //uint32_t nIntSlots = nus / m_slotTimeUs;
+
+    	  /* Ping-Chun: fix the "missing slot" problem due to rounding (e.g. 8.999us)
+    	   * */
+          double nus = ((Simulator::Now () - backoffStart).GetNanoSeconds ())/1000.0;
+          uint32_t nIntSlots = (uint32_t) round(nus / (double(m_slotTimeUs)));
           /*
            * EDCA behaves slightly different to DCA. For EDCA we
            * decrement once at the slot boundary at the end of AIFS as
@@ -815,7 +826,11 @@ DcfManager::NotifyRxEndOkNow (void)
   /*
    * Ping-Chun: for decentralized priority algorithm
    */
+
   if (m_rtLinkParams != 0){
+	  if (m_rtLinkParams->GetLinkPriority() == 9){
+		  NS_LOG_DEBUG("Link priority is 9 here!!!");
+	  }
 	  ChangeSwapActionsInRTLinkParamsIfNeeded();
 	  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
   }
@@ -834,6 +849,9 @@ DcfManager::NotifyRxEndErrorNow (void)
    * Ping-Chun: for decentralized priority algorithm
    */
   if (m_rtLinkParams != 0){
+	  if (m_rtLinkParams->GetLinkPriority() == 9){
+		  NS_LOG_DEBUG("Link priority is 9 here!!!");
+	  }
 	  ChangeSwapActionsInRTLinkParamsIfNeeded();
 	  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
   }
@@ -1079,7 +1097,7 @@ DcfManager::ChangeSwapActionsInRTLinkParamsIfNeeded()
 	         * if channel is sensed busy when the remaining backoff number = 1
 	         */
 	        if (!state->IsEdca()) {
-	            if (((state->GetBackoffSlots()) == 1)){
+	            if (state->GetBackoffSlots() == 1){
 	            	/* Only for DEBUG*/
 	            	if (m_rtLinkParams->GetLinkPriority() == 9 && m_rtLinkParams->IsStateLead() ){
 	            		m_rtLinkParams->GetPacketSize();
@@ -1096,6 +1114,29 @@ Time
 DcfManager::GetDifs()
 {
 	return (m_sifs +  MicroSeconds (uint32_t(2)* m_slotTimeUs));
+}
+
+bool
+DcfManager::CheckBackoffIsRoughlyOneSlot()
+{
+	NS_LOG_FUNCTION (this);
+	//DcfState *state = *(m_states.begin ());
+	//Time backoffStart = GetBackoffStartFor (state);
+	//Time currentTime = Simulator::Now();
+	//if (m_rtLinkParams->GetLinkPriority() == 9){
+		//m_rtLinkParams->GetLinkPriority();
+	//}
+	//double diff = std::max(0.0, double((currentTime - backoffStart).GetNanoSeconds()))/1000.0; // in microseconds
+    //double nominal_remaining_backoff = double((state->GetBackoffSlots ())*m_slotTimeUs);
+    //double eff_remaining_backoff = nominal_remaining_backoff - diff;
+
+    double tolerance = 0.3*m_slotTimeUs;  // 30% slot time tolerance
+    if ((m_effectiveBackoffTime < 1*m_slotTimeUs + tolerance) &&
+    		(m_effectiveBackoffTime > 1*m_slotTimeUs - tolerance)){
+    	return true;
+   }else {
+	   return false;
+   }
 }
 
 } //namespace ns3
