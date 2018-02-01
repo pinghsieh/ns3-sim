@@ -440,7 +440,7 @@ public:
   void SetRTLinkParams(RTLinkParams*);
   RTLinkParams* GetRTLinkParams();
   void ChangeSwapActionsInRTLinkParamsIfNeeded();
-  bool CheckBackoffIsRoughlyOneSlot();
+  //bool CheckBackoffIsRoughlyOneSlot();
 
   Time GetDifs();
 

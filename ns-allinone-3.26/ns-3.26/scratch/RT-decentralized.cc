@@ -102,8 +102,8 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 	//uint32_t backoff = param->CalculateRTBackoff(rand_number);
 	//dca->SetDeterministicBackoff(backoff);
 
-    //param->ResetDcaBackoff(rand_number);
-    param->ResetDcaBackoff(9); //Only for DEBUG
+    param->ResetDcaBackoff(rand_number);
+    //param->ResetDcaBackoff(9); //Only for DEBUG
 
 	/* Generate packet count */
 	param->GeneratePacketCount();
@@ -314,17 +314,17 @@ main (int argc, char *argv[])
          uint32_t nRT = 11; // AP is 00:00:00:00:00:01
          double packet_interval = 0.002; // 2ms
          double startT = 2.5;
-         uint32_t nIntervals = 20;
+         uint32_t nIntervals = 1000;
          double stopT = startT + nIntervals*packet_interval;
          double offset = 0.000001; // 1us
          uint32_t packetSize = 100; // TX + ACK = 120us
          uint32_t packetCount = 1;
          uint32_t maxRetry = 1024;
-         //double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-         double channel_pn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-         double qn[nRT-1] = {0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98, 0.98};
+         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+         //double channel_pn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+         double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
          double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 1;
+         double alpha = 0.78;
          double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
          //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
          RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
@@ -361,7 +361,7 @@ main (int argc, char *argv[])
         /*
          * Ping-Chun: disable WiFi logging for faster simulations
          */
-    	wifi.EnableLogComponents ();  // Turn on all Wifi logging
+    	//wifi.EnableLogComponents ();  // Turn on all Wifi logging
 
     	//LogComponentEnableAll(LOG_PREFIX_NODE);
         //LogComponentEnable ("UdpClient", LOG_LEVEL_INFO);

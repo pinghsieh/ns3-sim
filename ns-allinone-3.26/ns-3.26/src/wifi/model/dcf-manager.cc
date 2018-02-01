@@ -1116,6 +1116,7 @@ DcfManager::GetDifs()
 	return (m_sifs +  MicroSeconds (uint32_t(2)* m_slotTimeUs));
 }
 
+/*
 bool
 DcfManager::CheckBackoffIsRoughlyOneSlot()
 {
@@ -1138,5 +1139,6 @@ DcfManager::CheckBackoffIsRoughlyOneSlot()
 	   return false;
    }
 }
+*/
 
 } //namespace ns3
