@@ -707,11 +707,12 @@ void
 DcfManager::UpdateBackoff (void)
 {
   NS_LOG_FUNCTION (this);
+  /*// Only for DEBUG
   if (m_rtLinkParams != 0){
 	  if (m_rtLinkParams->GetLinkPriority() == 9){
 		  m_rtLinkParams->GetLinkPriority();
 	  }
-  }
+  }*/
   uint32_t k = 0;
   for (States::const_iterator i = m_states.begin (); i != m_states.end (); i++, k++)
     {
@@ -828,9 +829,11 @@ DcfManager::NotifyRxEndOkNow (void)
    */
 
   if (m_rtLinkParams != 0){
+	  /*// Only for DEBUG
 	  if (m_rtLinkParams->GetLinkPriority() == 9){
 		  NS_LOG_DEBUG("Link priority is 9 here!!!");
 	  }
+	  */
 	  ChangeSwapActionsInRTLinkParamsIfNeeded();
 	  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
   }
@@ -849,9 +852,11 @@ DcfManager::NotifyRxEndErrorNow (void)
    * Ping-Chun: for decentralized priority algorithm
    */
   if (m_rtLinkParams != 0){
+	  /*// Only for DEBUG
 	  if (m_rtLinkParams->GetLinkPriority() == 9){
 		  NS_LOG_DEBUG("Link priority is 9 here!!!");
 	  }
+	  */
 	  ChangeSwapActionsInRTLinkParamsIfNeeded();
 	  m_rtLinkParams->SetDcaBackoffAfterTxorRxIfNeeded(); // for FCSMA
   }
@@ -1099,9 +1104,10 @@ DcfManager::ChangeSwapActionsInRTLinkParamsIfNeeded()
 	        if (!state->IsEdca()) {
 	            if (state->GetBackoffSlots() == 1){
 	            	/* Only for DEBUG*/
+	            	/*
 	            	if (m_rtLinkParams->GetLinkPriority() == 9 && m_rtLinkParams->IsStateLead() ){
 	            		m_rtLinkParams->GetPacketSize();
-	            	}
+	            	}*/
 	            	if (m_rtLinkParams != 0){
 	            		m_rtLinkParams->ChangePriorityIfNeeded();
 	            	}

@@ -98,6 +98,9 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 	/* Reset parameters for swapping */
     param->ResetAllSwapVariables();
 
+    /* Reset dummy packet*/
+    param->ResetIsUsingDummyPacket();
+
 	/* Reassign backoff timer */
 	//uint32_t backoff = param->CalculateRTBackoff(rand_number);
 	//dca->SetDeterministicBackoff(backoff);
@@ -107,6 +110,9 @@ StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t r
 
 	/* Generate packet count */
 	param->GeneratePacketCount();
+
+	/* Increase delivery debt */
+	param->AddDeliveryDebt((param->GetQn())*(param->GetArrivalRate()));
 
 	/* Get packet arrivals */
 	//for (uint32_t i = 0; i < param->GetPacketCount(); i++){
@@ -321,12 +327,15 @@ main (int argc, char *argv[])
          uint32_t packetCount = 1;
          uint32_t maxRetry = 1024;
          double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+         //double channel_pn[nRT-1] = {0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68};
          //double channel_pn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
          double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
+         //double qn[nRT-1] = {0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85 ,0.85};
+         //double qn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
          double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 0.78;
+         double alpha = 0.8;
          double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
          RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
          RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
          uint32_t CWMin = 32;

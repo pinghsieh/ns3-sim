@@ -560,20 +560,25 @@ DcaTxop::NotifyAccessGranted (void)
               params.DisableNextData ();
     	  	  //if (!RT_decentralized ||
     	        // 		  (RT_decentralized && IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params))){
-    	          Low ()->StartTransmission (m_currentPacket,
+         	  /*
+         	   * Ping-Chun
+         	   */
+               if (RT_decentralized && m_rtLinkParams != 0){
+                   if (m_rtLinkParams->IsIntentUp())
+             	    {
+            	        m_rtLinkParams->SetSwapActionUp();
+             		    m_rtLinkParams->ResetSwapIntent();
+         	        }
+                   if (m_rtLinkParams->GetIsUsingDummyPacket())
+                   {
+                	   //params.DisableAck ();
+                   }
+               }
+    	        Low ()->StartTransmission (m_currentPacket,
     	                               &m_currentHdr,
     	                               params,
     	                               m_transmissionListener);
-    	         	  /*
-    	         	   * Ping-Chun
-    	         	   */
-    	           if (RT_decentralized && m_rtLinkParams != 0){
-    	               if (m_rtLinkParams->IsIntentUp())
-    	             	{
-    	            	    m_rtLinkParams->SetSwapActionUp();
-    	             		m_rtLinkParams->ResetSwapIntent();
-    	         	    }
-    	           }
+
     	       //}
 
         }
@@ -692,24 +697,26 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
           m_currentPacket = 0;
           m_dcf->ResetCw ();
       } else {
-    	  if (RT_success){
-              m_currentPacket = 0;
-              m_dcf->ResetCw ();
-    	  }  else {
-              NS_LOG_DEBUG ("Retransmit");
-              MacLowTransmissionParameters params;
-              params.EnableAck ();
-              if (IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params)){
+    	  if (m_rtLinkParams != 0){
+    		  if (RT_success || m_rtLinkParams->GetIsUsingDummyPacket()){
+    			  m_currentPacket = 0;
+    			  m_dcf->ResetCw ();
+    		  }  else {
+    			  NS_LOG_DEBUG ("Retransmit");
+    			  MacLowTransmissionParameters params;
+    			  params.EnableAck ();
+    			  if (IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params)){
                   //NeedDataRetransmission();
             	  //m_queue->PushFront(m_currentPacket, m_currentHdr);
             	  //Queue(m_currentPacket, m_currentHdr);
             	  //RTLinkParams* rtparam = GetDcfManager()->GetRTLinkParams();
             	  //rtparam->EnqueueOnePacket();
             	  // TODO...
-              }
-              //m_currentPacket = 0;
-              m_dcf->ResetCw ();
-              //m_currentHdr.SetRetry ();
+    			  }
+    			  //m_currentPacket = 0;
+    			  m_dcf->ResetCw ();
+    			  //m_currentHdr.SetRetry ();
+    		  }
     	  }
       }
 
@@ -722,7 +729,7 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
     	  //m_dcf->StartBackoffNow (uint32_t(0));
     	  if (m_rtLinkParams != 0){
     		  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
-    		  if (RT_success){
+    		  if (RT_success  && !(m_rtLinkParams->GetIsUsingDummyPacket())){
     			  UpdateDeliveryDebt (double(-1.0));
     		  } else {
     			  // do nothing so for...
@@ -847,7 +854,7 @@ DcaTxop::EndTxNoAck (void)
 	  //m_dcf->StartBackoffNow (uint32_t(0));
 	  if (m_rtLinkParams != 0){
 		  m_dcf->StartBackoffNow (m_rtLinkParams->GetBackoffAfterTxorRx());
-		  UpdateDeliveryDebt (double(-1.0));
+		  //UpdateDeliveryDebt (double(-1.0));
 	  }
   }
   StartAccessIfNeeded ();
