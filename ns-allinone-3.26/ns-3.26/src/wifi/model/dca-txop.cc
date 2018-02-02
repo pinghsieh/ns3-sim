@@ -731,6 +731,8 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
     		  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
     		  if (RT_success  && !(m_rtLinkParams->GetIsUsingDummyPacket())){
     			  UpdateDeliveryDebt (double(-1.0));
+    			  m_rtLinkParams->DecrementPacketCount(1);
+    			  m_rtLinkParams->CallSchedulerIfNeeded();
     		  } else {
     			  // do nothing so for...
     		  }
@@ -946,6 +948,10 @@ DcaTxop::ClearExpiredPacketsAndDequeueValidOne()
 				}
     	}
     }
+	/* No more packet available
+	 * */
+	m_rtLinkParams->CallSchedulerIfNeeded();
+
 	/*
 	 * Ping-Chun: cancel access request if there is no packet available
 	 */
@@ -985,7 +991,10 @@ DcaTxop::ClearExpiredPackets()
 						m_queue->Dequeue(&m_currentHdr);
 					}
 	    	}
-	    }
+	 }
+	/* No more packet available
+	 * */
+	m_rtLinkParams->CallSchedulerIfNeeded();
 }
 
 bool

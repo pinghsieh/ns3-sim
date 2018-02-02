@@ -72,61 +72,61 @@ SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
 	dca->SetDeterministicBackoff(backoff);
 }
 
-
 void
-StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t rand_number)
+StartNewIntervalForScheduler (RTScheduler* sch, double rel_time)
 {
-	Ptr<AdhocWifiMac> mac_source = param->GetMacSource();
-	Ptr<DcaTxop> dca = param->GetDcaTxop();
-	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
+	Time t = Simulator::Now();
+	sch->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
 
+	/* Generate packet count */
+	sch->GeneratePacketCountForLinks();
+
+	/* Increase delivery debt */
+	sch->AddQnDeliveryDebtForLinks();
+
+	/* Scheduling starts */
+	sch->StartSchedulingTransmissionsNow();
+}
+void
+StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t rand_number)
+{
 	/* (i) Cancel on-going transmissions or (ii) should we check timing before sending?
 	 * Currently, choose option (ii)
 	 * */
-    /* Only for DEBUG*/
-	if (rand_number == 9){
+
+	if (param->IsUsingFCSMA() || param->IsUsingDBDP())
+	{
+		/* Set end of current interval */
+		Time t = Simulator::Now();
+		(param->GetDcaTxop())->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
+
+		/* Update priority */
+		param->UpdateLinkPriority();
+
+		/* Reset parameters for swapping */
+    	param->ResetAllSwapVariables();
+
+    	/* Reset dummy packet*/
+    	param->ResetIsUsingDummyPacket();
+
+		/* Reassign backoff timer */
+    	param->ResetDcaBackoff(rand_number);
+    	//param->ResetDcaBackoff(9); //Only for DEBUG
+
+		/* Generate packet count */
 		param->GeneratePacketCount();
+
+		/* Increase delivery debt */
+		param->AddDeliveryDebt((param->GetQn())*(param->GetArrivalRate()));
+
+		/* Get packet arrivals */
+		param->EnqueueMultiplePackets(param->GetPacketCount());
+		param->EnqueueDummyPacketIfNeeded();
 	}
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
 
-	/* Set end of current interval */
-	Time t = Simulator::Now();
-	dca->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
-
-	/* Update priority */
-	param->UpdateLinkPriority();
-
-	/* Reset parameters for swapping */
-    param->ResetAllSwapVariables();
-
-    /* Reset dummy packet*/
-    param->ResetIsUsingDummyPacket();
-
-	/* Reassign backoff timer */
-	//uint32_t backoff = param->CalculateRTBackoff(rand_number);
-	//dca->SetDeterministicBackoff(backoff);
-
-    param->ResetDcaBackoff(rand_number);
-    //param->ResetDcaBackoff(9); //Only for DEBUG
-
-	/* Generate packet count */
-	param->GeneratePacketCount();
-
-	/* Increase delivery debt */
-	param->AddDeliveryDebt((param->GetQn())*(param->GetArrivalRate()));
-
-	/* Get packet arrivals */
-	//for (uint32_t i = 0; i < param->GetPacketCount(); i++){
-		//mac_source->Enqueue(Create<Packet> (param->GetPacketSize()), param->GetMacDest()->GetAddress());
-	param->EnqueueMultiplePackets(param->GetPacketCount());
-		///* Update delivery debt*/
-		//dca->UpdateDeliveryDebt (param->GetQn());
-	//}
-	param->EnqueueDummyPacketIfNeeded();
-
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
-
+	/* Logging */
     param->PrintDeliveryDebtToFile();
 }
 
@@ -169,11 +169,12 @@ ReceivePacket (Ptr<Socket> socket)
 }
 
 void
-DeleteCustomObjects(std::vector<RTLinkParams*> paramVec)
+DeleteCustomObjects(std::vector<RTLinkParams*> paramVec, RTScheduler* sch)
 {
     for (uint32_t i =0 ; i < paramVec.size(); i++){
     	delete paramVec[i];
     }
+    delete sch;
 }
 /*
 static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t packetCount)
@@ -342,6 +343,8 @@ main (int argc, char *argv[])
          uint32_t CWLevelCount = 6;
          double Rmax = exp(5);
 
+         RTScheduler* scheduler = new RTScheduler();
+
     std::string debtlogpath ("RT-delivery-debt.txt");
     std::string backoffLog ("RT-backoff.log");
     std::random_device rd;
@@ -490,8 +493,9 @@ main (int argc, char *argv[])
         p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
         		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
 				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i, uint32_t(0),
-				 arrcode, arrivalRate[i-1], algcode, CWMin, CWLevelCount, Rmax);
+				 arrcode, arrivalRate[i-1], algcode, CWMin, CWLevelCount, Rmax, scheduler);
         paramVec.push_back(p);
+        scheduler->AddOneNewRTLink(p);
     }
 
     /* Simulator events: configuration */
@@ -522,7 +526,8 @@ main (int argc, char *argv[])
         	        			&FlushMacQueue, paramVec[i]);
 
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        			&StartNewInterval, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number);
+        			&StartNewIntervalForDistributedLink, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number);
+
 
         	//for (uint32_t j = 0; j < packetCount; j++){
         	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));
@@ -538,6 +543,9 @@ main (int argc, char *argv[])
             //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
             //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
         }
+        Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
+        		&StartNewIntervalForScheduler, scheduler, double(packet_interval-(2.0)*offset));
+
         Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(1.5)*offset),
                 			&PrintDashLines, stream);
     }
@@ -554,7 +562,7 @@ main (int argc, char *argv[])
 
 
     Simulator::Run();
-    DeleteCustomObjects(paramVec);
+    DeleteCustomObjects(paramVec, scheduler);
     Simulator::Destroy();
 
     std::cout << "Time taken: " << std::setprecision(5) << (double)(clock() - tStart)/CLOCKS_PER_SEC << " seconds" << "\n";
