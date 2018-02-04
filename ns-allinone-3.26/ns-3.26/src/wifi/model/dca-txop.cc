@@ -163,7 +163,8 @@ DcaTxop::DcaTxop ()
     m_currentPacket (0),
 	RT_decentralized (false),
 	delivery_debt (0.0),
-	channel_pn(0.0)
+	channel_pn(0.0),
+	m_diffDeliveryDebt(0.0)
 {
   NS_LOG_FUNCTION (this);
   m_transmissionListener = new DcaTxop::TransmissionListener (this);
@@ -894,7 +895,16 @@ void
 DcaTxop::UpdateDeliveryDebt(double d)
 {
 	NS_LOG_FUNCTION (this);
-	delivery_debt += d;
+	//delivery_debt += d;
+	m_diffDeliveryDebt += d;
+}
+
+void
+DcaTxop::ApplyDiffDeliveryDebt(void)
+{
+	NS_LOG_FUNCTION (this);
+	delivery_debt += m_diffDeliveryDebt;
+	m_diffDeliveryDebt = 0;
 }
 
 double

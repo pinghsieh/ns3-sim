@@ -143,6 +143,7 @@ public:
     double GetDeliveryDebt(void);
     void DecrementPacketCount(uint32_t);
     void CallSchedulerIfNeeded();
+    void UpdateDebt();
 
 private:
 	Ptr<WifiNetDevice> m_netDev;

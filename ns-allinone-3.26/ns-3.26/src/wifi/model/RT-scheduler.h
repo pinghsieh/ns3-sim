@@ -50,6 +50,7 @@ class RTScheduler: public Object
 		bool IsScheduled() { return m_scheduled;}
 		void ResetScheduled() {m_scheduled = false;}
 		uint32_t GetRTLinkCount();
+		void UpdateDebt();
 
 	private:
 		std::vector<RTLinkParams*> m_rtLinkVec;

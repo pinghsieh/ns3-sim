@@ -78,6 +78,9 @@ StartNewIntervalForScheduler (RTScheduler* sch, double rel_time)
 	Time t = Simulator::Now();
 	sch->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
 
+	/* Update delivery debt */
+	sch->UpdateDebt();
+
 	/* Generate packet count */
 	sch->GeneratePacketCountForLinks();
 
@@ -109,6 +112,9 @@ StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32
 
 		/* Update priority */
 		param->UpdateLinkPriority();
+
+		/* Update delivery debt*/
+		param->UpdateDebt();
 
 		/* Reset parameters for swapping */
     	param->ResetAllSwapVariables();
@@ -247,7 +253,7 @@ main (int argc, char *argv[])
     double Rmax = exp(5);
 
     /* Test case */
-    uint32_t testId = 5;
+    uint32_t testId = 6;
 
      switch(testId){
 
@@ -407,7 +413,7 @@ main (int argc, char *argv[])
          		 alpha = 0.55;
          		 alphan.assign(nRT-1,alpha);
          		 maxPacketCount = 6;
-         		 lambda = 0.88;
+         		 lambda = 0.84;
          		 arrivalRate.assign(nRT-1,lambda);
         		 algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
         		 arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
@@ -423,7 +429,7 @@ main (int argc, char *argv[])
     		 nRT = 11; // AP is 00:00:00:00:00:01
     		 packet_interval = 0.002; // 2ms
     		 startT = 2.5;
-    		 nIntervals = 200;
+    		 nIntervals = 2000;
     		 stopT = startT + nIntervals*packet_interval;
     		 offset = 0.000001; // 1us
     		 packetSize = 100; // TX + ACK = 120us

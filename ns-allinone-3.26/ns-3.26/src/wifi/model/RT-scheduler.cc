@@ -175,6 +175,15 @@ RTScheduler::GetRTLinkCount()
 	return (m_rtLinkVec.size());
 }
 
+void
+RTScheduler::UpdateDebt()
+{
+	for (uint32_t i = 0; i < m_rtLinkVec.size(); i++)
+	{
+		m_rtLinkVec.at(i)->UpdateDebt();
+	}
+}
+
 }
 
 

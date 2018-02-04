@@ -175,8 +175,8 @@ RTLinkParams::CalculateAccessProbability(void)
 	// TODO
 	NS_LOG_FUNCTION (this);
     double debt = GetDcaTxop()->GetDeliveryDebt();
-    double numerator = exp(m_pn*log10(std::max(0.001, debt)));
-    double denominator =  m_R + exp(m_pn*log10(std::max(0.001, debt)));
+    double numerator = exp(m_pn*log10(std::max(1.0, 100.0*(debt+1.0))));
+    double denominator =  m_R + exp(m_pn*log10(std::max(1.0, 100.0*(debt+1.0))));
     return (numerator/denominator);
 }
 
@@ -487,6 +487,12 @@ RTLinkParams::CallSchedulerIfNeeded()
 	if (IsUsingScheduler()){
 		m_scheduler->ReceiveCallFromScheduledLink(this);
 	}
+}
+
+void
+RTLinkParams::UpdateDebt()
+{
+	GetDcaTxop()->ApplyDiffDeliveryDebt();
 }
 
 }
