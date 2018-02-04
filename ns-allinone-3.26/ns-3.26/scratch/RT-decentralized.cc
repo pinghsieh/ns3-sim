@@ -216,143 +216,238 @@ main (int argc, char *argv[])
     bool verbose = true;
     bool tracing = true;
 
-    /*
-    //  Testcase 1
-    uint32_t nRT = 11; // AP is 00:00:00:00:00:01
-    double packet_interval = 0.002; // 2ms
-    double startT = 2.5;
-    uint32_t nIntervals = 100;
-    double stopT = startT + nIntervals*packet_interval;
-    double offset = 0.000001; // 1us
-    uint32_t packetSize = 100;
+    /* Declaration */
+    uint32_t nRT = 1;
+    double packet_interval = 1;
+    double startT = 0;
+    uint32_t nIntervals = 1;
+    double stopT = 1;
+    double offset = 0;
+    uint32_t packetSize = 10;
     uint32_t packetCount = 1;
     uint32_t maxRetry = 1024;
-    double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-    double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
-    double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-    double alpha = 0.78;
-    double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-    */
-
-    /*
-    //  Testcase 2
-    uint32_t nRT = 6; // AP is 00:00:00:00:00:01
-    double packet_interval = 0.002; // 2ms
-    double startT = 2.5;
-    uint32_t nIntervals = 1000;
-    double stopT = startT + nIntervals*packet_interval;
-    double offset = 0.000001; // 1us
-    uint32_t packetSize = 1400; // TX + ACK = 276us
-    uint32_t packetCount = 1;
-    uint32_t maxRetry = 1024;
-    double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-    double qn[nRT-1] = {0.816, 0.816, 0.816, 0.816, 0.816};  // capacity q = 0.8165
-    double R[nRT-1]= {10, 10, 10, 10, 10};
+    double p = 1;
+    double p1 = 1;
+    double p2 = 1;
+    std::vector<double> channel_pn;
+    double q = 1;
+    std::vector<double> qn;
+    double R = 1;
     double alpha = 1;
-    double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha};
-    RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+    std::vector<double> alphan;
+    uint32_t maxPacketCount = 1;
+    double lambda = 1;
+    double lambda1 = 1;
+    double lambda2 = 1;
+    std::vector<double> arrivalRate;
+    RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
     uint32_t CWMin = 32;
     uint32_t CWLevelCount = 6;
     double Rmax = exp(5);
-    */
-    /*
-    //  Testcase 3
-    uint32_t nRT = 4; // AP is 00:00:00:00:00:01
-    double packet_interval = 0.002; // 2ms
-    double startT = 2.5;
-    uint32_t nIntervals =10000;
-    double stopT = startT + nIntervals*packet_interval;
-    double offset = 0.000001; // 1us
-    uint32_t packetSize = 1400; // TX + ACK = 276us
-    uint32_t packetCount = 1;
-    uint32_t maxRetry = 1024;
-    double channel_pn[nRT-1] = {0.5, 0.5, 0.5}; // for unreliable transmissions
-    double qn[nRT-1] = {0.78, 0.78, 0.78};  // capacity q = 0.8438 when alpha = 1
-    double R[nRT-1]= {10, 10, 10};
-    double alpha = 0.7;
-    double arrivalRate[nRT-1] = {alpha, alpha, alpha};
-    //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-    RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-    RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-    uint32_t CWMin = 32;
-    uint32_t CWLevelCount = 6;
-    double Rmax = exp(5);
-    */
-/*
-     //  Testcase 4
-     uint32_t nRT = 6; // AP is 00:00:00:00:00:01
-     double packet_interval = 0.002; // 2ms
-     double startT = 2.5;
-     uint32_t nIntervals =5000;
-     double stopT = startT + nIntervals*packet_interval;
-     double offset = 0.000001; // 1us
-     uint32_t packetSize = 1400; // TX + ACK = 276us
-     uint32_t packetCount = 1;
-     uint32_t maxRetry = 1024;
-     double channel_pn[nRT-1] = {0.5, 0.5, 0.5, 0.5, 0.5}; // for unreliable transmissions
-     double qn[nRT-1] = {0.6, 0.6, 0.6, 0.6, 0.6};  // capacity q = 0.8438 when alpha = 1
-     double R[nRT-1]= {10, 10, 10, 10, 10};
-     double alpha = 0.7;
-     double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha};
-     //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-     RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-     RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-     uint32_t CWMin = 32;
-     uint32_t CWLevelCount = 6;
-     double Rmax = exp(5);
-     */
-    /*
-    //  Testcase 5
-         uint32_t nRT = 11; // AP is 00:00:00:00:00:01
-         double packet_interval = 0.002; // 2ms
-         double startT = 2.5;
-         uint32_t nIntervals =5000;
-         double stopT = startT + nIntervals*packet_interval;
-         double offset = 0.000001; // 1us
-         uint32_t packetSize = 100; // TX + ACK = 120us
-         uint32_t packetCount = 1;
-         uint32_t maxRetry = 1024;
-         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-         double qn[nRT-1] = {0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86};
-         double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 0.78;
-         double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-         RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-         uint32_t CWMin = 32;
-         uint32_t CWLevelCount = 6;
-         double Rmax = exp(5);
-         */
 
-    //  Testcase 6
-         uint32_t nRT = 11; // AP is 00:00:00:00:00:01
-         double packet_interval = 0.002; // 2ms
-         double startT = 2.5;
-         uint32_t nIntervals = 3000;
-         double stopT = startT + nIntervals*packet_interval;
-         double offset = 0.000001; // 1us
-         uint32_t packetSize = 100; // TX + ACK = 120us
-         uint32_t packetCount = 1;
-         uint32_t maxRetry = 1024;
-         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-         //double channel_pn[nRT-1] = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1};
-         //double channel_pn[nRT-1] = {0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68};
-         //double channel_pn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-         double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
-         //double qn[nRT-1] = {0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85 ,0.85};
-         //double qn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-         double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 0.83;
-         double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
-         RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-         uint32_t CWMin = 32;
-         uint32_t CWLevelCount = 6;
-         double Rmax = exp(5);
+    /* Test case */
+    uint32_t testId = 5;
 
+     switch(testId){
+
+     	 case 1: {
+     		 /*  Testcase 1: 20 links, symmetric, Bern-Unif arrivals between 1~6, pn=0.7
+     		  *  fix qn = 0.9, change alpha
+     		  * */
+     		 nRT = 21; // AP is 00:00:00:00:00:01
+     		 packet_interval = 0.02; // 20ms
+     		 startT = 2.5;
+     		 nIntervals = 200;
+     		 stopT = startT + nIntervals*packet_interval;
+     		 offset = 0.000001; // 1us
+     		 packetSize = 1500; // TX + ACK = 330us
+     		 packetCount = 1;
+     		 maxRetry = 1024;
+     		 p = 0.7;
+     		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
+     		 q = 0.9;
+     		 qn.assign(nRT-1,q);
+     		 R = 10;
+     		 alpha = 0.55;
+     		 alphan.assign(nRT-1, alpha);
+     		 maxPacketCount = 6;
+     		 lambda = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 arrivalRate.assign(nRT-1, lambda);
+     		 algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+     		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+     		 CWMin = 32;
+     		 CWLevelCount = 6;
+     		 Rmax = exp(5);
+     		 break;
+     	 }
+
+     	 case 2: {
+     		 /*  Testcase 1: 20 links, symmetric, Bern-Unif arrivals between 1~6, pn=0.7
+     		  *  fix alpha = 0.55, change qn
+     		  * */
+     		 nRT = 21; // AP is 00:00:00:00:00:01
+     		 packet_interval = 0.02; // 20ms
+     		 startT = 2.5;
+     		 nIntervals = 3000;
+     		 stopT = startT + nIntervals*packet_interval;
+     		 offset = 0.000001; // 1us
+     		 packetSize = 1500; // TX + ACK = 330us
+     		 packetCount = 1;
+     		 maxRetry = 1024;
+     		 p = 0.7;
+     		 channel_pn.assign(nRT-1,p);  // for unreliable transmissions
+     		 q = 0.9;
+     		 qn.assign(nRT-1,q);
+     		 R = 10;
+     		 alpha = 0.55;
+     		 alphan.assign(nRT-1, alpha);
+     		 maxPacketCount = 6;
+     		 lambda = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 arrivalRate.assign(nRT-1, lambda);
+     		 algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+     		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+     		 CWMin = 32;
+     		 CWLevelCount = 6;
+     		 Rmax = exp(5);
+     		 break;
+     	 }
+     	 case 3: {
+     		 /*  Testcase 3: 20 links, asymmetric, Bern-Unif arrivals between 1~6
+     		  *  2 groups
+     		  *  group 1: pn = 0.8, alphan = alpha
+     		  *  group 2: pn = 0.5, alphan = 0.5*alpha
+     		  *  fix qn=0.9, change alpha
+     		  * */
+     		 nRT = 21; // AP is 00:00:00:00:00:01
+     		 packet_interval = 0.02; // 20ms
+     		 startT = 2.5;
+     		 nIntervals = 3000;
+     		 stopT = startT + nIntervals*packet_interval;
+     		 offset = 0.000001; // 1us
+     		 packetSize = 1500; // TX + ACK = 330us
+     		 packetCount = 1;
+     		 maxRetry = 1024;
+     		 p1 = 0.8;
+     		 p2 = 0.5;
+     		 channel_pn = {p1, p1, p1, p1, p1, p1, p1, p1, p1, p1, p2, p2, p2, p2, p2, p2, p2, p2, p2, p2}; // for unreliable transmissions
+     		 q = 0.9;
+     		 qn = {q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q};
+     		 R = 10;
+     		 alpha = 0.55;
+     		 alphan = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha,
+     				 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha};
+     		 maxPacketCount = 6;
+     		 lambda1 = lambda = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 lambda2 = lambda = ((double(1 + maxPacketCount))/2.0)*0.5*alpha;
+     		 arrivalRate = {lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1,
+     				 lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2};
+     		 algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+     		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+     		 CWMin = 32;
+     		 CWLevelCount = 6;
+     		 Rmax = exp(5);
+     		 break;
+     	 }
+     	case 4: {
+     	     		 /*  Testcase 4: 20 links, deadline 20ms, asymmetric, Bern-Unif arrivals between 1~6
+     	     		  *  2 groups
+     	     		  *  group 1: pn = 0.8, alphan = alpha
+     	     		  *  group 2: pn = 0.5, alphan = 0.5*alpha
+     	     		  *  fix alpha=0.7, change qn
+     	     		  * */
+    		 nRT = 21; // AP is 00:00:00:00:00:01
+    		 packet_interval = 0.02; // 20ms
+    		 startT = 2.5;
+    		 nIntervals = 3000;
+    		 stopT = startT + nIntervals*packet_interval;
+    		 offset = 0.000001; // 1us
+    		 packetSize = 1500; // TX + ACK = 330us
+    		 packetCount = 1;
+    		 maxRetry = 1024;
+    		 p1 = 0.8;
+    		 p2 = 0.5;
+    		 channel_pn = {p1, p1, p1, p1, p1, p1, p1, p1, p1, p1, p2, p2, p2, p2, p2, p2, p2, p2, p2, p2}; // for unreliable transmissions
+    		 q = 0.9;
+    		 qn = {q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q, q};
+    		 R = 10;
+    		 alpha = 0.7;
+    		 alphan = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha,
+    				 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha, 0.5*alpha};
+    		 maxPacketCount = 6;
+     		 lambda1 = lambda = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 lambda2 = lambda = ((double(1 + maxPacketCount))/2.0)*0.5*alpha;
+     		 arrivalRate = {lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1, lambda1,
+     				 lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2, lambda2};
+    		 algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+    		 CWMin = 32;
+    		 CWLevelCount = 6;
+    		 Rmax = exp(5);
+    		 break;
+     	     	 }
+      	 case 5: {
+   	     		 /*  Testcase 5: 10 links, deadline = 2ms, 100Byte, symmetric, Bernoulli arrivals, pn = 0.7
+   	     		  *  fix qn=0.99, change arrival rate (lambda)
+   	     		  * */
+        		 nRT = 11; // AP is 00:00:00:00:00:01
+        		 packet_interval = 0.002; // 2ms
+        		 startT = 2.5;
+        		 nIntervals = 10000;
+        		 stopT = startT + nIntervals*packet_interval;
+        		 offset = 0.000001; // 1us
+        		 packetSize = 100; // TX + ACK = 120us
+        		 packetCount = 1;
+        		 maxRetry = 1024;
+        		 p = 0.7;
+        		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
+ 	     		 q = 0.99;
+ 	     		 qn.assign(nRT-1,q);
+        		 R = 10;
+         		 alpha = 0.55;
+         		 alphan.assign(nRT-1,alpha);
+         		 maxPacketCount = 6;
+         		 lambda = 0.88;
+         		 arrivalRate.assign(nRT-1,lambda);
+        		 algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+        		 arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
+        		 CWMin = 32;
+        		 CWLevelCount = 6;
+        		 Rmax = exp(5);
+        		 break;
+        	 }
+    	 case 6: {
+	     		 /*  Testcase 6: 10 links, deadline = 2ms, 100Byte, symmetric, Bernoulli arrivals, pn = 0.7
+	     		  *  fix arrival rate (lambda)=0.78, change qn
+	     		  * */
+    		 nRT = 11; // AP is 00:00:00:00:00:01
+    		 packet_interval = 0.002; // 2ms
+    		 startT = 2.5;
+    		 nIntervals = 200;
+    		 stopT = startT + nIntervals*packet_interval;
+    		 offset = 0.000001; // 1us
+    		 packetSize = 100; // TX + ACK = 120us
+    		 packetCount = 1;
+    		 maxRetry = 1024;
+    		 p = 0.7;
+    		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
+    		 q = 0.99;
+    		 qn.assign(nRT-1,q);
+    		 R = 10;
+     		 alpha = 0.55;
+     		 alphan.assign(nRT-1,alpha);
+     		 maxPacketCount = 6;
+     		 lambda = 0.78;
+     		 arrivalRate.assign(nRT-1,lambda);
+    		 algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    		 arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
+    		 CWMin = 32;
+    		 CWLevelCount = 6;
+    		 Rmax = exp(5);
+    		 break;
+     	 }
+
+     };
 
          RTScheduler* scheduler = new RTScheduler();
 
@@ -503,8 +598,8 @@ main (int argc, char *argv[])
          */
         p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
         		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
-				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i, uint32_t(0),
-				 arrcode, arrivalRate[i-1], algcode, CWMin, CWLevelCount, Rmax, scheduler);
+				 packetSize, packetCount, i, qn[i-1], R, channel_pn[i-1], stream, i, uint32_t(0),
+				 arrcode, arrivalRate[i-1], algcode, CWMin, CWLevelCount, Rmax, scheduler, maxPacketCount, alphan[i-1]);
         paramVec.push_back(p);
         scheduler->AddOneNewRTLink(p);
     }
@@ -525,8 +620,10 @@ main (int argc, char *argv[])
         uint32_t rand_number = distribution(generator);
 
         /* Schedule events for centralized link scheduler */
-        Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
+        if (scheduler->GetRTLinkCount() > 0){
+        	Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
         		&StartNewIntervalForScheduler, scheduler, double(packet_interval-(2.0)*offset));
+        }
 
         /* Tracing for MAC events */
         for (uint32_t i = 0; i < nRT - 1; i++)

@@ -42,7 +42,9 @@ void
 RTScheduler::AddOneNewRTLink(RTLinkParams* p)
 {
 	if (p != 0){
-		m_rtLinkVec.push_back(p);
+		if (p->IsUsingScheduler()){
+			m_rtLinkVec.push_back(p);
+		}
 	}
 }
 

@@ -68,6 +68,7 @@ public:
 	 {
 		 ARR_BERN,
 		 ARR_UNIF,
+		 ARR_BERNUNIF,
 		 ARR_CONST
 	 };
 	 enum AlgorithmCode
@@ -80,12 +81,12 @@ public:
 	RTLinkParams();
     RTLinkParams(Ptr<WifiNetDevice>, Ptr<AdhocWifiMac>,
     		uint32_t ps, uint32_t pc, uint32_t lp, double qn, double R, double pn, uint32_t id, uint32_t bo, double ar,
-			uint32_t cwm, uint32_t cwl, double rmax);
+			uint32_t cwm, uint32_t cwl, double rmax, uint32_t mpc, double mal);
     virtual ~RTLinkParams();
     void DoInitialize(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
     		uint32_t ps, uint32_t pc, uint32_t lp, double qn, double R, double pn,
 			Ptr<OutputStreamWrapper> osw, uint32_t id, uint32_t bo, ArrivalCode ac, double ar, AlgorithmCode alc,
-			uint32_t cwm, uint32_t cwl, double rmax, RTScheduler* sch);
+			uint32_t cwm, uint32_t cwl, double rmax, RTScheduler* sch, uint32_t mpc, double mal);
     //void DoDispose();
 
     Ptr<WifiNetDevice> GetNetDevice();
@@ -171,6 +172,9 @@ private:
     double m_Rmax;
     /* For LDF*/
     RTScheduler* m_scheduler;
+    /* For arrival process*/
+    uint32_t m_maxPacketCount;
+    double m_alpha;
 
 };
 

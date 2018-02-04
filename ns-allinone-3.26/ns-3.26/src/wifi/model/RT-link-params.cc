@@ -63,7 +63,9 @@ RTLinkParams::RTLinkParams()
    m_isUsingDummyPacket(false),
    m_CWMin(1),
    m_CWLevelCount(1),
-   m_Rmax(1)
+   m_Rmax(1),
+   m_maxPacketCount(1),
+   m_alpha(0)
 {
     std::random_device rd;
     m_generator = std::minstd_rand0(rd());
@@ -71,7 +73,7 @@ RTLinkParams::RTLinkParams()
 
 RTLinkParams::RTLinkParams(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
 		uint32_t ps, uint32_t pc, uint32_t lp, double qn, double R, double pn, uint32_t id,
-		uint32_t bo, double ar, uint32_t cwm, uint32_t cwl, double rmax)
+		uint32_t bo, double ar, uint32_t cwm, uint32_t cwl, double rmax, uint32_t mpc, double mal)
 {
 	m_netDev = nd;
     m_macDest = wm;
@@ -96,6 +98,8 @@ RTLinkParams::RTLinkParams(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
     m_CWMin = cwm;
     m_CWLevelCount = cwl;
     m_Rmax = rmax;
+    m_maxPacketCount = mpc;
+    m_alpha = mal;
 }
 
 RTLinkParams::~RTLinkParams()
@@ -108,7 +112,7 @@ RTLinkParams::DoInitialize(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
 		uint32_t ps, uint32_t pc, uint32_t lp, double qn, double R, double pn,
 		Ptr<OutputStreamWrapper> osw, uint32_t id, uint32_t bo, ArrivalCode ac,
 		double ar, AlgorithmCode alc, uint32_t cwm, uint32_t cwl, double rmax,
-		RTScheduler* sch)
+		RTScheduler* sch, uint32_t mpc, double mal)
 {
 	m_netDev = nd;
     m_macDest = wm;
@@ -130,7 +134,11 @@ RTLinkParams::DoInitialize(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
     m_CWMin = cwm;
     m_CWLevelCount = cwl;
     m_Rmax = rmax;
-    m_scheduler = sch;
+    if (IsUsingScheduler()){
+    	m_scheduler = sch;
+    }
+    m_maxPacketCount = mpc;
+    m_alpha = mal;
 }
 
 Ptr<WifiNetDevice>
@@ -273,6 +281,16 @@ RTLinkParams::GeneratePacketCount(void)
 				uint32_t maxCount = (uint32_t) ceil(2*m_arrivalRate);
 				std::uniform_int_distribution<uint32_t> distribution_int(0, std::max(uint32_t(0),maxCount));
 				m_packetCount = distribution_int(m_generator);
+				break;}
+		case ARR_BERNUNIF: {
+				/* with probability alpha, uniformly distributed within {1,...,m_maxPacketCount}
+				 * with probability (1-alpha), 0 packet
+				 */
+			    std::uniform_int_distribution<uint32_t> distribution_int(1, std::max(uint32_t(1),m_maxPacketCount));
+			    uint32_t pc = distribution_int(m_generator);
+		        std::uniform_real_distribution<double> distribution_unif(0.0, 1.0);
+		        double rand_number = distribution_unif(m_generator);
+		        m_packetCount = (rand_number < m_alpha)? pc:0;
 				break;}
 		case ARR_CONST: {
 			// Constant arrivals
