@@ -84,6 +84,13 @@ StartNewIntervalForScheduler (RTScheduler* sch, double rel_time)
 	/* Increase delivery debt */
 	sch->AddQnDeliveryDebtForLinks();
 
+	/* Logging */
+	for (uint32_t i = 0; i < (sch->GetRTLinkCount()); i++){
+		sch->GetRTLinkAtPosition(i)->PrintDeliveryDebtToFile();
+	}
+
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": in scheduler\n");
+
 	/* Scheduling starts */
 	sch->StartSchedulingTransmissionsNow();
 }
@@ -122,19 +129,20 @@ StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32
 		/* Get packet arrivals */
 		param->EnqueueMultiplePackets(param->GetPacketCount());
 		param->EnqueueDummyPacketIfNeeded();
+
+		/* Logging */
+	    param->PrintDeliveryDebtToFile();
 	}
 	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
 	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
-
-	/* Logging */
-    param->PrintDeliveryDebtToFile();
 }
 
 void
 PrintHeadersToFile(Ptr<OutputStreamWrapper> stream)
 {
 	*(stream->GetStream()) << std::setw(10) << "Link ID" << std::setw(12) << "Timestamp" << std::setw(20)
-			<< "Delivery Debt" << std::setw(10) << "Priority" << std::setw(15) << "Backoff" << std::setw(16) << "Queue Length" << "\n";
+			<< "Delivery Debt" << std::setw(10) << "Priority" << std::setw(15) << "Backoff" << std::setw(16)
+			<< "Queue Length" << std::setw(15) << "Packet Count" << "\n";
 }
 
 void
@@ -321,27 +329,30 @@ main (int argc, char *argv[])
          uint32_t nRT = 11; // AP is 00:00:00:00:00:01
          double packet_interval = 0.002; // 2ms
          double startT = 2.5;
-         uint32_t nIntervals = 1000;
+         uint32_t nIntervals = 3000;
          double stopT = startT + nIntervals*packet_interval;
          double offset = 0.000001; // 1us
          uint32_t packetSize = 100; // TX + ACK = 120us
          uint32_t packetCount = 1;
          uint32_t maxRetry = 1024;
          double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
+         //double channel_pn[nRT-1] = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1};
          //double channel_pn[nRT-1] = {0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68};
          //double channel_pn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
          double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
          //double qn[nRT-1] = {0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85 ,0.85};
          //double qn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
          double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 0.8;
+         double alpha = 0.83;
          double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
          //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
          RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
          uint32_t CWMin = 32;
          uint32_t CWLevelCount = 6;
          double Rmax = exp(5);
+
 
          RTScheduler* scheduler = new RTScheduler();
 
@@ -513,6 +524,10 @@ main (int argc, char *argv[])
     	// links at priority (rand_number, rand_number+1) is the swapping pair
         uint32_t rand_number = distribution(generator);
 
+        /* Schedule events for centralized link scheduler */
+        Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
+        		&StartNewIntervalForScheduler, scheduler, double(packet_interval-(2.0)*offset));
+
         /* Tracing for MAC events */
         for (uint32_t i = 0; i < nRT - 1; i++)
         {
@@ -543,8 +558,6 @@ main (int argc, char *argv[])
             //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
             //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
         }
-        Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        		&StartNewIntervalForScheduler, scheduler, double(packet_interval-(2.0)*offset));
 
         Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(1.5)*offset),
                 			&PrintDashLines, stream);

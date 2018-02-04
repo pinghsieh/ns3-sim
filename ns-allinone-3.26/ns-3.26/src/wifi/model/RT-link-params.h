@@ -97,6 +97,7 @@ public:
     double GetPn() { return m_pn; }
     uint32_t GetSwapId() { return m_swapId;}
     double GetArrivalRate() { return m_arrivalRate;}
+    uint32_t GetLinkId() { return m_linkId; }
     Ptr<DcaTxop> GetDcaTxop();
     Ptr<AdhocWifiMac> GetMacSource();
     bool GetIsUsingDummyPacket() { return m_isUsingDummyPacket;}

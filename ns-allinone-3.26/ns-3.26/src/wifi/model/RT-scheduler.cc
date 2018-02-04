@@ -26,7 +26,9 @@ RTScheduler::GetTypeId (void)
 }
 
 RTScheduler::RTScheduler(void):
-		m_rtLinkVec(std::vector<RTLinkParams*>())
+		m_rtLinkVec(std::vector<RTLinkParams*>()),
+		m_scheduled(false),
+		m_scheduledLinkId(0)
 {
 
 }
@@ -131,17 +133,24 @@ RTScheduler::AddQnDeliveryDebtForLinks()
 void
 RTScheduler::StartSchedulingTransmissionsNow()
 {
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": in StartSchedulingTransmissionsNow() \n");
 	/* Get the pointer of the link to be scheduled
 	 * If pointer is 0, then this means there is no link with a valid packet
 	 * */
-	RTLinkParams* p = UpdateSchedulingDecision();
-	if (p != 0)
-	{
-		p->EnqueueOnePacket();
-		p->DecrementPacketCount(1);
-	} else {
-		// No more action by scheduler in this interval
-		// Do nothing for now
+	if (! IsScheduled()){
+		RTLinkParams* p = UpdateSchedulingDecision();
+		if (p != 0)
+		{
+			m_scheduledLinkId = p->GetLinkId();
+			/* Note: decrement first, then enqueue the packet.
+			 * Otherwise, the scheduling process will be an infinite loop
+			 * */
+			p->DecrementPacketCount(1);
+			p->EnqueueOnePacket();
+		} else {
+			// No more action by scheduler in this interval
+			// Do nothing for now
+		}
 	}
 }
 
@@ -151,7 +160,17 @@ RTScheduler::ReceiveCallFromScheduledLink(RTLinkParams* p)
 	/* This function is called by the scheduled link when this link
 	 * delivers the packet or drop a expired packet
 	 * */
-	StartSchedulingTransmissionsNow();
+	NS_ASSERT(p != 0);
+	if (p->GetLinkId() == m_scheduledLinkId){
+		ResetScheduled();
+		StartSchedulingTransmissionsNow();
+	}
+}
+
+uint32_t
+RTScheduler::GetRTLinkCount()
+{
+	return (m_rtLinkVec.size());
 }
 
 }

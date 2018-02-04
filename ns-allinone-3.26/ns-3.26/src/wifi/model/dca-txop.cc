@@ -338,6 +338,15 @@ DcaTxop::RestartAccessIfNeeded (void)
     {
       m_manager->RequestAccess (m_dcf);
     }
+  else{
+	  /* It's possible that all packets are cleared by ClearExpiredPackets() */
+	  if (m_currentPacket == 0 && m_queue->IsEmpty ()){
+			/* No more packet available
+			 * */
+		    m_dcf->ResetAccessRequested();
+			m_rtLinkParams->CallSchedulerIfNeeded();
+	  }
+  }
 }
 
 void
@@ -353,6 +362,15 @@ DcaTxop::StartAccessIfNeeded (void)
     {
       m_manager->RequestAccess (m_dcf);
     }
+  else{
+	  /* It's possible that all packets are cleared by ClearExpiredPackets() */
+	  if (m_currentPacket == 0 && m_queue->IsEmpty ()){
+			/* No more packet available
+			 * */
+		    m_dcf->ResetAccessRequested();
+			m_rtLinkParams->CallSchedulerIfNeeded();
+	  }
+  }
 }
 
 Ptr<MacLow>
@@ -994,7 +1012,7 @@ DcaTxop::ClearExpiredPackets()
 	 }
 	/* No more packet available
 	 * */
-	m_rtLinkParams->CallSchedulerIfNeeded();
+	//m_rtLinkParams->CallSchedulerIfNeeded();
 }
 
 bool

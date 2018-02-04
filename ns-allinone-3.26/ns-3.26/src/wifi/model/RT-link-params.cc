@@ -214,7 +214,8 @@ RTLinkParams::PrintDeliveryDebtToFile(void)
 {
 	NS_LOG_FUNCTION (this);
     *(m_stream->GetStream()) << std::setw(10) << m_linkId << std::setw(12) << Simulator::Now().GetSeconds() << std::setw(20) << std::setprecision(5) << GetDcaTxop() -> GetDeliveryDebt()
-    		<< std::setw(10) << m_linkPriority << std::setw(15) << m_backoff << std::setw(16) << ((GetDcaTxop())->GetQueue())->GetSize() << "\n";
+    		<< std::setw(10) << m_linkPriority << std::setw(15) << m_backoff << std::setw(16) << ((GetDcaTxop())->GetQueue())->GetSize()
+			<< std::setw(15) << GetPacketCount() << "\n";
 }
 
 void

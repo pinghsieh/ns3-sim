@@ -47,10 +47,15 @@ class RTScheduler: public Object
 		void StartSchedulingTransmissionsNow();
 		bool IsNoMoreValidPacket();
 		void ReceiveCallFromScheduledLink(RTLinkParams*);
+		bool IsScheduled() { return m_scheduled;}
+		void ResetScheduled() {m_scheduled = false;}
+		uint32_t GetRTLinkCount();
 
 	private:
 		std::vector<RTLinkParams*> m_rtLinkVec;
 		Time m_currentIntervalEnd;
+		bool m_scheduled;
+		uint32_t m_scheduledLinkId;
 		//bool m_noMoreValidPacket;
 };
 
