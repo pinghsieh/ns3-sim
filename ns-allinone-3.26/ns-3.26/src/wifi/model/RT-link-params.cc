@@ -175,8 +175,8 @@ RTLinkParams::CalculateAccessProbability(void)
 	// TODO
 	NS_LOG_FUNCTION (this);
     double debt = GetDcaTxop()->GetDeliveryDebt();
-    double numerator = exp(m_pn*log10(std::max(1.0, 100.0*(debt+1.0))));
-    double denominator =  m_R + exp(m_pn*log10(std::max(1.0, 100.0*(debt+1.0))));
+    double numerator = exp(m_pn*log10(std::max(1.0, 100.0*(debt+1.0)))) + 100;
+    double denominator =  m_R + exp(m_pn*log10(std::max(1.0, 100.0*(debt+1.0)))) + 100;
     return (numerator/denominator);
 }
 

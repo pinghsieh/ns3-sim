@@ -30,6 +30,7 @@
 #include <limits>
 #include <ctime>
 #include <cstring>
+#include <sstream>
 
 //#define DEBUG 1
 // Default Network Topology
@@ -354,7 +355,9 @@ main (int argc, char *argv[])
      		 CWMin = 32;
      		 CWLevelCount = 6;
      		 Rmax = exp(5);
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) +"-" + std::to_string(nIntervals) + "-" + policy + "-" + "alpha=" + std::to_string(alpha)+ ".txt";
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << alpha;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) +"-" + std::to_string(nIntervals) + "-" + policy + "-" + "alpha=" + sstream.str() + ".txt";
      		 break;
      	 }
 
@@ -385,7 +388,9 @@ main (int argc, char *argv[])
      		 CWMin = 32;
      		 CWLevelCount = 6;
      		 Rmax = exp(5);
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + std::to_string(q)+ ".txt";
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << q;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + sstream.str() + ".txt";
      		 break;
      	 }
      	 case 3: {
@@ -423,7 +428,9 @@ main (int argc, char *argv[])
      		 CWMin = 32;
      		 CWLevelCount = 6;
      		 Rmax = exp(5);
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "alpha=" + std::to_string(alpha)+ ".txt";
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << alpha;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "alpha=" + sstream.str() + ".txt";
      		 break;
      	 }
      	case 4: {
@@ -461,7 +468,9 @@ main (int argc, char *argv[])
     		 CWMin = 32;
     		 CWLevelCount = 6;
     		 Rmax = exp(5);
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + std::to_string(q)+ ".txt";
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << q;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + sstream.str() + ".txt";
     		 break;
      	     	 }
       	 case 5: {
@@ -491,7 +500,9 @@ main (int argc, char *argv[])
         		 CWMin = 32;
         		 CWLevelCount = 6;
         		 Rmax = exp(5);
-         	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "lambda=" + std::to_string(lambda)+ ".txt";
+         	     std::stringstream sstream;
+         	     sstream << std::fixed << std::setprecision(2) << lambda;
+         	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "lambda=" + sstream.str() + ".txt";
         		 break;
         	 }
     	 case 6: {
@@ -521,7 +532,9 @@ main (int argc, char *argv[])
     		 CWMin = 32;
     		 CWLevelCount = 6;
     		 Rmax = exp(5);
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + std::to_string(q)+ ".txt";
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << q;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + sstream.str() + ".txt";
     		 break;
      	 }
 
