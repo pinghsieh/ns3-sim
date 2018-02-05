@@ -748,7 +748,8 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
     	  //m_dcf->StartBackoffNow (uint32_t(0));
     	  if (m_rtLinkParams != 0){
     		  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
-    		  if (RT_success  && !(m_rtLinkParams->GetIsUsingDummyPacket())){
+    		  if (RT_success  &&
+    				  !(((m_rtLinkParams->GetIsUsingDummyPacket())) && ((m_rtLinkParams->GetQueueLength()) == 0))){
     			  UpdateDeliveryDebt (double(-1.0));
     			  if (! (m_rtLinkParams->IsUsingScheduler())){
     				  m_rtLinkParams->DecrementPacketCount(1);

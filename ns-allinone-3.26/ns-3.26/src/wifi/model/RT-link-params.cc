@@ -496,5 +496,12 @@ RTLinkParams::UpdateDebt()
 	GetDcaTxop()->ApplyDiffDeliveryDebt();
 }
 
+uint32_t
+RTLinkParams::GetQueueLength()
+{
+	 return ((GetDcaTxop())->GetQueue())->GetSize();
 }
+
+}
+
 
