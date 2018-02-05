@@ -96,7 +96,7 @@ public:
     uint32_t GetLinkPriority() { return m_linkPriority; }
     double GetQn() { return m_qn; }
     double GetPn() { return m_pn; }
-    uint32_t GetSwapId() { return m_swapId;}
+    std::vector<uint32_t> GetSwapId() { return m_swapId;}
     double GetArrivalRate() { return m_arrivalRate;}
     uint32_t GetLinkId() { return m_linkId; }
     Ptr<DcaTxop> GetDcaTxop();
@@ -122,7 +122,7 @@ public:
     bool IsUsingDBDP(void) { return m_algCode == AlgorithmCode::ALG_DBDP; }
     bool IsUsingScheduler(void) { return m_algCode == AlgorithmCode::ALG_LDF; }
 
-    uint32_t CalculateRTBackoff(uint32_t);
+    uint32_t CalculateRTBackoff(std::vector<uint32_t>);
     double CalculateAccessProbability(void);
     void UpdateLinkPriority(void);
     void ChangePriorityIfNeeded(void);
@@ -135,10 +135,10 @@ public:
     void GeneratePacketCount(void);
     void EnqueueDummyPacketIfNeeded(void);
     uint32_t CalculateBackoffForFCSMA(void);
-    uint32_t CalculateBackoff(uint32_t);
+    uint32_t CalculateBackoff(std::vector<uint32_t>);
     uint32_t GetBackoffAfterTxorRx(void);
     uint32_t SetDcaBackoffAfterTxorRxIfNeeded(void);
-    uint32_t ResetDcaBackoff(uint32_t);
+    uint32_t ResetDcaBackoff(std::vector<uint32_t>);
     void AddDeliveryDebt(double);
     double GetDeliveryDebt(void);
     void DecrementPacketCount(uint32_t);
@@ -166,7 +166,7 @@ private:
     AlgorithmCode m_algCode;
     std::minstd_rand0 m_generator ;
     uint32_t m_sizeDummyPacket;
-    uint32_t m_swapId;
+    std::vector<uint32_t> m_swapId;
     bool m_isUsingDummyPacket;
     /* For FCSMA*/
     uint32_t m_CWMin;

@@ -31,6 +31,7 @@
 #include <ctime>
 #include <cstring>
 #include <sstream>
+#include <algorithm> // std::sort
 
 //#define DEBUG 1
 // Default Network Topology
@@ -100,7 +101,7 @@ StartNewIntervalForScheduler (RTScheduler* sch, double rel_time)
 	sch->StartSchedulingTransmissionsNow();
 }
 void
-StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t rand_number)
+StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32_t nRT, std::vector<uint32_t> rand_number)
 {
 	/* (i) Cancel on-going transmissions or (ii) should we check timing before sending?
 	 * Currently, choose option (ii)
@@ -235,6 +236,7 @@ main (int argc, char *argv[])
     uint32_t packetSize = 10;
     uint32_t packetCount = 1;
     uint32_t maxRetry = 1024;
+    uint32_t nSwap = 1;
     double p = 1;
     double p1 = 1;
     double p2 = 1;
@@ -271,6 +273,7 @@ main (int argc, char *argv[])
     cmd.AddValue("q", "a control variable of delivery ratio", q);
     cmd.AddValue("lambda", "a control variable of arrival rates of Bernoulli distribution", lambda);
     cmd.AddValue("policy", "policy to be used for links", policy);
+    cmd.AddValue("nSwap", "number of swapping pairs for DBDP", nSwap);
     cmd.Parse(argc, argv);
     //NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << "policy is " << policy << "\n");
 
@@ -357,7 +360,8 @@ main (int argc, char *argv[])
      		 Rmax = exp(5);
      	     std::stringstream sstream;
      	     sstream << std::fixed << std::setprecision(2) << alpha;
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) +"-" + std::to_string(nIntervals) + "-" + policy + "-" + "alpha=" + sstream.str() + ".txt";
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) +"-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "alpha=" + sstream.str() + ".txt";
      		 break;
      	 }
 
@@ -390,7 +394,8 @@ main (int argc, char *argv[])
      		 Rmax = exp(5);
      	     std::stringstream sstream;
      	     sstream << std::fixed << std::setprecision(2) << q;
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + sstream.str() + ".txt";
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
      		 break;
      	 }
      	 case 3: {
@@ -430,7 +435,8 @@ main (int argc, char *argv[])
      		 Rmax = exp(5);
      	     std::stringstream sstream;
      	     sstream << std::fixed << std::setprecision(2) << alpha;
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "alpha=" + sstream.str() + ".txt";
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "alpha=" + sstream.str() + ".txt";
      		 break;
      	 }
      	case 4: {
@@ -470,7 +476,8 @@ main (int argc, char *argv[])
     		 Rmax = exp(5);
      	     std::stringstream sstream;
      	     sstream << std::fixed << std::setprecision(2) << q;
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + sstream.str() + ".txt";
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
     		 break;
      	     	 }
       	 case 5: {
@@ -502,7 +509,8 @@ main (int argc, char *argv[])
         		 Rmax = exp(5);
          	     std::stringstream sstream;
          	     sstream << std::fixed << std::setprecision(2) << lambda;
-         	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "lambda=" + sstream.str() + ".txt";
+         	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+         	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "lambda=" + sstream.str() + ".txt";
         		 break;
         	 }
     	 case 6: {
@@ -534,7 +542,8 @@ main (int argc, char *argv[])
     		 Rmax = exp(5);
      	     std::stringstream sstream;
      	     sstream << std::fixed << std::setprecision(2) << q;
-     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy + "-" + "q=" + sstream.str() + ".txt";
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
     		 break;
      	 }
 
@@ -705,9 +714,17 @@ main (int argc, char *argv[])
     /* Simulator events: packet transmissions */
     for (uint32_t t = 0; t < nIntervals; t++)
     {
-    	/* Choose one swapping pair in each interval*/
+    	/* Choose nSwap swapping pairs in each interval*/
     	// links at priority (rand_number, rand_number+1) is the swapping pair
-        uint32_t rand_number = distribution(generator);
+        //uint32_t rand_number = distribution(generator);
+        std::vector<uint32_t> rand_number;
+        for (uint32_t j = 0; j < nSwap; j++)
+        {
+        	rand_number.push_back(distribution(generator));
+        }
+
+        /* Sort the swapping vector in ascending order*/
+        std::sort(rand_number.begin(), rand_number.end());
 
         /* Schedule events for centralized link scheduler */
         if (scheduler->GetRTLinkCount() > 0){

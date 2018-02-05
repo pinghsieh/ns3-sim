@@ -509,10 +509,6 @@ DcaTxop::NotifyAccessGranted (void)
   MacLowTransmissionParameters params;
   params.DisableOverrideDurationId ();
 
-  /* For DEBUG only */
-  if (m_rtLinkParams->GetSwapId() == 9){
-	  NS_LOG_DEBUG ("Swap Id is 9\n");
-  }
 
   if (m_currentHdr.GetAddr1 ().IsGroup ())
     {

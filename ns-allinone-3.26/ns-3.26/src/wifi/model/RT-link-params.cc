@@ -59,7 +59,7 @@ RTLinkParams::RTLinkParams()
    m_backoff(0),
    m_arrivalRate(0),
    m_sizeDummyPacket(8),
-   m_swapId(1),
+   m_swapId(std::vector<uint32_t>()),
    m_isUsingDummyPacket(false),
    m_CWMin(1),
    m_CWLevelCount(1),
@@ -90,7 +90,7 @@ RTLinkParams::RTLinkParams(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
     m_backoff = bo;
     m_arrivalProcess = ArrivalCode::ARR_CONST;
     m_arrivalRate = ar;
-    m_swapId = 1;
+    m_swapId = std::vector<uint32_t>();
     m_isUsingDummyPacket = false;
     m_algCode = AlgorithmCode::ALG_DBDP;
     std::random_device rd;
@@ -314,7 +314,7 @@ RTLinkParams::EnqueueDummyPacketIfNeeded(void)
 }
 
 uint32_t
-RTLinkParams::CalculateRTBackoff(uint32_t swapId)
+RTLinkParams::CalculateRTBackoff(std::vector<uint32_t> swapId)
 {
 	NS_LOG_FUNCTION (this);
 	/*
@@ -327,6 +327,57 @@ RTLinkParams::CalculateRTBackoff(uint32_t swapId)
     std::uniform_real_distribution<double> distribution(0.0, 1.0);
     double rand_number = distribution(m_generator);
 
+    for (uint32_t i = 0; i < swapId.size(); i++)
+    {
+        if (swapId.at(i) == m_linkPriority || (swapId.at(i) + 1) == m_linkPriority) {
+        	if (swapId.at(i) == m_linkPriority) {
+        		SetSwapState(SwapStates::STATE_LEAD);
+            	if (rand_number < CalculateAccessProbability()){
+            		m_swapIntent = SwapIntents::INT_NONE;
+                    m_backoff = m_linkPriority - 1 + 2*i;
+                    break;
+            	} else {
+            		m_swapIntent = SwapIntents::INT_DOWN;
+            		m_backoff = m_linkPriority + 1 + 2*i;
+            		break;
+            	}
+        	}
+        	else {
+        		SetSwapState(SwapStates::STATE_TRAIL);
+            	if (rand_number < CalculateAccessProbability()){
+            		m_swapIntent = SwapIntents::INT_UP;
+            		m_backoff = m_linkPriority - 1 + 2*i;
+            		break;
+            	} else {
+            		m_swapIntent = SwapIntents::INT_NONE;
+            		m_backoff = m_linkPriority + 1 + 2*i;
+            		break;
+            	}
+        	}
+        }
+        if (i == 0){
+        	if (swapId.at(i) > m_linkPriority){
+        		ResetAllSwapVariables();
+        		m_backoff =  (m_linkPriority - 1);
+        		break;
+        	}
+        }
+        if (i < (swapId.size() - 1)){
+        	if (((swapId.at(i) + 1) < m_linkPriority) && (swapId.at(i+1) > m_linkPriority)){
+        		ResetAllSwapVariables();
+        		m_backoff =  (m_linkPriority + 1 + 2*i);
+        		break;
+        	}
+        }
+        if (i == (swapId.size() - 1)){
+        	if ((swapId.at(i) + 1) < m_linkPriority){
+        		ResetAllSwapVariables();
+        		m_backoff =  (m_linkPriority + 1 + 2*i);
+        		break;
+        	}
+        }
+    }
+    /*
     if (swapId == m_linkPriority || (swapId + 1) == m_linkPriority) {
     	if (swapId == m_linkPriority) {
     		SetSwapState(SwapStates::STATE_LEAD);
@@ -356,6 +407,7 @@ RTLinkParams::CalculateRTBackoff(uint32_t swapId)
     	ResetAllSwapVariables();
     	m_backoff =  (m_linkPriority - 1);
     }
+    */
     return m_backoff;
 }
 
@@ -379,7 +431,7 @@ RTLinkParams::CalculateBackoffForFCSMA(void)
 }
 
 uint32_t
-RTLinkParams::CalculateBackoff(uint32_t t)
+RTLinkParams::CalculateBackoff(std::vector<uint32_t> t)
 {
 	NS_LOG_FUNCTION (this);
     switch (m_algCode)
@@ -452,7 +504,7 @@ RTLinkParams::SetDcaBackoffAfterTxorRxIfNeeded(void)
 }
 
 uint32_t
-RTLinkParams::ResetDcaBackoff(uint32_t t)
+RTLinkParams::ResetDcaBackoff(std::vector<uint32_t> t)
 {
 	NS_LOG_FUNCTION (this);
 	uint32_t backoff = CalculateBackoff(t);
