@@ -750,7 +750,9 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
     		  m_dcf->StartBackoffNow(m_rtLinkParams->GetBackoffAfterTxorRx());
     		  if (RT_success  && !(m_rtLinkParams->GetIsUsingDummyPacket())){
     			  UpdateDeliveryDebt (double(-1.0));
-    			  m_rtLinkParams->DecrementPacketCount(1);
+    			  if (! (m_rtLinkParams->IsUsingScheduler())){
+    				  m_rtLinkParams->DecrementPacketCount(1);
+    			  }
     			  m_rtLinkParams->CallSchedulerIfNeeded();
     		  } else {
     			  // do nothing so for...
