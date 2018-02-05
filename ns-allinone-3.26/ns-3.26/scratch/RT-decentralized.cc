@@ -32,6 +32,7 @@
 #include <cstring>
 #include <sstream>
 #include <algorithm> // std::sort
+#include <numeric>  //std::iota
 
 //#define DEBUG 1
 // Default Network Topology
@@ -193,6 +194,40 @@ DeleteCustomObjects(std::vector<RTLinkParams*> paramVec, RTScheduler* sch)
     }
     delete sch;
 }
+
+std::vector<uint32_t>
+GetSwapVector(uint32_t nLink, uint32_t nSwap)
+{
+	/* Choose nSwap swapping pairs in each interval*/
+	// links at priority (rand_number, rand_number+1) is the swapping pair
+    std::random_device rd;
+    std::default_random_engine generator (rd());
+    std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    std::vector<uint32_t> rand_number;
+    if (distribution(generator) < 0.5){
+    	// odd group
+    	std::vector<uint32_t> v((nLink/2));
+    	std::iota (std::begin(v), std::end(v), 0);
+    	std::random_shuffle(v.begin(), v.end());
+    	for (uint32_t i = 0; i < nSwap; i++){
+    		rand_number.push_back(1 + 2*v.at(i));
+    	}
+    } else {
+    	// even group
+    	std::vector<uint32_t> v(((nLink-1)/2));
+    	std::iota (std::begin(v), std::end(v), 0);
+    	std::random_shuffle(v.begin(), v.end());
+    	for (uint32_t i = 0; i < nSwap; i++){
+    		rand_number.push_back(2 + 2*v.at(i));
+    	}
+    }
+
+    /* Sort the swapping vector in ascending order*/
+    std::sort(rand_number.begin(), rand_number.end());
+
+    return rand_number;
+}
+
 /*
 static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t packetCount)
 {
@@ -259,7 +294,7 @@ main (int argc, char *argv[])
     std::string debtlogpath;
     std::string policy;
     /* Test case */
-    uint32_t testId = 5;
+    uint32_t testId = 1;
 
     /* Handle input arguments
 	 * argv[1]: number of intervals
@@ -715,16 +750,7 @@ main (int argc, char *argv[])
     for (uint32_t t = 0; t < nIntervals; t++)
     {
     	/* Choose nSwap swapping pairs in each interval*/
-    	// links at priority (rand_number, rand_number+1) is the swapping pair
-        //uint32_t rand_number = distribution(generator);
-        std::vector<uint32_t> rand_number;
-        for (uint32_t j = 0; j < nSwap; j++)
-        {
-        	rand_number.push_back(distribution(generator));
-        }
-
-        /* Sort the swapping vector in ascending order*/
-        std::sort(rand_number.begin(), rand_number.end());
+    	std::vector<uint32_t> rand_number = GetSwapVector(nRT-1, nSwap);
 
         /* Schedule events for centralized link scheduler */
         if (scheduler->GetRTLinkCount() > 0){
