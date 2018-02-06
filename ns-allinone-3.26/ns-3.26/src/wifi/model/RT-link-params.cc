@@ -61,6 +61,7 @@ RTLinkParams::RTLinkParams()
    m_sizeDummyPacket(8),
    m_swapId(std::vector<uint32_t>()),
    m_isUsingDummyPacket(false),
+   m_alreadyTransmit(false),
    m_CWMin(1),
    m_CWLevelCount(1),
    m_Rmax(1),
@@ -92,6 +93,7 @@ RTLinkParams::RTLinkParams(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
     m_arrivalRate = ar;
     m_swapId = std::vector<uint32_t>();
     m_isUsingDummyPacket = false;
+    m_alreadyTransmit = false;
     m_algCode = AlgorithmCode::ALG_DBDP;
     std::random_device rd;
     m_generator = std::minstd_rand0(rd());
@@ -258,8 +260,9 @@ RTLinkParams::EnqueueOneDummyPacket(void)
 	/*
 	 * Ping-Chun: dummy packet does not count in delivery or deficit
 	 */
-	GetMacSource()->Enqueue(Create<Packet> (m_sizeDummyPacket), GetMacDest()->GetAddress());
 	SetIsUsingDummyPacket();
+	GetMacSource()->Enqueue(Create<Packet> (m_sizeDummyPacket), GetMacDest()->GetAddress());
+
 }
 
 void
@@ -552,6 +555,12 @@ uint32_t
 RTLinkParams::GetQueueLength()
 {
 	 return ((GetDcaTxop())->GetQueue())->GetSize();
+}
+
+bool
+RTLinkParams::NoNeedToTransmitDummy()
+{
+	return (IsAlreadyTransmit() && IsUsingDummyPacket());
 }
 
 }

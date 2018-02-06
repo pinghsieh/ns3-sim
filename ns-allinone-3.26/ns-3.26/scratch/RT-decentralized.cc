@@ -46,7 +46,7 @@
 using namespace ns3;
 
 uint32_t MacTXCount;
-
+bool mDEBUG = false;
 
 void
 MacTX (Ptr<const Packet> p)
@@ -120,6 +120,9 @@ StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32
 		/* Update delivery debt*/
 		param->UpdateDebt();
 
+		/* Reste auxiliary flags */
+		param->ResetAlreadyTransmit();
+
 		/* Reset parameters for swapping */
     	param->ResetAllSwapVariables();
 
@@ -127,8 +130,12 @@ StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32
     	param->ResetIsUsingDummyPacket();
 
 		/* Reassign backoff timer */
-    	param->ResetDcaBackoff(rand_number);
-    	//param->ResetDcaBackoff(9); //Only for DEBUG
+    	if (!mDEBUG){
+    		param->ResetDcaBackoff(rand_number);
+    	} else {
+    		std::vector<uint32_t> vec = {1};
+    		param->ResetDcaBackoff(vec); //Only for DEBUG
+    	}
 
 		/* Generate packet count */
 		param->GeneratePacketCount();
@@ -286,7 +293,7 @@ main (int argc, char *argv[])
     double lambda1 = 1;
     double lambda2 = 1;
     std::vector<double> arrivalRate;
-    RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
     RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
     uint32_t CWMin = 32;
     uint32_t CWLevelCount = 6;
@@ -294,7 +301,7 @@ main (int argc, char *argv[])
     std::string debtlogpath;
     std::string policy;
     /* Test case */
-    uint32_t testId = 1;
+    uint32_t testId = 5;
 
     /* Handle input arguments
 	 * argv[1]: number of intervals
@@ -322,8 +329,8 @@ main (int argc, char *argv[])
     	algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
     	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using LDF! \n");
     }  else{
-    	algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
-    	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using default (LDF)! \n");
+    	algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+    	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using default (DBDP)! \n");
     }
 /*
 	if (argc >= 2){
@@ -527,7 +534,7 @@ main (int argc, char *argv[])
         		 packetSize = 100; // TX + ACK = 120us
         		 packetCount = 1;
         		 maxRetry = 1024;
-        		 p = 0.7;
+        		 p = (mDEBUG)? 1:0.7;
         		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
  	     		 q = 0.99;
  	     		 qn.assign(nRT-1,q);
@@ -535,7 +542,9 @@ main (int argc, char *argv[])
          		 alpha = 0.55;
          		 alphan.assign(nRT-1,alpha);
          		 maxPacketCount = 6;
-         		 //lambda = 0.84;
+         		 if (mDEBUG){
+         			 lambda = 1;
+         		 }
          		 arrivalRate.assign(nRT-1,lambda);
         		 //algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
         		 arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
@@ -562,7 +571,7 @@ main (int argc, char *argv[])
     		 maxRetry = 1024;
     		 p = 0.7;
     		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
-    		 q = 0.99;
+    		 //q = 0.99;
     		 qn.assign(nRT-1,q);
     		 R = 10;
      		 alpha = 0.55;
@@ -576,9 +585,9 @@ main (int argc, char *argv[])
     		 CWLevelCount = 6;
     		 Rmax = exp(5);
      	     std::stringstream sstream;
-     	     sstream << std::fixed << std::setprecision(2) << q;
+     	     sstream << std::fixed << std::setprecision(3) << q;
      	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
-     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-"  + "q=" + sstream.str() + ".txt";
     		 break;
      	 }
 
@@ -613,7 +622,9 @@ main (int argc, char *argv[])
         /*
          * Ping-Chun: disable WiFi logging for faster simulations
          */
-    	//wifi.EnableLogComponents ();  // Turn on all Wifi logging
+    	if (mDEBUG){
+    		wifi.EnableLogComponents ();  // Turn on all Wifi logging
+    	}
 
     	//LogComponentEnableAll(LOG_PREFIX_NODE);
         //LogComponentEnable ("UdpClient", LOG_LEVEL_INFO);
@@ -800,7 +811,7 @@ main (int argc, char *argv[])
 
     if (tracing)
     {
-        phy.EnablePcap ("RT-decentralized", wifiStaDevices);
+        //phy.EnablePcap ("RT-decentralized", wifiStaDevices);
         //wifi.EnableAsciiAll (ascii.CreateFileStream ("RT-decentralized.tr"));
     }
 

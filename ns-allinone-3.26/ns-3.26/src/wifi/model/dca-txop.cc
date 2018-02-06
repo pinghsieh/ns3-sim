@@ -517,7 +517,10 @@ DcaTxop::NotifyAccessGranted (void)
       params.DisableNextData ();
       //if (!RT_decentralized ||
     		//  (RT_decentralized && IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params))){
-    	  Low ()->StartTransmission (m_currentPacket,
+  	  if (m_rtLinkParams != 0){
+  		  m_rtLinkParams->SetAlreadyTransmit();
+  	  }
+      Low ()->StartTransmission (m_currentPacket,
                         &m_currentHdr,
                         params,
                         m_transmissionListener);
@@ -554,6 +557,9 @@ DcaTxop::NotifyAccessGranted (void)
             }
           //if (!RT_decentralized ||
         	//	  (RT_decentralized && IsPacketValidAfterTxAndAck(m_currentPacket, &m_currentHdr, params))){
+          	  if (m_rtLinkParams != 0){
+          		  m_rtLinkParams->SetAlreadyTransmit();
+          	  }
         	 Low ()->StartTransmission (m_currentPacket,
                               &m_currentHdr,
                               params,
@@ -589,6 +595,9 @@ DcaTxop::NotifyAccessGranted (void)
                 	   //params.DisableAck ();
                    }
                }
+           	   if (m_rtLinkParams != 0){
+           		   m_rtLinkParams->SetAlreadyTransmit();
+           	   }
     	        Low ()->StartTransmission (m_currentPacket,
     	                               &m_currentHdr,
     	                               params,
@@ -713,7 +722,9 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
           m_dcf->ResetCw ();
       } else {
     	  if (m_rtLinkParams != 0){
-    		  if (RT_success || m_rtLinkParams->GetIsUsingDummyPacket()){
+    		  /* Dummy packet is always at the back of the queue if any*/
+    		  if (RT_success ||
+    				  ((m_rtLinkParams->GetIsUsingDummyPacket()) && ((m_rtLinkParams->GetQueueLength()) == 0))){
     			  m_currentPacket = 0;
     			  m_dcf->ResetCw ();
     		  }  else {
@@ -995,6 +1006,12 @@ DcaTxop::ClearExpiredPackets()
 
 	while (! m_queue->IsEmpty () || (m_currentPacket != 0)){
 			if (m_currentPacket != 0){
+				/* Handle dummy packet*/
+				if (m_rtLinkParams != 0 && m_queue->IsEmpty ()){
+					if ((m_rtLinkParams->NoNeedToTransmitDummy())){
+						 m_currentPacket = 0; // remove the current packet
+					}
+				}
 	    	// check if current packet will get expired after TX and ACK
 	    	// if still valid, then return;
 	    	// if not, keep checking the packets in queue
@@ -1007,15 +1024,23 @@ DcaTxop::ClearExpiredPackets()
 				    m_currentPacket = 0;
 				}
 			} else  {
-	            	// get head of queue as the current packet
-				    Ptr<const Packet> tempPacket = m_queue->Peek (&m_currentHdr);
-	        	    NS_ASSERT (tempPacket != 0);
-	        	    MacLowTransmissionParameters params;
-	        	    params.EnableAck ();
-					if (IsPacketValidAfterTxAndAck(tempPacket, &m_currentHdr, params)){
-	                    return;
-					} else {
-						m_queue->Dequeue(&m_currentHdr);
+					/* Handle dummy packet */
+					if (m_rtLinkParams != 0 && (m_queue->GetSize () == 1)){
+						if ((m_rtLinkParams->NoNeedToTransmitDummy())){
+							m_queue->Dequeue(&m_currentHdr); // drop the packet
+						}
+					}
+					if (! m_queue->IsEmpty ()){
+						// get head of queue as the current packet
+						Ptr<const Packet> tempPacket = m_queue->Peek (&m_currentHdr);
+						NS_ASSERT (tempPacket != 0);
+						MacLowTransmissionParameters params;
+						params.EnableAck ();
+						if (IsPacketValidAfterTxAndAck(tempPacket, &m_currentHdr, params)){
+							return;
+						} else {
+							m_queue->Dequeue(&m_currentHdr);
+						}
 					}
 	    	}
 	 }

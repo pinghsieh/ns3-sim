@@ -108,6 +108,7 @@ public:
     void SetSwapState(SwapStates s) { m_swapState = s; }
     void SetIsUsingDummyPacket() {m_isUsingDummyPacket = true;}
     void ResetIsUsingDummyPacket() {m_isUsingDummyPacket = false;}
+    bool IsUsingDummyPacket() { return m_isUsingDummyPacket; }
     void ResetSwapState(void) { m_swapState = SwapStates::STATE_NONE; }
     void ResetSwapIntent(void) { m_swapIntent = SwapIntents::INT_NONE; }
     void ResetSwapAction(void) { m_swapAction = SwapActions::ACT_NONE; }
@@ -121,6 +122,9 @@ public:
     bool IsUsingFCSMA(void) { return m_algCode == AlgorithmCode::ALG_FCSMA; }
     bool IsUsingDBDP(void) { return m_algCode == AlgorithmCode::ALG_DBDP; }
     bool IsUsingScheduler(void) { return m_algCode == AlgorithmCode::ALG_LDF; }
+    bool IsAlreadyTransmit(void) {return m_alreadyTransmit;}
+    void SetAlreadyTransmit(void) { m_alreadyTransmit = true;}
+    void ResetAlreadyTransmit(void) { m_alreadyTransmit = false;}
 
     uint32_t CalculateRTBackoff(std::vector<uint32_t>);
     double CalculateAccessProbability(void);
@@ -145,6 +149,7 @@ public:
     void CallSchedulerIfNeeded();
     void UpdateDebt();
     uint32_t GetQueueLength();
+    bool NoNeedToTransmitDummy();
 
 private:
 	Ptr<WifiNetDevice> m_netDev;
@@ -168,6 +173,7 @@ private:
     uint32_t m_sizeDummyPacket;
     std::vector<uint32_t> m_swapId;
     bool m_isUsingDummyPacket;
+    bool m_alreadyTransmit;
     /* For FCSMA*/
     uint32_t m_CWMin;
     uint32_t m_CWLevelCount;
