@@ -125,6 +125,8 @@ public:
     bool IsAlreadyTransmit(void) {return m_alreadyTransmit;}
     void SetAlreadyTransmit(void) { m_alreadyTransmit = true;}
     void ResetAlreadyTransmit(void) { m_alreadyTransmit = false;}
+    uint32_t GetTotalDeliveredPackets(void) { return m_totalDeliveredPackets;}
+    void IncrementTotalDeliveredPackets(void) { m_totalDeliveredPackets++;}
 
     uint32_t CalculateRTBackoff(std::vector<uint32_t>);
     double CalculateAccessProbability(void);
@@ -174,6 +176,7 @@ private:
     std::vector<uint32_t> m_swapId;
     bool m_isUsingDummyPacket;
     bool m_alreadyTransmit;
+    uint32_t m_totalDeliveredPackets;
     /* For FCSMA*/
     uint32_t m_CWMin;
     uint32_t m_CWLevelCount;

@@ -62,6 +62,7 @@ RTLinkParams::RTLinkParams()
    m_swapId(std::vector<uint32_t>()),
    m_isUsingDummyPacket(false),
    m_alreadyTransmit(false),
+   m_totalDeliveredPackets(0),
    m_CWMin(1),
    m_CWLevelCount(1),
    m_Rmax(1),
@@ -94,6 +95,7 @@ RTLinkParams::RTLinkParams(Ptr<WifiNetDevice> nd, Ptr<AdhocWifiMac> wm,
     m_swapId = std::vector<uint32_t>();
     m_isUsingDummyPacket = false;
     m_alreadyTransmit = false;
+    m_totalDeliveredPackets = 0;
     m_algCode = AlgorithmCode::ALG_DBDP;
     std::random_device rd;
     m_generator = std::minstd_rand0(rd());
@@ -225,7 +227,7 @@ RTLinkParams::PrintDeliveryDebtToFile(void)
 	NS_LOG_FUNCTION (this);
     *(m_stream->GetStream()) << std::setw(10) << m_linkId << std::setw(12) << Simulator::Now().GetSeconds() << std::setw(20) << std::setprecision(5) << GetDcaTxop() -> GetDeliveryDebt()
     		<< std::setw(10) << m_linkPriority << std::setw(15) << m_backoff << std::setw(16) << ((GetDcaTxop())->GetQueue())->GetSize()
-			<< std::setw(15) << GetPacketCount() << "\n";
+			<< std::setw(15) << GetPacketCount() << std::setw(15) << GetTotalDeliveredPackets() << "\n";
 }
 
 void
@@ -411,6 +413,11 @@ RTLinkParams::CalculateRTBackoff(std::vector<uint32_t> swapId)
     	m_backoff =  (m_linkPriority - 1);
     }
     */
+
+    /* For fixed priority case */
+    if (swapId.empty()){
+    	m_backoff = m_linkPriority - 1;
+    }
     return m_backoff;
 }
 

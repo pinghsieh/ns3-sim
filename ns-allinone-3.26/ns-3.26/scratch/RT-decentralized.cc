@@ -102,7 +102,7 @@ StartNewIntervalForScheduler (RTScheduler* sch, double rel_time)
 	sch->StartSchedulingTransmissionsNow();
 }
 void
-StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32_t nRT, std::vector<uint32_t> rand_number)
+StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32_t nRT, std::vector<uint32_t> rand_number, bool mFixed)
 {
 	/* (i) Cancel on-going transmissions or (ii) should we check timing before sending?
 	 * Currently, choose option (ii)
@@ -131,7 +131,11 @@ StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32
 
 		/* Reassign backoff timer */
     	if (!mDEBUG){
-    		param->ResetDcaBackoff(rand_number);
+    		if (mFixed){
+    			param->ResetDcaBackoff(std::vector<uint32_t>());
+    		} else {
+    			param->ResetDcaBackoff(rand_number);
+    		}
     	} else {
     		std::vector<uint32_t> vec = {1};
     		param->ResetDcaBackoff(vec); //Only for DEBUG
@@ -159,7 +163,7 @@ PrintHeadersToFile(Ptr<OutputStreamWrapper> stream)
 {
 	*(stream->GetStream()) << std::setw(10) << "Link ID" << std::setw(12) << "Timestamp" << std::setw(20)
 			<< "Delivery Debt" << std::setw(10) << "Priority" << std::setw(15) << "Backoff" << std::setw(16)
-			<< "Queue Length" << std::setw(15) << "Packet Count" << "\n";
+			<< "Queue Length" << std::setw(15) << "Packet Count" << std::setw(15) << "Total Delivery" << "\n";
 }
 
 void
@@ -302,6 +306,7 @@ main (int argc, char *argv[])
     std::string policy;
     /* Test case */
     uint32_t testId = 5;
+    bool fixedPriority = false;
 
     /* Handle input arguments
 	 * argv[1]: number of intervals
@@ -316,6 +321,7 @@ main (int argc, char *argv[])
     cmd.AddValue("lambda", "a control variable of arrival rates of Bernoulli distribution", lambda);
     cmd.AddValue("policy", "policy to be used for links", policy);
     cmd.AddValue("nSwap", "number of swapping pairs for DBDP", nSwap);
+    cmd.AddValue("fixedPriority", "fixed priority for DBDP", fixedPriority);
     cmd.Parse(argc, argv);
     //NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << "policy is " << policy << "\n");
 
@@ -782,7 +788,7 @@ main (int argc, char *argv[])
         	        			&FlushMacQueue, paramVec[i]);
 
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        			&StartNewIntervalForDistributedLink, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number);
+        			&StartNewIntervalForDistributedLink, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number, fixedPriority);
 
 
         	//for (uint32_t j = 0; j < packetCount; j++){

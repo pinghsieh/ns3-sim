@@ -758,6 +758,7 @@ DcaTxop::GotAck (double snr, WifiMode txMode)
     		  if (RT_success  &&
     				  !(((m_rtLinkParams->GetIsUsingDummyPacket())) && ((m_rtLinkParams->GetQueueLength()) == 0))){
     			  UpdateDeliveryDebt (double(-1.0));
+    			  m_rtLinkParams->IncrementTotalDeliveredPackets();
     			  if (! (m_rtLinkParams->IsUsingScheduler())){
     				  m_rtLinkParams->DecrementPacketCount(1);
     			  }
