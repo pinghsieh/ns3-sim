@@ -441,7 +441,7 @@ main (int argc, char *argv[])
      		 CWLevelCount = 6;
      		 Rmax = exp(5);
      	     std::stringstream sstream;
-     	     sstream << std::fixed << std::setprecision(2) << q;
+     	     sstream << std::fixed << std::setprecision(3) << q;
      	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
      	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
      		 break;
