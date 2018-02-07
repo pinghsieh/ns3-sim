@@ -1,0 +1,10 @@
+#!/bin/bash
+#time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=1 --alpha=0.6 --policy=LDF"
+#time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=1 --alpha=0.58 --policy=LDF"
+#time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=1 --alpha=0.56 --policy=LDF"
+time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=1 --alpha=0.61 --policy=LDF"
+time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=1 --alpha=0.54 --policy=LDF"
+time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=1 --alpha=0.5 --policy=LDF"
+time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=2 --alpha=0.61 --policy=LDF"
+time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=2 --alpha=0.54 --policy=LDF"
+time ./waf --run "scratch/RT-decentralized --nIntervals=3000 --testId=2 --alpha=0.5 --policy=LDF"

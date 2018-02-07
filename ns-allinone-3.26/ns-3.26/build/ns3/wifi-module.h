@@ -8,6 +8,7 @@
 
 // Module headers:
 #include "RT-link-params.h"
+#include "RT-scheduler.h"
 #include "aarf-wifi-manager.h"
 #include "aarfcd-wifi-manager.h"
 #include "adhoc-wifi-mac.h"

@@ -29,6 +29,10 @@
 #include <iomanip>
 #include <limits>
 #include <ctime>
+#include <cstring>
+#include <sstream>
+#include <algorithm> // std::sort
+#include <numeric>  //std::iota
 
 //#define DEBUG 1
 // Default Network Topology
@@ -42,7 +46,7 @@
 using namespace ns3;
 
 uint32_t MacTXCount;
-
+bool mDEBUG = false;
 
 void
 MacTX (Ptr<const Packet> p)
@@ -72,69 +76,94 @@ SetDeterministicBackoffNow (Ptr<WifiNetDevice> netdev, uint32_t backoff)
 	dca->SetDeterministicBackoff(backoff);
 }
 
-
 void
-StartNewInterval (RTLinkParams* param, double rel_time, uint32_t nRT, uint32_t rand_number)
+StartNewIntervalForScheduler (RTScheduler* sch, double rel_time)
 {
-	Ptr<AdhocWifiMac> mac_source = param->GetMacSource();
-	Ptr<DcaTxop> dca = param->GetDcaTxop();
-	Ptr<WifiMacQueue> m_queue = dca->GetQueue();
+	Time t = Simulator::Now();
+	sch->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
 
+	/* Update delivery debt */
+	sch->UpdateDebt();
+
+	/* Generate packet count */
+	sch->GeneratePacketCountForLinks();
+
+	/* Increase delivery debt */
+	sch->AddQnDeliveryDebtForLinks();
+
+	/* Logging */
+	for (uint32_t i = 0; i < (sch->GetRTLinkCount()); i++){
+		sch->GetRTLinkAtPosition(i)->PrintDeliveryDebtToFile();
+	}
+
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": in scheduler\n");
+
+	/* Scheduling starts */
+	sch->StartSchedulingTransmissionsNow();
+}
+void
+StartNewIntervalForDistributedLink (RTLinkParams* param, double rel_time, uint32_t nRT, std::vector<uint32_t> rand_number, bool mFixed)
+{
 	/* (i) Cancel on-going transmissions or (ii) should we check timing before sending?
 	 * Currently, choose option (ii)
 	 * */
-    /* Only for DEBUG*/
-	if (rand_number == 9){
+
+	if (param->IsUsingFCSMA() || param->IsUsingDBDP())
+	{
+		/* Set end of current interval */
+		Time t = Simulator::Now();
+		(param->GetDcaTxop())->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
+
+		/* Update priority */
+		param->UpdateLinkPriority();
+
+		/* Update delivery debt*/
+		param->UpdateDebt();
+
+		/* Reste auxiliary flags */
+		param->ResetAlreadyTransmit();
+
+		/* Reset parameters for swapping */
+    	param->ResetAllSwapVariables();
+
+    	/* Reset dummy packet*/
+    	param->ResetIsUsingDummyPacket();
+
+		/* Reassign backoff timer */
+    	if (!mDEBUG){
+    		if (mFixed){
+    			param->ResetDcaBackoff(std::vector<uint32_t>());
+    		} else {
+    			param->ResetDcaBackoff(rand_number);
+    		}
+    	} else {
+    		std::vector<uint32_t> vec = {1};
+    		param->ResetDcaBackoff(vec); //Only for DEBUG
+    	}
+
+		/* Generate packet count */
 		param->GeneratePacketCount();
+
+		/* Increase delivery debt */
+		param->AddDeliveryDebt((param->GetQn())*(param->GetArrivalRate()));
+
+		/* Get packet arrivals */
+		param->EnqueueMultiplePackets(param->GetPacketCount());
+		param->EnqueueDummyPacketIfNeeded();
+
+		/* Logging */
+	    param->PrintDeliveryDebtToFile();
 	}
-
-	/* Set end of current interval */
-	Time t = Simulator::Now();
-	dca->SetCurrentIntervalEnd(Simulator::Now() + Seconds(rel_time));
-
-	/* Update priority */
-	param->UpdateLinkPriority();
-
-	/* Reset parameters for swapping */
-    param->ResetAllSwapVariables();
-
-    /* Reset dummy packet*/
-    param->ResetIsUsingDummyPacket();
-
-	/* Reassign backoff timer */
-	//uint32_t backoff = param->CalculateRTBackoff(rand_number);
-	//dca->SetDeterministicBackoff(backoff);
-
-    param->ResetDcaBackoff(rand_number);
-    //param->ResetDcaBackoff(9); //Only for DEBUG
-
-	/* Generate packet count */
-	param->GeneratePacketCount();
-
-	/* Increase delivery debt */
-	param->AddDeliveryDebt((param->GetQn())*(param->GetArrivalRate()));
-
-	/* Get packet arrivals */
-	//for (uint32_t i = 0; i < param->GetPacketCount(); i++){
-		//mac_source->Enqueue(Create<Packet> (param->GetPacketSize()), param->GetMacDest()->GetAddress());
-	param->EnqueueMultiplePackets(param->GetPacketCount());
-		///* Update delivery debt*/
-		//dca->UpdateDeliveryDebt (param->GetQn());
-	//}
-	param->EnqueueDummyPacketIfNeeded();
-
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Is empty? " << m_queue->IsEmpty());
-	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
-
-    param->PrintDeliveryDebtToFile();
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Queue size = " << m_queue->GetSize());
+	//NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ": Delivery Debt =  " << dca->GetDeliveryDebt());
 }
 
 void
 PrintHeadersToFile(Ptr<OutputStreamWrapper> stream)
 {
 	*(stream->GetStream()) << std::setw(10) << "Link ID" << std::setw(12) << "Timestamp" << std::setw(20)
-			<< "Delivery Debt" << std::setw(10) << "Priority" << std::setw(15) << "Backoff" << std::setw(16) << "Queue Length" << "\n";
+			<< "Delivery Debt" << std::setw(10) << "Priority" << std::setw(15) << "Backoff" << std::setw(16)
+			<< "Queue Length" << std::setw(15) << "Packet Count" << std::setw(15) << "Total Delivery" << "\n";
 }
 
 void
@@ -169,12 +198,47 @@ ReceivePacket (Ptr<Socket> socket)
 }
 
 void
-DeleteCustomObjects(std::vector<RTLinkParams*> paramVec)
+DeleteCustomObjects(std::vector<RTLinkParams*> paramVec, RTScheduler* sch)
 {
     for (uint32_t i =0 ; i < paramVec.size(); i++){
     	delete paramVec[i];
     }
+    delete sch;
 }
+
+std::vector<uint32_t>
+GetSwapVector(uint32_t nLink, uint32_t nSwap)
+{
+	/* Choose nSwap swapping pairs in each interval*/
+	// links at priority (rand_number, rand_number+1) is the swapping pair
+    std::random_device rd;
+    std::default_random_engine generator (rd());
+    std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    std::vector<uint32_t> rand_number;
+    if (distribution(generator) < 0.5){
+    	// odd group
+    	std::vector<uint32_t> v((nLink/2));
+    	std::iota (std::begin(v), std::end(v), 0);
+    	std::random_shuffle(v.begin(), v.end());
+    	for (uint32_t i = 0; i < nSwap; i++){
+    		rand_number.push_back(1 + 2*v.at(i));
+    	}
+    } else {
+    	// even group
+    	std::vector<uint32_t> v(((nLink-1)/2));
+    	std::iota (std::begin(v), std::end(v), 0);
+    	std::random_shuffle(v.begin(), v.end());
+    	for (uint32_t i = 0; i < nSwap; i++){
+    		rand_number.push_back(2 + 2*v.at(i));
+    	}
+    }
+
+    /* Sort the swapping vector in ascending order*/
+    std::sort(rand_number.begin(), rand_number.end());
+
+    return rand_number;
+}
+
 /*
 static void GenerateTraffic (Ptr<Socket> socket, uint32_t pktSize, uint32_t packetCount)
 {
@@ -200,6 +264,7 @@ NS_LOG_COMPONENT_DEFINE ("RT-decentralized");
 int
 main (int argc, char *argv[])
 {
+
 	/* Measure system time*/
 	clock_t tStart = clock();
 
@@ -207,142 +272,335 @@ main (int argc, char *argv[])
     bool verbose = true;
     bool tracing = true;
 
-    /*
-    //  Testcase 1
-    uint32_t nRT = 11; // AP is 00:00:00:00:00:01
-    double packet_interval = 0.002; // 2ms
-    double startT = 2.5;
+    /* Declaration */
+    uint32_t nRT = 1;
+    double packet_interval = 1;
+    double startT = 0;
     uint32_t nIntervals = 100;
-    double stopT = startT + nIntervals*packet_interval;
-    double offset = 0.000001; // 1us
-    uint32_t packetSize = 100;
+    double stopT = 1;
+    double offset = 0;
+    uint32_t packetSize = 10;
     uint32_t packetCount = 1;
     uint32_t maxRetry = 1024;
-    double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-    double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
-    double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-    double alpha = 0.78;
-    double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-    */
-
-    /*
-    //  Testcase 2
-    uint32_t nRT = 6; // AP is 00:00:00:00:00:01
-    double packet_interval = 0.002; // 2ms
-    double startT = 2.5;
-    uint32_t nIntervals = 1000;
-    double stopT = startT + nIntervals*packet_interval;
-    double offset = 0.000001; // 1us
-    uint32_t packetSize = 1400; // TX + ACK = 276us
-    uint32_t packetCount = 1;
-    uint32_t maxRetry = 1024;
-    double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-    double qn[nRT-1] = {0.816, 0.816, 0.816, 0.816, 0.816};  // capacity q = 0.8165
-    double R[nRT-1]= {10, 10, 10, 10, 10};
-    double alpha = 1;
-    double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha};
+    uint32_t nSwap = 1;
+    double p = 1;
+    double p1 = 1;
+    double p2 = 1;
+    std::vector<double> channel_pn;
+    double q = 1;
+    std::vector<double> qn;
+    double R = 1;
+    double alpha = 0.75;
+    std::vector<double> alphan;
+    uint32_t maxPacketCount = 1;
+    double lambda = 1;
+    double lambda1 = 1;
+    double lambda2 = 1;
+    std::vector<double> arrivalRate;
     RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+    RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
     uint32_t CWMin = 32;
     uint32_t CWLevelCount = 6;
     double Rmax = exp(5);
-    */
-    /*
-    //  Testcase 3
-    uint32_t nRT = 4; // AP is 00:00:00:00:00:01
-    double packet_interval = 0.002; // 2ms
-    double startT = 2.5;
-    uint32_t nIntervals =10000;
-    double stopT = startT + nIntervals*packet_interval;
-    double offset = 0.000001; // 1us
-    uint32_t packetSize = 1400; // TX + ACK = 276us
-    uint32_t packetCount = 1;
-    uint32_t maxRetry = 1024;
-    double channel_pn[nRT-1] = {0.5, 0.5, 0.5}; // for unreliable transmissions
-    double qn[nRT-1] = {0.78, 0.78, 0.78};  // capacity q = 0.8438 when alpha = 1
-    double R[nRT-1]= {10, 10, 10};
-    double alpha = 0.7;
-    double arrivalRate[nRT-1] = {alpha, alpha, alpha};
-    //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-    RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-    RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-    uint32_t CWMin = 32;
-    uint32_t CWLevelCount = 6;
-    double Rmax = exp(5);
-    */
+    std::string debtlogpath;
+    std::string policy;
+    /* Test case */
+    uint32_t testId = 5;
+    bool fixedPriority = false;
+
+    /* Handle input arguments
+	 * argv[1]: number of intervals
+	 * argv[2]: case id
+	 * argv[3]: variable
+	 * */
+    CommandLine cmd;
+    cmd.AddValue("nIntervals", "Number of intervals in simulation", nIntervals);
+    cmd.AddValue("testId", "Index of test case", testId);
+    cmd.AddValue("alpha", "a control variable of arrival rates of Bern-Unif distribution", alpha);
+    cmd.AddValue("q", "a control variable of delivery ratio", q);
+    cmd.AddValue("lambda", "a control variable of arrival rates of Bernoulli distribution", lambda);
+    cmd.AddValue("policy", "policy to be used for links", policy);
+    cmd.AddValue("nSwap", "number of swapping pairs for DBDP", nSwap);
+    cmd.AddValue("fixedPriority", "fixed priority for DBDP", fixedPriority);
+    cmd.Parse(argc, argv);
+    //NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << "policy is " << policy << "\n");
+
+    if (policy.compare("DBDP") == 0){
+    	algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+    	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using DBDP! \n");
+    }  else if (policy.compare("FCSMA") == 0){
+    	algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
+    	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using FCSMA! \n");
+    }  else if (policy.compare("LDF") == 0){
+    	algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using LDF! \n");
+    }  else{
+    	algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+    	NS_LOG_UNCOND ("At " << Simulator::Now().GetSeconds() << ":Using default (DBDP)! \n");
+    }
 /*
-     //  Testcase 4
-     uint32_t nRT = 6; // AP is 00:00:00:00:00:01
-     double packet_interval = 0.002; // 2ms
-     double startT = 2.5;
-     uint32_t nIntervals =5000;
-     double stopT = startT + nIntervals*packet_interval;
-     double offset = 0.000001; // 1us
-     uint32_t packetSize = 1400; // TX + ACK = 276us
-     uint32_t packetCount = 1;
-     uint32_t maxRetry = 1024;
-     double channel_pn[nRT-1] = {0.5, 0.5, 0.5, 0.5, 0.5}; // for unreliable transmissions
-     double qn[nRT-1] = {0.6, 0.6, 0.6, 0.6, 0.6};  // capacity q = 0.8438 when alpha = 1
-     double R[nRT-1]= {10, 10, 10, 10, 10};
-     double alpha = 0.7;
-     double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha};
-     //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-     RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-     RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-     uint32_t CWMin = 32;
-     uint32_t CWLevelCount = 6;
-     double Rmax = exp(5);
-     */
-    /*
-    //  Testcase 5
-         uint32_t nRT = 11; // AP is 00:00:00:00:00:01
-         double packet_interval = 0.002; // 2ms
-         double startT = 2.5;
-         uint32_t nIntervals =5000;
-         double stopT = startT + nIntervals*packet_interval;
-         double offset = 0.000001; // 1us
-         uint32_t packetSize = 100; // TX + ACK = 120us
-         uint32_t packetCount = 1;
-         uint32_t maxRetry = 1024;
-         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-         double qn[nRT-1] = {0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86, 0.86};
-         double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 0.78;
-         double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-         RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-         uint32_t CWMin = 32;
-         uint32_t CWLevelCount = 6;
-         double Rmax = exp(5);
-         */
+	if (argc >= 2){
+		nIntervals = std::stoi(std::string(argv[1]));
+	}
+	if (argc >= 3){
+		uint32_t tempId = std::stoi(std::string(argv[2]));
+		if (tempId <= 6 && tempId >= 1){
+			testId = tempId;
+		}
+	}
+	if (argc >= 4){
+		switch(testId) {
+			case 1:{
+				alpha = std::stod(std::string(argv[3]));
+				break;
+			}
+			case 2:{
+				q = std::stod(std::string(argv[3]));
+				break;
+			}
+			case 3:{
+				alpha = std::stod(std::string(argv[3]));
+				break;
+			}
+			case 4:{
+				q = std::stod(std::string(argv[3]));
+				break;
+			}
+			case 5:{
+				lambda = std::stod(std::string(argv[3]));
+				break;
+			}
+			case 6:{
+				q = std::stod(std::string(argv[3]));
+				break;
+			}
+		}
+	}
+	*/
 
-    //  Testcase 6
-         uint32_t nRT = 11; // AP is 00:00:00:00:00:01
-         double packet_interval = 0.002; // 2ms
-         double startT = 2.5;
-         uint32_t nIntervals = 1000;
-         double stopT = startT + nIntervals*packet_interval;
-         double offset = 0.000001; // 1us
-         uint32_t packetSize = 100; // TX + ACK = 120us
-         uint32_t packetCount = 1;
-         uint32_t maxRetry = 1024;
-         double channel_pn[nRT-1] = {0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7}; // for unreliable transmissions
-         //double channel_pn[nRT-1] = {0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68, 0.68};
-         //double channel_pn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-         double qn[nRT-1] = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
-         //double qn[nRT-1] = {0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85, 0.85 ,0.85};
-         //double qn[nRT-1] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-         double R[nRT-1]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
-         double alpha = 0.8;
-         double arrivalRate[nRT-1] = {alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha, alpha};
-         //RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
-         RTLinkParams::AlgorithmCode algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
-         RTLinkParams::ArrivalCode arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
-         uint32_t CWMin = 32;
-         uint32_t CWLevelCount = 6;
-         double Rmax = exp(5);
+     switch(testId){
+     	 case 1: {
+     		 /*  Testcase 1: 20 links, symmetric, Bern-Unif arrivals between 1~6, pn=0.7
+     		  *  fix qn = 0.9, change alpha
+     		  * */
+     		 nRT = 21; // AP is 00:00:00:00:00:01
+     		 packet_interval = 0.02; // 20ms
+     		 startT = 2.5;
+     		 stopT = startT + nIntervals*packet_interval;
+     		 offset = 0.000001; // 1us
+     		 packetSize = 1500; // TX + ACK = 330us
+     		 packetCount = 1;
+     		 maxRetry = 1024;
+     		 p = 0.7;
+     		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
+     		 q = 0.9;
+     		 qn.assign(nRT-1,q);
+     		 R = 10;
+     		 //alpha = 0.45;
+     		 alphan.assign(nRT-1, alpha);
+     		 maxPacketCount = 6;
+     		 lambda = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 arrivalRate.assign(nRT-1, lambda);
+     		 //algcode = RTLinkParams::AlgorithmCode::ALG_FCSMA;
+     		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+     		 CWMin = 32;
+     		 CWLevelCount = 6;
+     		 Rmax = exp(5);
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << alpha;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) +"-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "alpha=" + sstream.str() + ".txt";
+     		 break;
+     	 }
 
-    std::string debtlogpath ("RT-delivery-debt.txt");
+     	 case 2: {
+     		 /*  Testcase 1: 20 links, symmetric, Bern-Unif arrivals between 1~6, pn=0.7
+     		  *  fix alpha = 0.55, change qn
+     		  * */
+     		 nRT = 21; // AP is 00:00:00:00:00:01
+     		 packet_interval = 0.02; // 20ms
+     		 startT = 2.5;
+     		 stopT = startT + nIntervals*packet_interval;
+     		 offset = 0.000001; // 1us
+     		 packetSize = 1500; // TX + ACK = 330us
+     		 packetCount = 1;
+     		 maxRetry = 1024;
+     		 p = 0.7;
+     		 channel_pn.assign(nRT-1,p);  // for unreliable transmissions
+     		 //q = 0.95;
+     		 qn.assign(nRT-1,q);
+     		 R = 10;
+     		 alpha = 0.55;
+     		 alphan.assign(nRT-1, alpha);
+     		 maxPacketCount = 6;
+     		 lambda = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 arrivalRate.assign(nRT-1, lambda);
+     		 //algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+     		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+     		 CWMin = 32;
+     		 CWLevelCount = 6;
+     		 Rmax = exp(5);
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(3) << q;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
+     		 break;
+     	 }
+     	 case 3: {
+     		 /*  Testcase 3: 20 links, asymmetric, Bern-Unif arrivals between 1~6
+     		  *  2 groups
+     		  *  group 1: pn = 0.8, alphan = alpha
+     		  *  group 2: pn = 0.5, alphan = 0.5*alpha
+     		  *  fix qn=0.9, change alpha
+     		  * */
+     		 nRT = 21; // AP is 00:00:00:00:00:01
+     		 packet_interval = 0.02; // 20ms
+     		 startT = 2.5;
+     		 stopT = startT + nIntervals*packet_interval;
+     		 offset = 0.000001; // 1us
+     		 packetSize = 1500; // TX + ACK = 330us
+     		 packetCount = 1;
+     		 maxRetry = 1024;
+     		 p1 = 0.8;
+     		 p2 = 0.5;
+     		 channel_pn.assign((nRT-1)/2, p1);
+     		 channel_pn.insert(channel_pn.begin(), (nRT-1)/2, p2); // for unreliable transmissions
+     		 q = 0.9;
+     		 qn.assign(nRT-1, q);
+     		 R = 10;
+     		 //alpha = 0.77;
+     		 alphan.assign((nRT-1)/2, alpha);
+     		 alphan.insert(alphan.begin(), (nRT-1)/2, 0.5*alpha);
+     		 maxPacketCount = 6;
+     		 lambda1 = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 lambda2 = ((double(1 + maxPacketCount))/2.0)*0.5*alpha;
+     		 arrivalRate.assign((nRT-1)/2, lambda1);
+     		 arrivalRate.insert(arrivalRate.begin(), (nRT-1)/2, lambda2);
+     		 //algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+     		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+     		 CWMin = 32;
+     		 CWLevelCount = 6;
+     		 Rmax = exp(5);
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << alpha;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "alpha=" + sstream.str() + ".txt";
+     		 break;
+     	 }
+     	case 4: {
+     	     		 /*  Testcase 4: 20 links, deadline 20ms, asymmetric, Bern-Unif arrivals between 1~6
+     	     		  *  2 groups
+     	     		  *  group 1: pn = 0.8, alphan = alpha
+     	     		  *  group 2: pn = 0.5, alphan = 0.5*alpha
+     	     		  *  fix alpha=0.7, change qn
+     	     		  * */
+    		 nRT = 21; // AP is 00:00:00:00:00:01
+    		 packet_interval = 0.02; // 20ms
+    		 startT = 2.5;
+    		 stopT = startT + nIntervals*packet_interval;
+    		 offset = 0.000001; // 1us
+    		 packetSize = 1500; // TX + ACK = 330us
+    		 packetCount = 1;
+    		 maxRetry = 1024;
+    		 p1 = 0.8;
+    		 p2 = 0.5;
+     		 channel_pn.assign((nRT-1)/2, p1);
+     		 channel_pn.insert(channel_pn.begin(), (nRT-1)/2, p2); // for unreliable transmissions
+    		 //q = 0.9;
+     		 qn.assign(nRT-1, q);
+    		 R = 10;
+    		 alpha = 0.7;
+     		 alphan.assign((nRT-1)/2, alpha);
+     		 alphan.insert(alphan.begin(), (nRT-1)/2, 0.5*alpha);
+    		 maxPacketCount = 6;
+     		 lambda1 = ((double(1 + maxPacketCount))/2.0)*alpha;
+     		 lambda2 = ((double(1 + maxPacketCount))/2.0)*0.5*alpha;
+     		 arrivalRate.assign((nRT-1)/2, lambda1);
+     		 arrivalRate.insert(arrivalRate.begin(), (nRT-1)/2, lambda2);
+    		 //algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    		 arrcode = RTLinkParams::ArrivalCode::ARR_BERNUNIF;
+    		 CWMin = 32;
+    		 CWLevelCount = 6;
+    		 Rmax = exp(5);
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(2) << q;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "q=" + sstream.str() + ".txt";
+    		 break;
+     	     	 }
+      	 case 5: {
+   	     		 /*  Testcase 5: 10 links, deadline = 2ms, 100Byte, symmetric, Bernoulli arrivals, pn = 0.7
+   	     		  *  fix qn=0.99, change arrival rate (lambda)
+   	     		  * */
+        		 nRT = 11; // AP is 00:00:00:00:00:01
+        		 packet_interval = 0.002; // 2ms
+        		 startT = 2.5;
+        		 stopT = startT + nIntervals*packet_interval;
+        		 offset = 0.000001; // 1us
+        		 packetSize = 100; // TX + ACK = 120us
+        		 packetCount = 1;
+        		 maxRetry = 1024;
+        		 p = (mDEBUG)? 1:0.7;
+        		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
+ 	     		 q = 0.99;
+ 	     		 qn.assign(nRT-1,q);
+        		 R = 10;
+         		 alpha = 0.55;
+         		 alphan.assign(nRT-1,alpha);
+         		 maxPacketCount = 6;
+         		 if (mDEBUG){
+         			 lambda = 1;
+         		 }
+         		 arrivalRate.assign(nRT-1,lambda);
+        		 //algcode = RTLinkParams::AlgorithmCode::ALG_DBDP;
+        		 arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
+        		 CWMin = 32;
+        		 CWLevelCount = 6;
+        		 Rmax = exp(5);
+         	     std::stringstream sstream;
+         	     sstream << std::fixed << std::setprecision(2) << lambda;
+         	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+         	    		 + "-nSwap=" + std::to_string(nSwap) + "-" + "-" + "lambda=" + sstream.str() + ".txt";
+        		 break;
+        	 }
+    	 case 6: {
+	     		 /*  Testcase 6: 10 links, deadline = 2ms, 100Byte, symmetric, Bernoulli arrivals, pn = 0.7
+	     		  *  fix arrival rate (lambda)=0.78, change qn
+	     		  * */
+    		 nRT = 11; // AP is 00:00:00:00:00:01
+    		 packet_interval = 0.002; // 2ms
+    		 startT = 2.5;
+    		 stopT = startT + nIntervals*packet_interval;
+    		 offset = 0.000001; // 1us
+    		 packetSize = 100; // TX + ACK = 120us
+    		 packetCount = 1;
+    		 maxRetry = 1024;
+    		 p = 0.7;
+    		 channel_pn.assign(nRT-1,p); // for unreliable transmissions
+    		 //q = 0.99;
+    		 qn.assign(nRT-1,q);
+    		 R = 10;
+     		 alpha = 0.55;
+     		 alphan.assign(nRT-1,alpha);
+     		 maxPacketCount = 6;
+     		 lambda = 0.78;
+     		 arrivalRate.assign(nRT-1,lambda);
+    		 //algcode = RTLinkParams::AlgorithmCode::ALG_LDF;
+    		 arrcode = RTLinkParams::ArrivalCode::ARR_BERN;
+    		 CWMin = 32;
+    		 CWLevelCount = 6;
+    		 Rmax = exp(5);
+     	     std::stringstream sstream;
+     	     sstream << std::fixed << std::setprecision(3) << q;
+     	     debtlogpath = "RT-delivery-debt-" + std::to_string(testId) + "-" + std::to_string(nIntervals) + "-" + policy
+     	    		 + "-nSwap=" + std::to_string(nSwap) + "-"  + "q=" + sstream.str() + ".txt";
+    		 break;
+     	 }
+
+     };
+
+         RTScheduler* scheduler = new RTScheduler();
+
     std::string backoffLog ("RT-backoff.log");
     std::random_device rd;
     std::default_random_engine generator (rd());
@@ -357,11 +615,11 @@ main (int argc, char *argv[])
     Ptr<OutputStreamWrapper> stream = Create<OutputStreamWrapper>(debtlogpath, std::ios::trunc);
     PrintHeadersToFile(stream);
 
-    CommandLine cmd;
-    cmd.AddValue ("verbose", "Tell echo application to log if true", verbose);
-    cmd.AddValue ("nRT", "Number of real-time distributed WiFi devices, excluding AP", nRT);
+    //CommandLine cmd;
+    //cmd.AddValue ("verbose", "Tell echo application to log if true", verbose);
+    //cmd.AddValue ("nRT", "Number of real-time distributed WiFi devices, excluding AP", nRT);
 
-    cmd.Parse (argc, argv);
+    //cmd.Parse (argc, argv);
 
     WifiHelper wifi;
 
@@ -370,7 +628,9 @@ main (int argc, char *argv[])
         /*
          * Ping-Chun: disable WiFi logging for faster simulations
          */
-    	//wifi.EnableLogComponents ();  // Turn on all Wifi logging
+    	if (mDEBUG){
+    		wifi.EnableLogComponents ();  // Turn on all Wifi logging
+    	}
 
     	//LogComponentEnableAll(LOG_PREFIX_NODE);
         //LogComponentEnable ("UdpClient", LOG_LEVEL_INFO);
@@ -489,9 +749,10 @@ main (int argc, char *argv[])
          */
         p->DoInitialize(wifiStaDevices.Get(i)->GetObject<WifiNetDevice>(),
         		wifiStaDevices.Get(0)->GetObject<WifiNetDevice>()->GetMac() -> GetObject<AdhocWifiMac>(),
-				 packetSize, packetCount, i, qn[i-1], R[i-1], channel_pn[i-1], stream, i, uint32_t(0),
-				 arrcode, arrivalRate[i-1], algcode, CWMin, CWLevelCount, Rmax);
+				 packetSize, packetCount, i, qn[i-1], R, channel_pn[i-1], stream, i, uint32_t(0),
+				 arrcode, arrivalRate[i-1], algcode, CWMin, CWLevelCount, Rmax, scheduler, maxPacketCount, alphan[i-1]);
         paramVec.push_back(p);
+        scheduler->AddOneNewRTLink(p);
     }
 
     /* Simulator events: configuration */
@@ -505,9 +766,14 @@ main (int argc, char *argv[])
     /* Simulator events: packet transmissions */
     for (uint32_t t = 0; t < nIntervals; t++)
     {
-    	/* Choose one swapping pair in each interval*/
-    	// links at priority (rand_number, rand_number+1) is the swapping pair
-        uint32_t rand_number = distribution(generator);
+    	/* Choose nSwap swapping pairs in each interval*/
+    	std::vector<uint32_t> rand_number = GetSwapVector(nRT-1, nSwap);
+
+        /* Schedule events for centralized link scheduler */
+        if (scheduler->GetRTLinkCount() > 0){
+        	Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
+        		&StartNewIntervalForScheduler, scheduler, double(packet_interval-(2.0)*offset));
+        }
 
         /* Tracing for MAC events */
         for (uint32_t i = 0; i < nRT - 1; i++)
@@ -522,7 +788,8 @@ main (int argc, char *argv[])
         	        			&FlushMacQueue, paramVec[i]);
 
         	Simulator::ScheduleWithContext(i, Seconds(startT + packet_interval*double(t)+(2.0)*offset),
-        			&StartNewInterval, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number);
+        			&StartNewIntervalForDistributedLink, paramVec[i], double(packet_interval-(2.0)*offset), nRT, rand_number, fixedPriority);
+
 
         	//for (uint32_t j = 0; j < packetCount; j++){
         	    //Simulator::ScheduleWithContext(i, Seconds(startT + interval*double(t) + offset*double(j)), &GenerateTraffic, source, packetSize, uint32_t(1));
@@ -538,8 +805,10 @@ main (int argc, char *argv[])
             //theObject->TraceConnectWithoutContext("MacTX", MakeCallback (&MacTX));
             //Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/$ns3::WifiNetDevice/Mac/MacTX", MakeCallback(&MacTX));
         }
+/*
         Simulator::ScheduleWithContext(t, Seconds(startT + packet_interval*double(t)+(1.5)*offset),
                 			&PrintDashLines, stream);
+*/
     }
 
     Simulator::Stop(Seconds (stopT));
@@ -548,13 +817,13 @@ main (int argc, char *argv[])
 
     if (tracing)
     {
-        phy.EnablePcap ("RT-decentralized", wifiStaDevices);
+        //phy.EnablePcap ("RT-decentralized", wifiStaDevices);
         //wifi.EnableAsciiAll (ascii.CreateFileStream ("RT-decentralized.tr"));
     }
 
 
     Simulator::Run();
-    DeleteCustomObjects(paramVec);
+    DeleteCustomObjects(paramVec, scheduler);
     Simulator::Destroy();
 
     std::cout << "Time taken: " << std::setprecision(5) << (double)(clock() - tStart)/CLOCKS_PER_SEC << " seconds" << "\n";

@@ -151,6 +151,7 @@ public:
   void SetCurrentIntervalEnd(Time);
   void SetRTLinkParamsInDcfManager(RTLinkParams*);
   void SetRTLinkParams(RTLinkParams*);
+  void ApplyDiffDeliveryDebt(void);
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
@@ -369,6 +370,7 @@ private:
   double channel_pn;
   Time m_currentIntervalEnd;
   RTLinkParams* m_rtLinkParams;
+  double m_diffDeliveryDebt;
 };
 
 } //namespace ns3
